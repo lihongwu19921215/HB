@@ -7,4 +7,11 @@
   </parent>
   <artifactId>monitor-service</artifactId>
   <build/>
+  <dependencies>
+  	<dependency>
+  		<groupId>club.zhcs</groupId>
+  		<artifactId>monitor-domain</artifactId>
+  		<version>${project.version}</version>
+  	</dependency>
+  </dependencies>
 </project>
