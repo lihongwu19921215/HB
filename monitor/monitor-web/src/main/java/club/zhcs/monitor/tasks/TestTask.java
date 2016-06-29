@@ -22,7 +22,7 @@ import org.quartz.JobExecutionException;
  * @createTime 2016年6月29日 下午3:40:18
  */
 @IocBean
-@Scheduled(cron = "*/1 * * * * ? ")
+@Scheduled(cron = "*/30 * * * * ? ")
 public class TestTask implements Job {
 	private static Log LOG = Logs.getLog(TestTask.class);
 
