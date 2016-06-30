@@ -99,7 +99,7 @@
 		<dependency>
 			<groupId>org.nutz</groupId>
 			<artifactId>nutzwx</artifactId>
-			<version>1.r.55-SNAPSHOT</version>
+			<version>1.r.56</version>
 		</dependency>
 
 
@@ -134,6 +134,14 @@
 			<artifactId>qiniu-java-sdk</artifactId>
 			<version>7.1.0</version>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/commons-net/commons-net -->
+		<dependency>
+			<groupId>commons-net</groupId>
+			<artifactId>commons-net</artifactId>
+			<version>3.5</version>
+		</dependency>
+
 
 	</dependencies>
 </project>
