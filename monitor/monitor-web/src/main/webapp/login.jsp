@@ -9,7 +9,7 @@
 
 <meta name="description" content="User login page" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-<link href="${base}/resources/images/logo.ico" rel="shortcut icon">
+<link href="${base}/resources/images/LOGO.png" rel="shortcut icon">
 <!-- bootstrap & fontawesome -->
 <link rel="stylesheet" href="${base}/resources/ace/css/bootstrap.css" />
 <link rel="stylesheet" href="${base}/resources/ace/css/font-awesome.css" />
@@ -55,7 +55,7 @@
 					<div class="login-container">
 						<div class="center">
 							<h1>
-								<i class="ace-icon fa fa-leaf green"></i> <span class="red"><%=Application.NAME%></span> <span class="white" id="id-text2">Boss</span>
+								<i class="ace-icon fa fa-heartbeat red"></i> <span style="font-weight: 900"><%=Application.NAME%></span> 
 							</h1>
 						</div>
 
@@ -103,33 +103,12 @@
 												<div class="space-4"></div>
 											</fieldset>
 										</form>
-
-										<div class="social-or-login center">
-											<span class="bigger-110">使用其他账号登录</span>
-										</div>
-
-										<div class="space-6"></div>
-
-										<div class="social-login center">
-											<a class="btn btn-primary"> <i class="ace-icon fa fa-facebook"></i>
-											</a> <a class="btn btn-info"> <i class="ace-icon fa fa-twitter"></i>
-											</a> <a class="btn btn-danger"> <i class="ace-icon fa fa-google-plus"></i>
-											</a>
-											<h5 class="pink" id="id-company-text"><%=Application.COPYRIGHT%></h5>
-										</div>
-
 									</div>
 									<!-- /.widget-main -->
 									<div class="toolbar clearfix">
-										<div>
-											<a href="#" data-target="#forgot-box" class="forgot-password-link"> <i class="ace-icon fa fa-arrow-left"></i> 忘记密码
-											</a>
-										</div>
-
-										<div>
-											<a href="#" data-target="#signup-box" class="user-signup-link"> 注册 <i class="ace-icon fa fa-arrow-right"></i>
-											</a>
-										</div>
+											<div class="col-md-12">
+												<%=Application.COPYRIGHT %>
+											</div>
 									</div>
 								</div>
 								<!-- /.widget-body -->
