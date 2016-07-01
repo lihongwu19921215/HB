@@ -79,7 +79,7 @@ public class MonitorSetup implements Setup {
 		// 为全部标注了@Table的bean建表
 
 		Daos.createTablesInPackage(dao, getClass().getPackage().getName() + ".domain", false);
-		Daos.migration(dao, getClass().getPackage().getName() + ".bean", true, true);
+		Daos.migration(dao, getClass().getPackage().getName() + ".domain", true, true);
 
 		// 超级管理员
 

@@ -1,5 +1,8 @@
 package club.zhcs.monitor.domain.team;
 
+import java.util.Date;
+
+import org.nutz.dao.entity.annotation.Column;
 import org.nutz.dao.entity.annotation.Comment;
 import org.nutz.dao.entity.annotation.Table;
 
@@ -20,5 +23,62 @@ import club.zhcs.titans.utils.db.po.Entity;
 @Table("t_team")
 @Comment("团队")
 public class Team extends Entity {
+
+	@Column("t_name")
+	@Comment("团队名称")
+	private String name;
+
+	@Column("t_description")
+	@Comment("团队描述")
+	private String description;
+
+	@Column("t_create_time")
+	@Comment("团队创建时间")
+	private Date createTime;
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name
+	 *            the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	/**
+	 * @return the description
+	 */
+	public String getDescription() {
+		return description;
+	}
+
+	/**
+	 * @param description
+	 *            the description to set
+	 */
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	/**
+	 * @return the createTime
+	 */
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	/**
+	 * @param createTime
+	 *            the createTime to set
+	 */
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
 
 }
