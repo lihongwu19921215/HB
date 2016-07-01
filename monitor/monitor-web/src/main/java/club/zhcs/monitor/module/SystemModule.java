@@ -85,6 +85,14 @@ public class SystemModule extends AbstractBaseModule {
 	}
 
 	@At
+	@Filters
+	@Ok(">>:/admin")
+	public Result logout(HttpSession session) {
+		session.invalidate();
+		return Result.success();
+	}
+
+	@At
 	@Ok(">>:/apm/dashboard")
 	public Result main() {
 		return Result.success();

@@ -53,7 +53,7 @@ import club.zhcs.titans.utils.db.Result;
 @Views({ BeetlViewMaker.class })
 @Fail("http:500")
 @Ok("json")
-@Filters({ @By(type = CheckSession.class, args = { SessionKeys.USER_KEY, "/" }) })
+@Filters({ @By(type = CheckSession.class, args = { SessionKeys.USER_KEY, "/admin" }) })
 @SetupBy(MonitorSetup.class)
 @ChainBy(type = MonitorChainMaker.class, args = {})
 public class MainModule extends AbstractBaseModule {
@@ -90,7 +90,7 @@ public class MainModule extends AbstractBaseModule {
 		return new JPEGView(null, length);
 	}
 
-	@At("/")
+	@At("/admin")
 	@Ok("jsp:/login")
 	@Filters
 	public View login(@Attr(SessionKeys.USER_KEY) User user, HttpServletRequest request) {
