@@ -90,6 +90,13 @@ public class MainModule extends AbstractBaseModule {
 		return new JPEGView(null, length);
 	}
 
+	@At("/")
+	@Ok("beetl:pages/front/index.html")
+	@Filters
+	public Result index() {
+		return Result.success().setTitle("控制台");
+	}
+
 	@At("/admin")
 	@Ok("jsp:/login")
 	@Filters
