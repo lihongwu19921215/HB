@@ -29,6 +29,7 @@ import club.zhcs.monitor.MonitorSetup;
 import club.zhcs.monitor.chain.MonitorChainMaker;
 import club.zhcs.monitor.domain.acl.User;
 import club.zhcs.monitor.service.acl.RoleService;
+import club.zhcs.monitor.tasks.APMTask;
 import club.zhcs.titans.nutz.captcha.JPEGView;
 import club.zhcs.titans.nutz.module.base.AbstractBaseModule;
 import club.zhcs.titans.utils.codec.DES;
@@ -58,6 +59,9 @@ import club.zhcs.titans.utils.db.Result;
 @ChainBy(type = MonitorChainMaker.class, args = {})
 public class MainModule extends AbstractBaseModule {
 
+	@Inject
+	APMTask apmTask;
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -72,6 +76,12 @@ public class MainModule extends AbstractBaseModule {
 	@Filters
 	public Result hello() {
 		return Result.success().addData("msg", "Hello nutz-monitor!");
+	}
+
+	@At
+	@Filters
+	public Result dashboard() {
+		return apmTask.data();
 	}
 
 	@At

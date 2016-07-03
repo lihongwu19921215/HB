@@ -222,5 +222,100 @@ layout("/layout/front.html"){
 
 </div>
 <!-- /row -->
-
+<script type="text/javascript" src="${base}/resources/echarts/echarts.js"></script>
+<script type="text/javascript">
+<!--
+	$(function() {
+		var line = echarts.init($('#bar-chart')[0]);
+		showEcharts();
+		setInterval(function() {
+			showEcharts()
+		}, 2000);
+		function showEcharts() {
+			$.post('${base}/dashboard', {}, function(result) {
+				var option = {
+					title : {
+						text : '',
+					},
+					tooltip : {
+						trigger : 'axis'
+					},
+					legend : {
+						data : [ 'CPU', 'JVM', 'RAM', 'SWAP', 'NETWORK IN', 'NETWORK OUT' ]
+					},
+					toolbox : {
+						show : true,
+						feature : {
+							restore : {},
+							saveAsImage : {}
+						}
+					},
+					dataZoom : {
+						show : false,
+						start : 0,
+						end : 100
+					},
+					xAxis : [ {
+						type : 'category',
+						boundaryGap : true,
+						data : result.data.timePoints
+					} ],
+					yAxis : [ {
+						type : 'value',
+						scale : true,
+						name : '百分比',
+						max : 100,
+						min : 0,
+						boundaryGap : [ 0.2, 0.2 ]
+					}, {
+						type : 'value',
+						scale : true,
+						max : 5,
+						min : 0,
+						name : ' M/s',
+						boundaryGap : [ 0.2, 0.2 ]
+					} ],
+					series : [ {
+						name : 'CPU',
+						type : 'line',
+						smooth : true,
+						data : result.data.cpuUsages
+					}, {
+						name : 'JVM',
+						type : 'line',
+						smooth : true,
+						data : result.data.jvmUsages
+					}, {
+						name : 'RAM',
+						type : 'line',
+						smooth : true,
+						data : result.data.ramUsages
+					}, {
+						name : 'SWAP',
+						type : 'line',
+						smooth : true,
+						yAxisIndex : 0,
+						data : result.data.swapUsages
+					}, {
+						name : 'NETWORK IN',
+						type : 'line',
+						smooth : true,
+						yAxisIndex : 1,
+						data : result.data.niUsages
+					}, {
+						name : 'NETWORK OUT',
+						type : 'line',
+						smooth : true,
+						yAxisIndex : 1,
+						data : result.data.noUsages
+					} ]
+				};
+				if (option && typeof option === "object") {
+					line.setOption(option, true);
+				}
+			}, 'json')
+		}
+	})
+//-->
+</script>
 <!--# } #-->

@@ -1,5 +1,6 @@
 package club.zhcs.monitor.tasks;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -58,7 +59,7 @@ import com.google.common.collect.Lists;
  *
  */
 @IocBean(name = "apmTask", fields = "dao", create = "init")
-@Scheduled(cron = "*/10 * * * * ? ")
+@Scheduled(cron = "*/2 * * * * ? ")
 public class APMTask implements Job {
 	private static Log LOG = Logs.getLog(APMTask.class);
 	private Dao dao;
@@ -66,19 +67,19 @@ public class APMTask implements Job {
 	/**
 	 * 时间点
 	 */
-	private List<Date> timePoints;
+	private List<Date> timePoints = new ArrayList();
 
-	private List<Double> cpuUsages;
+	private List<Double> cpuUsages = new ArrayList();
 
-	private List<Double> ramUsages;
+	private List<Double> ramUsages = new ArrayList();
 
-	private List<Double> jvmUsages;
+	private List<Double> jvmUsages = new ArrayList();
 
-	private List<Double> swapUsages;
+	private List<Double> swapUsages = new ArrayList();
 
-	private List<Double> niUsages;
+	private List<Double> niUsages = new ArrayList();
 
-	private List<Double> noUsages;
+	private List<Double> noUsages = new ArrayList();
 
 	private int monitorCount = 15;
 
@@ -154,7 +155,7 @@ public class APMTask implements Job {
 	 */
 	@Override
 	public void execute(JobExecutionContext context) throws JobExecutionException {
-		add(timePoints, Times.now());
+		add(timePoints, Times.format("mm:ss", Times.now()));
 		try {
 			Sigar sigar = new Sigar();
 			MemoryGather memory = MemoryGather.gather(sigar);
