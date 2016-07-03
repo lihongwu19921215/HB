@@ -36,6 +36,63 @@ public class Team extends Entity {
 	@Comment("团队创建时间")
 	private Date createTime;
 
+	@Column("t_app_limit")
+	@Comment("应用限量")
+	private int appLimit = 2;
+
+	@Column("t_db_limit")
+	@Comment("数据库限量")
+	private int dbLimit = 3;
+
+	@Column("t_ftp_limit")
+	@Comment("FTP资源限量")
+	private int ftpLimit = 1;
+
+	/**
+	 * @return the appLimit
+	 */
+	public int getAppLimit() {
+		return appLimit;
+	}
+
+	/**
+	 * @param appLimit
+	 *            the appLimit to set
+	 */
+	public void setAppLimit(int appLimit) {
+		this.appLimit = appLimit;
+	}
+
+	/**
+	 * @return the dbLimit
+	 */
+	public int getDbLimit() {
+		return dbLimit;
+	}
+
+	/**
+	 * @param dbLimit
+	 *            the dbLimit to set
+	 */
+	public void setDbLimit(int dbLimit) {
+		this.dbLimit = dbLimit;
+	}
+
+	/**
+	 * @return the ftpLimit
+	 */
+	public int getFtpLimit() {
+		return ftpLimit;
+	}
+
+	/**
+	 * @param ftpLimit
+	 *            the ftpLimit to set
+	 */
+	public void setFtpLimit(int ftpLimit) {
+		this.ftpLimit = ftpLimit;
+	}
+
 	/**
 	 * @return the name
 	 */
