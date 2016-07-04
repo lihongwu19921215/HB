@@ -84,8 +84,15 @@ public class APMTask implements Job {
 	private int monitorCount = 15;
 
 	public Result data() {
-		return Result.success().addData("timePoints", timePoints).addData("cpuUsages", cpuUsages).addData("ramUsages", ramUsages).addData("jvmUsages", jvmUsages)
-				.addData("swapUsages", swapUsages).addData("niUsages", niUsages).addData("noUsages", noUsages);
+
+		return Result.success()
+				.addData("timePoints", timePoints)
+				.addData("cpuUsages", cpuUsages)
+				.addData("ramUsages", ramUsages)
+				.addData("jvmUsages", jvmUsages)
+				.addData("swapUsages", swapUsages)
+				.addData("niUsages", niUsages)
+				.addData("noUsages", noUsages);
 	}
 
 	/**
