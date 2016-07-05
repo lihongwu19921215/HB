@@ -98,7 +98,7 @@ public class EmailService {
 		StringTemplateResourceLoader resourceLoader = new StringTemplateResourceLoader();
 		Configuration cfg = Configuration.defaultConfiguration();
 		GroupTemplate gt = new GroupTemplate(resourceLoader, cfg);
-		Template t = gt.getTemplate(Files.read(getClass().getPackage().getName().replaceAll("[.]", "/") + "/alarm.html"));
+		Template t = gt.getTemplate(Files.read("templates/alarm.html"));
 		t.binding("alarm", alarm);
 
 		return t.render();
