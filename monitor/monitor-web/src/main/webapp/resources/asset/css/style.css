@@ -1,0 +1,18 @@
+
+.navbar {
+    margin-bottom: 0;
+}
+
+.list-group-item {
+    border-left: none;
+    border-right: none;
+}
+
+.list-group {
+    border-radius: 0;
+}
+
+.center {
+    text-align: center;
+}
+ 
