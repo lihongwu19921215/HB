@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Monitor</title>
 <link href="${base}/resources/images/LOGO.png" rel="shortcut icon">
-<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<link rel="stylesheet" href="${base}/resources/asset/css/vendor/bootstrap/css/bootstrap.min.css" />
 
-<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="${base}/resources/asset/css/flat-ui.css" />
 <link rel="stylesheet" href="${base}/resources/asset/css/font-awesome.css" />
 <link rel="stylesheet" href="${base}/resources/asset/css/style.css" />
 <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
@@ -22,50 +22,62 @@
 </head>
 
 <body>
-	<nav class="navbar navbar-inverse navbar-static-top">
-		<div class="container-fluid">
-			<!-- Brand and toggle get grouped for better mobile display -->
-			<div class="navbar-header">
-				<a class="navbar-brand" href="#">监控控制台</a>
-			</div>
-
-			<!-- Collect the nav links, forms, and other content for toggling -->
-			<div class="collapse navbar-collapse">
-				<form class="navbar-form navbar-left" role="search">
-					<div class="input-group">
-						<input type="text" class="form-control" placeholder="Search for..."> <span class="input-group-btn">
-							<button class="btn btn-default" type="button">Go!</button> <iframe id="tmp_downloadhelper_iframe" style="display: none;"></iframe>
-						</span>
-					</div>
-				</form>
-				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#"><i class="glyphicon glyphicon-qrcode"></i></a></li>
-					<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i
-							class="glyphicon glyphicon-plus"></i></a>
-						<ul class="dropdown-menu">
-							<li><a href="#">Application</a></li>
-							<li role="separator" class="divider"></li>
-							<li><a href="#">Database</a></li>
-							<li role="separator" class="divider"></li>
-							<li><a href="#">Ftp Server</a></li>
-						</ul></li>
-					<li><a href="#"><i class="glyphicon glyphicon-envelope"></i></a></li>
-					<li><a href="#"><i class="glyphicon glyphicon-list-alt"></i></a></li>
-					<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img alt="Monitor" width="20"
-							src="http://img5.imgtn.bdimg.com/it/u=1108550357,2102280342&fm=21&gp=0.jpg"> <span class="caret"></span> </a>
-						<ul class="dropdown-menu">
-							<li><a href="#">Application</a></li>
-							<li role="separator" class="divider"></li>
-							<li><a href="#">Database</a></li>
-							<li role="separator" class="divider"></li>
-							<li><a href="#">Ftp Server</a></li>
-						</ul></li>
-				</ul>
-			</div>
-			<!-- /.navbar-collapse -->
+	<nav class="navbar navbar-inverse navbar-embossed navbar-fixed-top" role="navigation">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-03">
+				<span class="sr-only">Toggle navigation</span>
+			</button>
+			<a class="navbar-brand" href="#">监控控制台</a>
 		</div>
-		<!-- /.container-fluid -->
+		<form class="navbar-form navbar-left" action="#" role="search">
+			<div class="form-group">
+				<div class="input-group">
+					<input class="form-control" id="navbarInput-03" type="search" placeholder="Search"> <span class="input-group-btn">
+						<button type="submit" class="btn">
+							<span class="fui-search"></span>
+						</button>
+					</span>
+				</div>
+			</div>
+		</form>
+		<div class="collapse navbar-collapse" id="navbar-collapse-03">
+			<ul class="nav navbar-nav navbar-right">
+				<li id="qrcode"><a href="#"><i class="glyphicon glyphicon-qrcode"></i></a></li>
+				<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i
+						class="glyphicon glyphicon-plus"></i></a>
+					<ul class="dropdown-menu">
+						<li><a href="#"> <i class="fa fa-plus"></i> 应用服务器
+						</a></li>
+						<li><a href="#"> <i class="fa fa-plus"></i> 数据库服务器
+						</a></li>
+						<li><a href="#"> <i class="fa fa-plus"></i> Ftp服务器
+						</a></li>
+						<li role="separator" class="divider"></li>
+						<li><a href="#"> <i class="fa fa-plus"></i> 新建团队
+						</a></li>
+						<li role="separator" class="divider"></li>
+					</ul></li>
+				<li><a href="#"><i class="glyphicon glyphicon-envelope"></i></a></li>
+				<li><a href="#"><i class="glyphicon glyphicon-list-alt"></i></a></li>
+				<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img alt="Monitor"
+						class="img-circle " width="20" src="${base}/resources/asset/img/head.jpg"> <span class="caret"></span> </a>
+					<ul class="dropdown-menu">
+						<li role="separator" class="divider"></li>
+						<li><a href="#"><i class="fa fa-arrow-up"></i> 神一样的运维</a></li>
+						<li><a href="#"><i class="fa fa-arrow-up"></i> 神一样的监控</a></li>
+						<li><a href="#"><i class="fa fa-arrow-up"></i> 神一样的开发</a></li>
+						<li><a href="#"><i class="fa fa-arrow-down"></i> 猪一样的产品</a></li>
+						<li><a href="#"><i class="fa fa-arrow-down"></i> 猪一样的运营</a></li>
+						<li role="separator" class="divider"></li>
+						<li><a href="#"><i class="fa fa-cog"></i> 个人设置</a></li>
+						<li role="separator" class="divider"></li>
+						<li><a href="#"><i class="fa fa-sign-out"></i> 退出登录</a></li>
+					</ul></li>
+			</ul>
+		</div>
+		<!-- /.navbar-collapse -->
 	</nav>
+
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-9 col-xs-9">
@@ -98,19 +110,65 @@
 										<i class="fa fa-cogs"></i>
 									</h4>
 									<p class="list-group-item-text">设置</p>
-								</a>
+								</a> <a href="#" class="list-group-item copyright"> &copy; Ixion </a>
 							</div>
 						</div>
 					</div>
-					<div class="col-md-11 col-xs-11">${layoutContent}</div>
+					<div class="col-md-11 col-xs-11 main-content">${layoutContent}</div>
 				</div>
 			</div>
-			<div class="col-md-3 col-xs-3">这里布局一些通用信息</div>
+			<div class="col-md-3 col-xs-3">
+				<div class="panel panel-info">
+					<div class="panel-heading">
+						<h3 class="panel-title">
+							<i class="fa fa-user"></i> 用户信息
+						</h3>
+					</div>
+					<div class="panel-body">
+						<ul class="list-group">
+							<li class="list-group-item">Cras justo odio</li>
+							<li class="list-group-item">Dapibus ac facilisis in</li>
+							<li class="list-group-item">Morbi leo risus</li>
+							<li class="list-group-item">Porta ac consectetur ac</li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="panel panel-info">
+					<div class="panel-heading">
+						<h3 class="panel-title">
+							<i class="fa fa-group"></i> 团队信息
+						</h3>
+					</div>
+					<div class="panel-body">
+						<ul class="list-group">
+							<li class="list-group-item">Cras justo odio</li>
+							<li class="list-group-item">Dapibus ac facilisis in</li>
+							<li class="list-group-item">Morbi leo risus</li>
+							<li class="list-group-item">Porta ac consectetur ac</li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="panel panel-info">
+					<div class="panel-heading">
+						<h3 class="panel-title">
+							<i class="fa fa-info"></i> 监控汇总
+						</h3>
+					</div>
+					<div class="panel-body">
+						<ul class="list-group">
+							<li class="list-group-item">Cras justo odio</li>
+							<li class="list-group-item">Dapibus ac facilisis in</li>
+							<li class="list-group-item">Morbi leo risus</li>
+							<li class="list-group-item">Porta ac consectetur ac</li>
+						</ul>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 
-
-	<script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="${base}/resources/asset/js/flat-ui.js"></script>
 </body>
-
 </html>
