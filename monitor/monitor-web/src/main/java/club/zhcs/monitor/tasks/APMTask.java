@@ -59,7 +59,7 @@ import com.google.common.collect.Lists;
  *
  */
 @IocBean(name = "apmTask", fields = "dao", create = "init")
-@Scheduled(cron = "*/2 * * * * ? ")
+@Scheduled(cron = "*/10 * * * * ? ")
 public class APMTask implements Job {
 	private static Log LOG = Logs.getLog(APMTask.class);
 	private Dao dao;
@@ -85,14 +85,8 @@ public class APMTask implements Job {
 
 	public Result data() {
 
-		return Result.success()
-				.addData("timePoints", timePoints)
-				.addData("cpuUsages", cpuUsages)
-				.addData("ramUsages", ramUsages)
-				.addData("jvmUsages", jvmUsages)
-				.addData("swapUsages", swapUsages)
-				.addData("niUsages", niUsages)
-				.addData("noUsages", noUsages);
+		return Result.success().addData("timePoints", timePoints).addData("cpuUsages", cpuUsages).addData("ramUsages", ramUsages).addData("jvmUsages", jvmUsages)
+				.addData("swapUsages", swapUsages).addData("niUsages", niUsages).addData("noUsages", noUsages);
 	}
 
 	/**

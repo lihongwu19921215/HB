@@ -6,7 +6,7 @@ layout("/layout/front.html"){
 		<h3 class="panel-title">控制台</h3>
 	</div>
 	<div class="panel-body">
-		<h2>
+		<h3>
 			<div class="row">
 				<div class="col-lg-3 col-md-6">
 					<span class="label label-primary">托管资源 <span class="badge">42</span></span>
@@ -21,7 +21,7 @@ layout("/layout/front.html"){
 					<span class="label label-warning">Ftp服务 <span class="badge">42</span></span>
 				</div>
 			</div>
-		</h2>
+		</h3>
 	</div>
 </div>
 <div class="panel panel-primary">
@@ -42,7 +42,7 @@ layout("/layout/front.html"){
 		showEcharts();
 		setInterval(function() {
 			showEcharts()
-		}, 2000);
+		}, 10000);
 		function showEcharts() {
 			$.post('${base}/dashboard', {}, function(result) {
 				var option = {
