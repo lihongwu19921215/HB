@@ -1,166 +1,113 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
+
 <head>
-<meta charset="utf-8" />
-<title>${obj.title!} -- ${global("name")}</title>
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Monitor</title>
 <link href="${base}/resources/images/LOGO.png" rel="shortcut icon">
+<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
 
-<link href="${base}/resources/front/css/bootstrap.min.css" rel="stylesheet" />
-<link href="${base}/resources/front/css/bootstrap-responsive.min.css" rel="stylesheet" />
-
-<link href="${base}/resources/front/css/font-awesome.css" rel="stylesheet" />
-
-<link href="${base}/resources/front/css/adminia.css" rel="stylesheet" />
-<link href="${base}/resources/front/css/adminia-responsive.css" rel="stylesheet" />
-
-<link href="${base}/resources/front/css/pages/dashboard.css" rel="stylesheet" />
-
-<script src="${base}/resources/front/js/jquery-1.7.2.min.js"></script>
-
-<script src="${base}/resources/front/js/bootstrap.js"></script>
-
-
-<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="${base}/resources/asset/css/font-awesome.css" />
+<link rel="stylesheet" href="${base}/resources/asset/css/style.css" />
+<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+      <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 </head>
 
-<body>
-
-	<div class="navbar navbar-fixed-top">
-
-		<div class="navbar-inner">
-
-			<div class="container">
-
-				<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
-				</a> <a class="brand" href="./">${global("name")}</a>
-
-				<div class="nav-collapse">
-
-					<ul class="nav pull-right">
-					</ul>
-
-				</div>
-				<!-- /nav-collapse -->
-
+<body style="height: 100%;">
+	<nav class="navbar navbar-inverse navbar-static-top">
+		<div class="container-fluid">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#">监控控制台</a>
 			</div>
-			<!-- /container -->
 
-		</div>
-		<!-- /navbar-inner -->
-
-	</div>
-	<!-- /navbar -->
-
-
-
-
-	<div id="content">
-
-		<div class="container">
-
-			<div class="row">
-
-				<div class="span3">
-
-					<div class="account-container">
-						<!--# if(loginUser()!=null){  #-->
-						<div class="account-avatar">
-							<img src="${base}/resources/front/img/headshot.png" alt="" class="thumbnail" />
-						</div>
-						<!-- /account-avatar -->
-
-						<div class="account-details">
-
-							<span class="account-name">Rod Howard</span> <span class="account-role">Administrator</span> <span class="account-actions"> <a href="javascript:;">Profile</a> | <a
-								href="javascript:;">Edit Settings</a>
-							</span>
-							<!-- /account-details -->
-						</div>
-						<!--# }else{ #-->
-						<div class="account-avatar">你还没有登录</div>
-						<div class="account-details">
-							<a href="#">注册</a> | <a href="#">登录</a>
-						</div>
-						<!--# } #-->
-
-
-
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse">
+				<form class="navbar-form navbar-left" role="search">
+					<div class="input-group">
+						<input type="text" class="form-control" placeholder="Search for..."> <span class="input-group-btn">
+							<button class="btn btn-default" type="button">Go!</button> <iframe id="tmp_downloadhelper_iframe" style="display: none;"></iframe>
+						</span>
 					</div>
-					<!-- /account-container -->
-
-					<hr />
-
-					<ul id="main-nav" class="nav nav-tabs nav-stacked">
-
-						<li class="active"><a href="./"> <i class="icon-home"></i> 首页
-						</a></li>
-
-						<li><a href="./faq.html"> <i class="icon-pushpin"></i> 团队
-						</a></li>
-
-						<li><a href="./plans.html"> <i class="icon-th-list"></i> 资源
-						</a></li>
-
-						<li><a href="./grid.html"> <i class="icon-th-large"></i> 告警 <span class="label label-warning pull-right">5</span>
-						</a></li>
-
-						<li><a href="./charts.html"> <i class="icon-signal"></i> 日志
-						</a></li>
-
-						<li><a href="./account.html"> <i class="icon-user"></i> 关于
-						</a></li>
-
-
-					</ul>
-
-					<hr />
-
-					<div class="sidebar-extra">
-						<p>QQ:19754300</p>
-						<p>Email:kerbores@zhcs.club</p>
-						<p>Phone:18996359755</p>
-					</div>
-					<!-- .sidebar-extra -->
-
-					<br />
-
-				</div>
-				<!-- /span3 -->
-
-
-
-				<div class="span9">${layoutContent}</div>
-				<!-- /span9 -->
-
-
+				</form>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="#"><i class="glyphicon glyphicon-qrcode"></i></a></li>
+					<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i
+							class="glyphicon glyphicon-plus"></i></a>
+						<ul class="dropdown-menu">
+							<li><a href="#">Application</a></li>
+							<li role="separator" class="divider"></li>
+							<li><a href="#">Database</a></li>
+							<li role="separator" class="divider"></li>
+							<li><a href="#">Ftp Server</a></li>
+						</ul></li>
+					<li><a href="#"><i class="glyphicon glyphicon-envelope"></i></a></li>
+					<li><a href="#"><i class="glyphicon glyphicon-list-alt"></i></a></li>
+					<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img alt="Monitor" width="20"
+							src="http://img5.imgtn.bdimg.com/it/u=1108550357,2102280342&fm=21&gp=0.jpg"> <span class="caret"></span> </a>
+						<ul class="dropdown-menu">
+							<li><a href="#">Application</a></li>
+							<li role="separator" class="divider"></li>
+							<li><a href="#">Database</a></li>
+							<li role="separator" class="divider"></li>
+							<li><a href="#">Ftp Server</a></li>
+						</ul></li>
+				</ul>
 			</div>
-			<!-- /row -->
-
+			<!-- /.navbar-collapse -->
 		</div>
-		<!-- /container -->
-
-	</div>
-	<!-- /content -->
-
-
-	<div id="footer">
-
-		<div class="container">
-			<hr />
-			<p>${global("copyright")}</p>
+		<!-- /.container-fluid -->
+	</nav>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-1 col-xs-1">
+				<div class="panel panel-default">
+					<div class="list-group">
+						<a href="#" class="list-group-item center list-group-item-info active">
+							<h4 class="list-group-item-heading">
+								<i class="glyphicon glyphicon-home"></i>
+							</h4>
+							<p class="list-group-item-text">控制台</p>
+						</a> <a href="#" class="list-group-item list-group-item-info center">
+							<h4 class="list-group-item-heading">
+								<i class="fa fa-server"></i>
+							</h4>
+							<p class="list-group-item-text">应用</p>
+						</a> <a href="#" class="list-group-item list-group-item-info center">
+							<h4 class="list-group-item-heading">
+								<i class="fa fa-database"></i>
+							</h4>
+							<p class="list-group-item-text">数据库</p>
+						</a> <a href="#" class="list-group-item list-group-item-info center">
+							<h4 class="list-group-item-heading">
+								<i class="fa fa-hdd-o"></i>
+							</h4>
+							<p class="list-group-item-text">Ftp</p>
+						</a> <a href="#" class="list-group-item list-group-item-info center">
+							<h4 class="list-group-item-heading">
+								<i class="fa fa-cogs"></i>
+							</h4>
+							<p class="list-group-item-text">设置</p>
+						</a>
+					</div>
+					<iframe id="tmp_downloadhelper_iframe" style="display: none;"></iframe>
+				</div>
+			</div>
+			<div class="col-md-8 col-xs-8">${layoutContent}</div>
+			<div class="col-md-3 col-xs-3">这里布局一些通用信息</div>
 		</div>
-		<!-- /container -->
-
 	</div>
-	<!-- /footer -->
 
+	
+	<script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 </body>
+
 </html>
