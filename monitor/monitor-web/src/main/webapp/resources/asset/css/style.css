@@ -1,4 +1,7 @@
-
+body{
+	width: 99.5%;
+	padding-left: 0.25%
+}
 .navbar {
     margin-bottom: 0;
 }
@@ -14,5 +17,9 @@
 
 .center {
     text-align: center;
+}
+
+.side-nav{
+	padding: 0
 }
  

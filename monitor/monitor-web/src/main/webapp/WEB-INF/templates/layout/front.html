@@ -21,7 +21,7 @@
     <![endif]-->
 </head>
 
-<body style="height: 100%;">
+<body>
 	<nav class="navbar navbar-inverse navbar-static-top">
 		<div class="container-fluid">
 			<!-- Brand and toggle get grouped for better mobile display -->
@@ -68,45 +68,48 @@
 	</nav>
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-md-1 col-xs-1">
-				<div class="panel panel-default">
-					<div class="list-group">
-						<a href="#" class="list-group-item center list-group-item-info active">
-							<h4 class="list-group-item-heading">
-								<i class="glyphicon glyphicon-home"></i>
-							</h4>
-							<p class="list-group-item-text">控制台</p>
-						</a> <a href="#" class="list-group-item list-group-item-info center">
-							<h4 class="list-group-item-heading">
-								<i class="fa fa-server"></i>
-							</h4>
-							<p class="list-group-item-text">应用</p>
-						</a> <a href="#" class="list-group-item list-group-item-info center">
-							<h4 class="list-group-item-heading">
-								<i class="fa fa-database"></i>
-							</h4>
-							<p class="list-group-item-text">数据库</p>
-						</a> <a href="#" class="list-group-item list-group-item-info center">
-							<h4 class="list-group-item-heading">
-								<i class="fa fa-hdd-o"></i>
-							</h4>
-							<p class="list-group-item-text">Ftp</p>
-						</a> <a href="#" class="list-group-item list-group-item-info center">
-							<h4 class="list-group-item-heading">
-								<i class="fa fa-cogs"></i>
-							</h4>
-							<p class="list-group-item-text">设置</p>
-						</a>
+			<div class="col-md-9 col-xs-9">
+				<div class="row">
+					<div class="col-md-1 col-xs-1 side-nav">
+						<div class="panel panel-info" style="height:100%;position:fixed;">
+							<div class="list-group">
+								<a href="#" class="list-group-item center list-group-item-info active">
+									<h4 class="list-group-item-heading">
+										<i class="glyphicon glyphicon-home"></i>
+									</h4>
+									<p class="list-group-item-text">控制台</p>
+								</a> <a href="#" class="list-group-item list-group-item-info center">
+									<h4 class="list-group-item-heading">
+										<i class="fa fa-server"></i>
+									</h4>
+									<p class="list-group-item-text">应用</p>
+								</a> <a href="#" class="list-group-item list-group-item-info center">
+									<h4 class="list-group-item-heading">
+										<i class="fa fa-database"></i>
+									</h4>
+									<p class="list-group-item-text">数据库</p>
+								</a> <a href="#" class="list-group-item list-group-item-info center">
+									<h4 class="list-group-item-heading">
+										<i class="fa fa-hdd-o"></i>
+									</h4>
+									<p class="list-group-item-text">Ftp</p>
+								</a> <a href="#" class="list-group-item list-group-item-info center">
+									<h4 class="list-group-item-heading">
+										<i class="fa fa-cogs"></i>
+									</h4>
+									<p class="list-group-item-text">设置</p>
+								</a>
+							</div>
+						</div>
 					</div>
-					<iframe id="tmp_downloadhelper_iframe" style="display: none;"></iframe>
+					<div class="col-md-11 col-xs-11">${layoutContent}</div>
 				</div>
 			</div>
-			<div class="col-md-8 col-xs-8">${layoutContent}</div>
 			<div class="col-md-3 col-xs-3">这里布局一些通用信息</div>
 		</div>
 	</div>
 
-	
+
 	<script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 </body>
 
