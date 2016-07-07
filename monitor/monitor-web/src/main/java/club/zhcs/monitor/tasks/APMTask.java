@@ -81,18 +81,12 @@ public class APMTask implements Job {
 
 	private List<Double> noUsages = new ArrayList();
 
-	private int monitorCount = 15;
+	private int monitorCount = 150;
 
 	public Result data() {
 
-		return Result.success()
-				.addData("timePoints", timePoints)
-				.addData("cpuUsages", cpuUsages)
-				.addData("ramUsages", ramUsages)
-				.addData("jvmUsages", jvmUsages)
-				.addData("swapUsages", swapUsages)
-				.addData("niUsages", niUsages)
-				.addData("noUsages", noUsages);
+		return Result.success().addData("timePoints", timePoints).addData("cpuUsages", cpuUsages).addData("ramUsages", ramUsages).addData("jvmUsages", jvmUsages)
+				.addData("swapUsages", swapUsages).addData("niUsages", niUsages).addData("noUsages", noUsages);
 	}
 
 	/**
@@ -104,7 +98,11 @@ public class APMTask implements Job {
 	 *            待添加数据
 	 */
 	private void add(List list, Object obj) {
-		list.add(obj);
+		if (obj instanceof Number) {
+			list.add(Numbers.keepPrecision((Number) obj, 2));
+		} else {
+			list.add(obj);
+		}
 		if (list.size() > monitorCount) {
 			list.remove(0);
 		}
@@ -189,7 +187,7 @@ public class APMTask implements Job {
 			// CPU
 			double cpuUsage;
 
-			if ((cpuUsage = 100 - (cpu.getTimer().getIdle() * 100 / cpu.getTimer().getTotal())) > config.getInt("cpu.alarm.percent")) {
+			if ((cpuUsage = 100 - cpu.getPerc().getIdle() * 100) > config.getInt("cpu.alarm.percent")) {
 				alarm(Type.MEM, "CPU警告", "CPU", cpuUsage, config.getInt("cpu.alarm.percent"));
 			}
 			// 磁盘
@@ -281,7 +279,6 @@ public class APMTask implements Job {
 	}
 
 	/**
-	 * @param listener
 	 * @param alarm
 	 */
 	@Async
