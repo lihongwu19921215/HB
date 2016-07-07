@@ -20,6 +20,14 @@ import club.zhcs.titans.utils.db.po.Entity;
  */
 public class Resource extends Entity {
 
+	@Column("r_name")
+	@Comment("资源名称")
+	private String name;
+
+	@Column("r_description")
+	@Comment("资源描述")
+	private String description;
+
 	@Column("r_resource_type")
 	@Comment("资源类型")
 	private ResourceType resourceType = ResourceType.Application;
@@ -43,6 +51,55 @@ public class Resource extends Entity {
 	@Column("r_task_cron")
 	@Comment("任务Cron表达式")
 	private String taskCron;
+
+	@Column("r_alarm_el")
+	@Comment("告警规则EL表达式")
+	private String alarmEL;
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name
+	 *            the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	/**
+	 * @return the description
+	 */
+	public String getDescription() {
+		return description;
+	}
+
+	/**
+	 * @param description
+	 *            the description to set
+	 */
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	/**
+	 * @return the alarmEL
+	 */
+	public String getAlarmEL() {
+		return alarmEL;
+	}
+
+	/**
+	 * @param alarmEL
+	 *            the alarmEL to set
+	 */
+	public void setAlarmEL(String alarmEL) {
+		this.alarmEL = alarmEL;
+	}
 
 	/**
 	 * @return the testingperiod
