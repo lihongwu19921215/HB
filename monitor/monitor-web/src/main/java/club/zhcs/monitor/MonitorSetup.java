@@ -4,12 +4,14 @@ import java.nio.charset.Charset;
 
 import org.nutz.dao.Cnd;
 import org.nutz.dao.Dao;
+import org.nutz.dao.TableName;
 import org.nutz.dao.util.Daos;
 import org.nutz.integration.quartz.NutQuartzCronJobFactory;
 import org.nutz.integration.shiro.NutShiro;
 import org.nutz.ioc.Ioc;
 import org.nutz.lang.Encoding;
 import org.nutz.lang.Lang;
+import org.nutz.lang.Times;
 import org.nutz.log.Log;
 import org.nutz.log.Logs;
 import org.nutz.mvc.NutConfig;
@@ -78,6 +80,7 @@ public class MonitorSetup implements Setup {
 
 		// 为全部标注了@Table的bean建表
 
+		TableName.set(Times.format("yyyy_MM_dd", Times.now()));
 		Daos.createTablesInPackage(dao, getClass().getPackage().getName() + ".domain", false);
 		Daos.migration(dao, getClass().getPackage().getName() + ".domain", true, true);
 
@@ -118,5 +121,4 @@ public class MonitorSetup implements Setup {
 		}
 
 	}
-
 }
