@@ -42,7 +42,7 @@ layout("/layout/front.html"){
 		showEcharts();
 		setInterval(function() {
 			showEcharts()
-		}, 10000);
+		}, 2000);
 		function showEcharts() {
 			$.post('${base}/dashboard', {}, function(result) {
 				var option = {

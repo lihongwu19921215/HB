@@ -59,7 +59,7 @@ import com.google.common.collect.Lists;
  *
  */
 @IocBean(name = "apmTask", fields = "dao", create = "init")
-@Scheduled(cron = "*/10 * * * * ? ")
+@Scheduled(cron = "*/2 * * * * ? ")
 public class APMTask implements Job {
 	private static Log LOG = Logs.getLog(APMTask.class);
 	private Dao dao;
@@ -183,7 +183,7 @@ public class APMTask implements Job {
 			// CPU
 			double cpuUsage;
 
-			if ((cpuUsage = 100 - (cpu.getTimer().getIdle() * 100 / cpu.getTimer().getTotal())) > config.getInt("cpu.alarm.percent")) {
+			if ((cpuUsage = 100 - cpu.getPerc().getIdle() * 100) > config.getInt("cpu.alarm.percent")) {
 				alarm(Type.MEM, "CPU警告", "CPU", cpuUsage, config.getInt("cpu.alarm.percent"));
 			}
 			// 磁盘
