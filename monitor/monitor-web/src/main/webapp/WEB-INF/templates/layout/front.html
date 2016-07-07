@@ -29,12 +29,14 @@
 			</button>
 			<a class="navbar-brand" href="#">监控控制台</a>
 		</div>
-		
+
 		<div class="collapse navbar-collapse" id="navbar-collapse-03">
 			<ul class="nav navbar-nav navbar-right">
-				<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="glyphicon glyphicon-qrcode"></i></a>
+				<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i
+						class="glyphicon glyphicon-qrcode"></i></a>
 					<ul class="dropdown-menu">
-						<li><a href="#"> <img alt="" src="${base}/resources/asset/img/qrcode.png"> </a></li>
+						<li><a href="#"> <img alt="" src="${base}/resources/asset/img/qrcode.png">
+						</a></li>
 					</ul></li>
 				<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i
 						class="glyphicon glyphicon-plus"></i></a>
@@ -52,6 +54,7 @@
 					</ul></li>
 				<li><a href="#"><i class="glyphicon glyphicon-envelope"></i></a></li>
 				<li><a href="#"><i class="glyphicon glyphicon-list-alt"></i></a></li>
+				<!--# if(loginUser() != null){  #-->
 				<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img alt="Monitor"
 						class="img-circle " width="20" src="${base}/resources/asset/img/head.jpg"> <span class="caret"></span> </a>
 					<ul class="dropdown-menu">
@@ -66,6 +69,12 @@
 						<li role="separator" class="divider"></li>
 						<li><a href="#"><i class="fa fa-sign-out"></i> 退出登录</a></li>
 					</ul></li>
+				<!--# }else{ #-->
+				<li><a href="#">注册 </a></li>
+				<li><a href="#">|</a></li>
+				<li><a href="#">登录</a></li>
+				<!--#  }#-->
+				<li><a href="#">&nbsp</a></li>
 			</ul>
 		</div>
 		<!-- /.navbar-collapse -->
@@ -145,12 +154,12 @@
 							<i class="fa fa-info"></i> 监控汇总
 						</h3>
 					</div>
-						<ul class="list-group">
-							<li class="list-group-item">Cras justo odio</li>
-							<li class="list-group-item">Dapibus ac facilisis in</li>
-							<li class="list-group-item">Morbi leo risus</li>
-							<li class="list-group-item">Porta ac consectetur ac</li>
-						</ul>
+					<ul class="list-group">
+						<li class="list-group-item">Cras justo odio</li>
+						<li class="list-group-item">Dapibus ac facilisis in</li>
+						<li class="list-group-item">Morbi leo risus</li>
+						<li class="list-group-item">Porta ac consectetur ac</li>
+					</ul>
 				</div>
 			</div>
 		</div>
