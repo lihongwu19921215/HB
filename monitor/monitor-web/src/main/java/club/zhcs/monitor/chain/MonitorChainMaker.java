@@ -58,7 +58,7 @@ public class MonitorChainMaker extends KerboresActionChainMaker {
 		try {
 			error.init(config, ai);
 		} catch (Throwable e) {
-			e.printStackTrace();
+			log.error(e);
 		}
 		return new NutActionChain(list, error, ai);
 	}

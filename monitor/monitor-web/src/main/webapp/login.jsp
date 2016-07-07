@@ -55,7 +55,7 @@
 					<div class="login-container">
 						<div class="center">
 							<h1>
-								<i class="ace-icon fa fa-heartbeat red"></i> <span style="font-weight: 900"><%=Application.NAME%></span> 
+								<i class="ace-icon fa fa-heartbeat red"></i> <span style="font-weight: 900"><%=Application.NAME%></span>
 							</h1>
 						</div>
 
@@ -106,9 +106,9 @@
 									</div>
 									<!-- /.widget-main -->
 									<div class="toolbar clearfix">
-											<div class="col-md-12">
-												<%=Application.COPYRIGHT %>
-											</div>
+										<div class="col-md-12">
+											<%=Application.COPYRIGHT%>
+										</div>
 									</div>
 								</div>
 								<!-- /.widget-body -->
@@ -165,14 +165,14 @@
 												<label class="block clearfix"> <span class="block input-icon input-icon-right"> <input type="email" class="form-control" placeholder="请输入电子邮箱"> <i
 														class="ace-icon fa fa-envelope"></i>
 												</span>
-												</label> <label class="block clearfix"> <span class="block input-icon input-icon-right"> <input type="text" class="form-control" placeholder="请输入用户名">
-														<i class="ace-icon fa fa-user"></i>
+												</label> <label class="block clearfix"> <span class="block input-icon input-icon-right"> <input type="text" class="form-control" placeholder="请输入用户名"> <i
+														class="ace-icon fa fa-user"></i>
 												</span>
 												</label> <label class="block clearfix"> <span class="block input-icon input-icon-right"> <input type="password" class="form-control" placeholder="请输入密码">
 														<i class="ace-icon fa fa-lock"></i>
 												</span>
-												</label> <label class="block clearfix"> <span class="block input-icon input-icon-right"> <input type="password" class="form-control"
-														placeholder="请再次输入密码"> <i class="ace-icon fa fa-retweet"></i>
+												</label> <label class="block clearfix"> <span class="block input-icon input-icon-right"> <input type="password" class="form-control" placeholder="请再次输入密码">
+														<i class="ace-icon fa fa-retweet"></i>
 												</span>
 												</label> <label class="block"> <input type="checkbox" class="ace"> <span class="lbl"> 我接收 <a href="#">用户协议</a>
 												</span>
