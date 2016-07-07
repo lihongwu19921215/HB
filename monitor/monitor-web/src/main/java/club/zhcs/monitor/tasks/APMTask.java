@@ -59,7 +59,7 @@ import com.google.common.collect.Lists;
  *
  */
 @IocBean(name = "apmTask", fields = "dao", create = "init")
-@Scheduled(cron = "*/20 * * * * ? ")
+@Scheduled(cron = "*/2 * * * * ? ")
 public class APMTask implements Job {
 	private static Log LOG = Logs.getLog(APMTask.class);
 	private Dao dao;
@@ -160,7 +160,7 @@ public class APMTask implements Job {
 	 */
 	@Override
 	public void execute(JobExecutionContext context) throws JobExecutionException {
-		add(timePoints, Times.format("mm:ss", Times.now()));
+		add(timePoints, Times.format("HH:mm:ss", Times.now()));
 		try {
 			Sigar sigar = new Sigar();
 			MemoryGather memory = MemoryGather.gather(sigar);
