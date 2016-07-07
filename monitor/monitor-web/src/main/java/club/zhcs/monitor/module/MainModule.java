@@ -107,6 +107,20 @@ public class MainModule extends AbstractBaseModule {
 		return Result.success().setTitle("控制台");
 	}
 
+	@At
+	@Ok("beetl:pages/front/register.html")
+	@Filters
+	public Result register() {
+		return Result.success().setTitle("控制台");
+	}
+
+	@At
+	@Ok("beetl:pages/front/login.html")
+	@Filters
+	public Result login() {
+		return Result.success().setTitle("控制台");
+	}
+
 	@At("/admin")
 	@Ok("jsp:/login")
 	@Filters
