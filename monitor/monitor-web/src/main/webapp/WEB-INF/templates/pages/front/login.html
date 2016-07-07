@@ -26,7 +26,7 @@ layout("/layout/register_login.html"){
 				<div class="col-sm-10">
 					<div class="input-group">
 						<input type="text" id="captcha" class="form-control search-query" placeholder="请输入验证码" name="captcha" data-type="required" data-error="请输入验证码"> <span
-							class="input-group-btn"> <a href="javascript:;" class="captchaRefresh"> <img id="captcha" title="点击刷新验证码" src="/ROOT/captcha" height="42px">
+							class="input-group-btn"> <a href="javascript:;" class="captchaRefresh"> <img id="captcha" title="点击刷新验证码" src="/ROOT/captcha?length=6" height="42px">
 						</a>
 						</span>
 					</div>
@@ -48,7 +48,7 @@ layout("/layout/register_login.html"){
 <script type="text/javascript">
 	$(function() {
 		$('.captchaRefresh').on('click', function() {
-			$(this).find('img').attr('src', getRootPath() + "/captcha?" + Math.random());
+			$(this).find('img').attr('src', getRootPath() + "/captcha?length=6&a=" + Math.random());
 		})
 	})
 </script>
