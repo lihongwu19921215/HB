@@ -81,7 +81,7 @@ public class APMTask implements Job {
 
 	private List<Double> noUsages = new ArrayList();
 
-	private int monitorCount = 15;
+	private int monitorCount = 150;
 
 	public Result data() {
 
@@ -98,7 +98,11 @@ public class APMTask implements Job {
 	 *            待添加数据
 	 */
 	private void add(List list, Object obj) {
-		list.add(obj);
+		if (obj instanceof Number) {
+			list.add(Numbers.keepPrecision((Number) obj, 2));
+		} else {
+			list.add(obj);
+		}
 		if (list.size() > monitorCount) {
 			list.remove(0);
 		}
