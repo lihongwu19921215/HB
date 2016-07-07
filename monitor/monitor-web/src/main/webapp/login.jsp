@@ -82,7 +82,7 @@
 												</label> <label class="block clearfix">
 													<div class="input-group">
 														<input type="text" id="captcha" class="form-control search-query" placeholder="请输入验证码" name="captcha" data-type="required" data-error="请输入验证码" /> <span
-															class="input-group-btn"> <a href="javascript:;" class="captchaRefresh"> <img id="captcha" title="点击刷新验证码" src="${base}/captcha" height="34px">
+															class="input-group-btn"> <a href="javascript:;" class="captchaRefresh"> <img  title="点击刷新验证码" src="${base}/captcha" height="34px">
 														</a>
 														</span>
 													</div>
