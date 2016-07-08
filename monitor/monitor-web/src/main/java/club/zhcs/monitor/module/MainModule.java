@@ -158,6 +158,9 @@ public class MainModule extends AbstractBaseModule {
 	@Ok("beetl:pages/front/active_success.html")
 	public Result active(String pwd, int id) {
 		User user = userService.fetch(id);
+		if (user.getStatus() == Status.ACTIVED) {
+			return Result.fail("你的账号已经激活了,请勿重复操作!!");
+		}
 		if (Strings.equals(user.getPassword(), pwd)) {
 			user.setStatus(Status.ACTIVED);
 			return userService.update(user) == 1 ? Result.success() : Result.fail("激活失败");
