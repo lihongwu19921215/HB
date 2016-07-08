@@ -2,6 +2,8 @@ package club.zhcs.monitor.service.email;
 
 import java.io.IOException;
 
+import javax.mail.internet.MimeUtility;
+
 import org.apache.commons.mail.HtmlEmail;
 import org.beetl.core.Configuration;
 import org.beetl.core.GroupTemplate;
@@ -57,7 +59,7 @@ public class EmailService {
 	public Result send(String subject, String content, String... to) {
 		try {
 			HtmlEmail email = ioc.get(HtmlEmail.class);
-			email.setSubject(subject);
+			email.setSubject(MimeUtility.encodeText(subject));
 			email.setHtmlMsg(content);
 			email.addTo(to);
 			email.buildMimeMessage();
