@@ -1,0 +1,13 @@
+<!--# 
+layout("/layout/register_login.html"){ 
+ #-->
+<div class="row">
+	<div class="col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4 center">
+		<!--# if(obj.operationState == 'SUCCESS'){ #-->
+			你的账号已经成功激活,请<a href="${base}/login">登录</a>使用
+		<!--# }else{ #-->
+			激活失败,${obj.data.reason}
+		<!--# } #-->
+	</div>
+</div>
+<!--# } #-->

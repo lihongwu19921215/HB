@@ -146,12 +146,23 @@ public class MainModule extends AbstractBaseModule {
 			request.setAttribute("email", user.getEmail());
 			Email email = new Email(user.getEmail());
 			request.setAttribute("domain", email.getHost());
-			// TODO 发送邮件
 			emailService.sendRegisterEmail(user);
 			return null;
 		}
 		request.setAttribute("error", "注册失败!");
 		return "beetl:pages/front/register.html";
+	}
+
+	@At("/active/*")
+	@Filters
+	@Ok("beetl:pages/front/active_success.html")
+	public Result active(String pwd, int id) {
+		User user = userService.fetch(id);
+		if (Strings.equals(user.getPassword(), pwd)) {
+			user.setStatus(Status.ACTIVED);
+			return userService.update(user) == 1 ? Result.success() : Result.fail("激活失败");
+		}
+		return Result.fail("激活地址不正确,请确认!");
 	}
 
 	@At
