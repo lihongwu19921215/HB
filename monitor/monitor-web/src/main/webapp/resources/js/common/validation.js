@@ -33,7 +33,7 @@ function validator(options) {
 		},
 		password : {
 			validate : function(value) {
-				return /^[a-z0-9]{6,}$/.test(value);
+				return /^[A-Za-z0-9]{6,}$/.test(value);
 			},
 			defaultValue : '111111',
 			errorMsg : '密码输入不正确'

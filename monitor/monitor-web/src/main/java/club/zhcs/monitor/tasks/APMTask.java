@@ -59,7 +59,7 @@ import com.google.common.collect.Lists;
  *
  */
 @IocBean(name = "apmTask", fields = "dao", create = "init")
-@Scheduled(cron = "*/2 * * * * ? ")
+@Scheduled(cron = "*/20 * * * * ? ")
 public class APMTask implements Job {
 	private static Log LOG = Logs.getLog(APMTask.class);
 	private Dao dao;
