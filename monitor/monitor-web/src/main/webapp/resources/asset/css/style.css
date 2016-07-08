@@ -5,7 +5,7 @@ body {
 	padding-top: 55px;
 }
 
-#bar-chart {
+#gauge, #bar-chart {
 	height: 400px
 }
 
@@ -19,9 +19,7 @@ body {
 	border-right: none;
 }
 
-.list-group,
-.panel,
-.label {
+.list-group, .panel, .label {
 	border-radius: 0;
 }
 
@@ -36,7 +34,8 @@ body {
 .side-nav>.panel-info {
 	background-color: #abcdef;
 }
-.side-nav>.panel>.list-group>.list-group-item{
+
+.side-nav>.panel>.list-group>.list-group-item {
 	padding: 10px;
 }
 
@@ -44,6 +43,7 @@ body {
 	border-top-left-radius: 0;
 	border-top-right-radius: 0;
 }
-.copyright{
-	font-size: 10px;	
+
+.copyright {
+	font-size: 10px;
 }
