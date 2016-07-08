@@ -15,7 +15,10 @@ import org.nutz.lang.Files;
 import org.nutz.lang.util.Callback;
 import org.nutz.log.Log;
 import org.nutz.log.Logs;
+import org.nutz.mvc.Mvcs;
 
+import club.zhcs.monitor.Application;
+import club.zhcs.monitor.domain.acl.User;
 import club.zhcs.monitor.domain.apm.APMAlarm;
 import club.zhcs.titans.utils.db.Result;
 
@@ -117,6 +120,29 @@ public class EmailService {
 		Result re = this.send(to, subject, html);
 		if (callback != null)
 			callback.invoke(re);
+	}
+
+	/**
+	 * @param user
+	 * @throws IOException
+	 */
+	public void sendRegisterEmail(User user) throws IOException {
+		send("欢迎注册监控中心", genRegisterEmail(user), user.getEmail());
+	}
+
+	/**
+	 * @param user
+	 * @return
+	 * @throws IOException
+	 */
+	private String genRegisterEmail(User user) throws IOException {
+		StringTemplateResourceLoader resourceLoader = new StringTemplateResourceLoader();
+		Configuration cfg = Configuration.defaultConfiguration();
+		GroupTemplate gt = new GroupTemplate(resourceLoader, cfg);
+		Template t = gt.getTemplate(Files.read("templates/register.html"));
+		t.binding("url", String.format("http://%s/%s/active/%s/%d", Application.DOMAIN, Mvcs.getReq().getContextPath(), user.getPassword(), user.getId()));
+
+		return t.render();
 	}
 
 }

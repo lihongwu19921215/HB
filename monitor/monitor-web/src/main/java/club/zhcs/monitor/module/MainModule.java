@@ -1,5 +1,7 @@
 package club.zhcs.monitor.module;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
@@ -7,6 +9,7 @@ import org.beetl.ext.nutz.BeetlViewMaker;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.lang.Lang;
 import org.nutz.lang.Strings;
+import org.nutz.lang.meta.Email;
 import org.nutz.lang.util.NutMap;
 import org.nutz.mvc.View;
 import org.nutz.mvc.annotation.At;
@@ -15,9 +18,11 @@ import org.nutz.mvc.annotation.By;
 import org.nutz.mvc.annotation.ChainBy;
 import org.nutz.mvc.annotation.Fail;
 import org.nutz.mvc.annotation.Filters;
+import org.nutz.mvc.annotation.GET;
 import org.nutz.mvc.annotation.IocBy;
 import org.nutz.mvc.annotation.Modules;
 import org.nutz.mvc.annotation.Ok;
+import org.nutz.mvc.annotation.POST;
 import org.nutz.mvc.annotation.Param;
 import org.nutz.mvc.annotation.SetupBy;
 import org.nutz.mvc.annotation.Views;
@@ -28,7 +33,10 @@ import club.zhcs.monitor.Application.SessionKeys;
 import club.zhcs.monitor.MonitorSetup;
 import club.zhcs.monitor.chain.MonitorChainMaker;
 import club.zhcs.monitor.domain.acl.User;
+import club.zhcs.monitor.domain.acl.User.Status;
 import club.zhcs.monitor.service.acl.RoleService;
+import club.zhcs.monitor.service.acl.UserService;
+import club.zhcs.monitor.service.email.EmailService;
 import club.zhcs.monitor.tasks.APMTask;
 import club.zhcs.titans.nutz.captcha.JPEGView;
 import club.zhcs.titans.nutz.module.base.AbstractBaseModule;
@@ -94,6 +102,10 @@ public class MainModule extends AbstractBaseModule {
 
 	private @Inject RoleService roleService;
 
+	private @Inject UserService userService;
+
+	private @Inject EmailService emailService;
+
 	@At
 	@Filters
 	public View captcha(@Param("length") int length) {
@@ -108,6 +120,7 @@ public class MainModule extends AbstractBaseModule {
 	}
 
 	@At
+	@GET
 	@Ok("beetl:pages/front/register.html")
 	@Filters
 	public Result register() {
@@ -115,9 +128,37 @@ public class MainModule extends AbstractBaseModule {
 	}
 
 	@At
+	@GET
 	@Ok("beetl:pages/front/login.html")
 	@Filters
 	public Result login() {
+		return Result.success().setTitle("控制台");
+	}
+
+	@At
+	@POST
+	@Filters
+	@Ok("re:beetl:pages/front/register_success.html")
+	public String register(@Param("..") User user, HttpServletRequest request) throws IOException {
+		user.setPassword(Lang.md5(user.getPassword()));
+		user.setStatus(Status.DISABLED);
+		if (userService.save(user) != null) {
+			request.setAttribute("email", user.getEmail());
+			Email email = new Email(user.getEmail());
+			request.setAttribute("domain", email.getHost());
+			// TODO 发送邮件
+			emailService.sendRegisterEmail(user);
+			return null;
+		}
+		request.setAttribute("error", "注册失败!");
+		return "beetl:pages/front/register.html";
+	}
+
+	@At
+	@POST
+	@Ok("beetl:pages/front/login.html")
+	@Filters
+	public Result login(NutMap data) {
 		return Result.success().setTitle("控制台");
 	}
 
