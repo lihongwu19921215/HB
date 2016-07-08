@@ -83,8 +83,7 @@ layout("/layout/default.html",{"menu":["apm","apm"],"breadcrumbs":[{"name":"告�
 							<tr>
 								<td class="">CPU</td>
 
-								<td> <i class="red" id="cpu">${obj.data.cpuUsage!}%</i>
-								</td>
+								<td><i class="red" id="cpu">${obj.data.cpuUsage!}%</i></td>
 
 								<td>达到 <input type="text" id="cpuAlarmPercent" class="input-sm spinner" value="${obj.data.config['cpu.alarm.percent']}" /> 发送 <select multiple id="cpuAlarmTypes"
 									class="chosen-select form-control tag-input-style" data-placeholder="选择告警方式">
@@ -101,8 +100,7 @@ layout("/layout/default.html",{"menu":["apm","apm"],"breadcrumbs":[{"name":"告�
 							<tr>
 								<td class="">JVM</td>
 
-								<td> <i class="red" id="jvm">${obj.data.jvmUasge!}%</i>
-								</td>
+								<td><i class="red" id="jvm">${obj.data.jvmUasge!}%</i></td>
 
 								<td>达到 <input type="text" id="jvmAlarmPercent" class="input-sm spinner" value="${obj.data.config['jvm.alarm.percent']}" /> 发送 <select multiple="" id="jvmAlarmTypes"
 									class="chosen-select form-control tag-input-style" data-placeholder="选择告警方式">
@@ -119,8 +117,7 @@ layout("/layout/default.html",{"menu":["apm","apm"],"breadcrumbs":[{"name":"告�
 							<tr>
 								<td class="">MEM</td>
 
-								<td> <i class="red" id="ram">${obj.data.ramUasge!}%</i>
-								</td>
+								<td><i class="red" id="ram">${obj.data.ramUasge!}%</i></td>
 
 								<td>达到 <input type="text" id="ramAlarmPercent" class="input-sm spinner" value="${obj.data.config['ram.alarm.percent']}" /> 发送 <select multiple="" id="ramAlarmTypes"
 									class="chosen-select form-control tag-input-style" data-placeholder="选择告警方式">
@@ -137,8 +134,7 @@ layout("/layout/default.html",{"menu":["apm","apm"],"breadcrumbs":[{"name":"告�
 							<tr>
 								<td class="">Swap</td>
 
-								<td> <i class="red" id="swap">${obj.data.swapUasge!}%</i>
-								</td>
+								<td><i class="red" id="swap">${obj.data.swapUasge!}%</i></td>
 
 								<td>达到 <input type="text" id="swapAlarmPercent" class="input-sm spinner" value="${obj.data.config['swap.alarm.percent']}" /> 发送 <select multiple=""
 									id="swapAlarmTypes" class="chosen-select form-control tag-input-style" data-placeholder="选择告警方式">
@@ -155,8 +151,7 @@ layout("/layout/default.html",{"menu":["apm","apm"],"breadcrumbs":[{"name":"告�
 							<tr>
 								<td class="">DISK</td>
 
-								<td> <i class="red" id="disk">${obj.data.diskUsage!} %</i>
-								</td>
+								<td><i class="red" id="disk">${obj.data.diskUsage!} %</i></td>
 
 								<td>达到 <input type="text" id="diskAlarmPercent" class="input-sm spinner" value="${obj.data.config['disk.alarm.percent']}" /> 发送 <select multiple=""
 									id="diskAlarmTypes" class="chosen-select form-control tag-input-style" data-placeholder="选择告警方式">
@@ -173,8 +168,7 @@ layout("/layout/default.html",{"menu":["apm","apm"],"breadcrumbs":[{"name":"告�
 							<tr>
 								<td class="">NetInterface</td>
 
-								<td> <i class="red" id="network">${obj.data.rxbps!} & ${obj.data.txbps!} b/s</i>
-								</td>
+								<td><i class="red" id="network">${obj.data.rxbps!} & ${obj.data.txbps!} b/s</i></td>
 
 								<td>达到 <input type="text" id="networkAlarmPercent" class="input-sm spinner" value="${obj.data.config['network.alarm.percent']}" /> 发送 <select multiple=""
 									id="networkAlarmTypes" class="chosen-select form-control tag-input-style" data-placeholder="选择告警方式">
@@ -323,346 +317,298 @@ layout("/layout/default.html",{"menu":["apm","apm"],"breadcrumbs":[{"name":"告�
 			btn_down_class : 'btn-danger'
 		});
 		line = echarts.init($('#line')[0]);
-		var option = {
-			title : {
-				text : '',
-			},
-			tooltip : {
-				trigger : 'axis'
-			},
-			legend : {
-				data : [ 'CPU', 'JVM', 'RAM', 'SWAP', 'NETWORK' ]
-			},
-			toolbox : {
-				show : true,
-				feature : {
-					restore : {},
-					saveAsImage : {}
-				}
-			},
-			dataZoom : {
-				show : false,
-				start : 0,
-				end : 100
-			},
-			xAxis : [ {
-				type : 'category',
-				boundaryGap : true,
-				data : (genTimeLine())
-			} ],
-			yAxis : [ {
-				type : 'value',
-				scale : true,
-				name : '百分比',
-				max : 100,
-				min : 0,
-				boundaryGap : [ 0.2, 0.2 ]
-			}, {
-				type : 'value',
-				scale : true,
-				max : 5,
-				min : 0,
-				name : ' M/s',
-				boundaryGap : [ 0.2, 0.2 ]
-			} ],
-			series : [ {
-				name : 'CPU',
-				type : 'line',
-				smooth : true,
-				data : (randomData(5, 100))
-			}, {
-				name : 'JVM',
-				type : 'line',
-				smooth : true,
-				data : (randomData(5, 100))
-			}, {
-				name : 'RAM',
-				type : 'line',
-				smooth : true,
-				data : (randomData(5, 100))
-			}, {
-				name : 'SWAP',
-				type : 'line',
-				smooth : true,
-				yAxisIndex : 0,
-				data : (randomData(5, 2))
-			}, {
-				name : 'NETWORK',
-				type : 'line',
-				smooth : true,
-				yAxisIndex : 1,
-				data : (randomData(5, 3))
-			} ]
-		};
-		if (option && typeof option === "object") {
-			line.setOption(option, true);
-		}
-
 		gauge = echarts.init($('#gauge')[0]);
-		gaugeOption = {
-			tooltip : {
-				formatter : "{a} <br/>{c} {b}"
-			},
-			toolbox : {
-				show : true,
-				feature : {
-					restore : {
-						show : true
-					},
-					saveAsImage : {
-						show : true
-					}
-				}
-			},
-			series : [ {
-				name : 'CPU',
-				type : 'gauge',
-				z : 3,
-				min : 0,
-				max : 100,
-				splitNumber : 10,
-				radius : '50%',
-				axisLine : { // 坐标轴线
-					lineStyle : { // 属性lineStyle控制线条样式
-						width : 10
-					}
-				},
-				axisTick : { // 坐标轴小标记
-					length : 15, // 属性length控制线长
-					lineStyle : { // 属性lineStyle控制线条样式
-						color : 'auto'
-					}
-				},
-				splitLine : { // 分隔线
-					length : 20, // 属性length控制线长
-					lineStyle : { // 属性lineStyle（详见lineStyle）控制线条样式
-						color : 'auto'
-					}
-				},
-				title : {
-					textStyle : { // 其余属性默认使用全局文本样式，详见TEXTSTYLE
-						fontWeight : 'bolder',
-						fontSize : 20,
-						fontStyle : 'italic'
-					}
-				},
-				detail : {
-					textStyle : { // 其余属性默认使用全局文本样式，详见TEXTSTYLE
-						fontWeight : 'bolder'
-					}
-				},
-				data : [ {
-					value : 40,
-					name : 'CPU'
-				} ]
-			}, {
-				name : 'NETWORK',
-				type : 'gauge',
-				center : [ '15%', '55%' ], // 默认全局居中
-				radius : '30%',
-				min : 0,
-				max : 20,
-				endAngle : 45,
-				splitNumber : 4,
-				axisLine : { // 坐标轴线
-					lineStyle : { // 属性lineStyle控制线条样式
-						width : 8
-					}
-				},
-				axisTick : { // 坐标轴小标记
-					length : 12, // 属性length控制线长
-					lineStyle : { // 属性lineStyle控制线条样式
-						color : 'auto'
-					}
-				},
-				splitLine : { // 分隔线
-					length : 20, // 属性length控制线长
-					lineStyle : { // 属性lineStyle（详见lineStyle）控制线条样式
-						color : 'auto'
-					}
-				},
-				pointer : {
-					width : 5
-				},
-				title : {
-					offsetCenter : [ '0', '0' ], // x, y，单位px
-				},
-				detail : {
-					textStyle : { // 其余属性默认使用全局文本样式，详见TEXTSTYLE
-						fontWeight : 'bolder'
-					}
-				},
-				data : [ {
-					value : 30,
-					name : 'NI'
-				} ]
-			}, {
-				name : 'JVM',
-				type : 'gauge',
-				center : [ '85%', '50%' ], // 默认全局居中
-				radius : '30%',
-				min : 0,
-				max : 100,
-				startAngle : 135,
-				endAngle : 45,
-				splitNumber : 10,
-				axisLine : { // 坐标轴线
-					lineStyle : { // 属性lineStyle控制线条样式
-						width : 8
-					}
-				},
-				axisTick : { // 坐标轴小标记
-					splitNumber : 5,
-					length : 10, // 属性length控制线长
-					lineStyle : { // 属性lineStyle控制线条样式
-						color : 'auto'
-					}
-				},
-				axisLabel : {
-					formatter : function(v) {
-						switch (v + '') {
-						case '0':
-							return 'L';
-						case '80':
-							return 'W';
-						case '100':
-							return 'H';
-						}
-					}
-				},
-				splitLine : { // 分隔线
-					length : 15, // 属性length控制线长
-					lineStyle : { // 属性lineStyle（详见lineStyle）控制线条样式
-						color : 'auto'
-					}
-				},
-				pointer : {
-					width : 2
-				},
-				title : {
-					show : false
-				},
-				detail : {
-					show : false
-				},
-				data : [ {
-					value : 50,
-					name : 'JVM'
-				} ]
-			}, {
-				name : 'RAM',
-				type : 'gauge',
-				center : [ '85%', '50%' ], // 默认全局居中
-				radius : '30%',
-				min : 0,
-				max : 100,
-				startAngle : 315,
-				endAngle : 225,
-				splitNumber : 10,
-				axisLine : { // 坐标轴线
-					lineStyle : { // 属性lineStyle控制线条样式
-						width : 8
-					}
-				},
-				axisTick : { // 坐标轴小标记
-					show : false
-				},
-				axisLabel : {
-					formatter : function(v) {
-						switch (v + '') {
-						case '0':
-							return 'L';
-						case '80':
-							return 'W';
-						case '100':
-							return 'H';
-						}
-					}
-				},
-				splitLine : { // 分隔线
-					length : 15, // 属性length控制线长
-					lineStyle : { // 属性lineStyle（详见lineStyle）控制线条样式
-						color : 'auto'
-					}
-				},
-				pointer : {
-					width : 2
-				},
-				title : {
-					show : false
-				},
-				detail : {
-					show : false
-				},
-				data : [ {
-					value : 100,
-					name : 'RAM'
-				} ]
-			} ]
-		};
-		gauge.setOption(gaugeOption);
-		function genTimeLine() {
-			var date = new Date();
-			var target = [];
-			for (var i = 0; i < 5; i++) {
-				target.push(new Date(date.getTime() - (80000 - (i * 2000))).format('mm:ss'));
-			}
-			return target;
-		}
-		function randomData(length, max) {
-			var target = [];
-			for (var int = 0; int < length; int++) {
-				target.push(Math.random() * max);
-			}
-			return target;
-		}
-		function keepLength(array, length) {
-			if (array.length > length) {
-				for (var i = 0; i < array.length - length; i++) {
-					array.splice(i, 1);
-				}
-			}
-		}
-
+		showEcharts();
 		setInterval(function() {
-
-			$.post(getRootPath() + "/sigar", {
-				type : 'ALL'
-			}, function(result) {
-				if (result.operationState == 'SUCCESS') {
-					gaugeOption.series[0].data[0].value = result.data.cpuUsage.toFixed(2) - 0;
-					$('#cpu').text((result.data.cpuUsage.toFixed(2) - 0) + '%');
-					$('#disk').text((result.data.diskUsage.toFixed(2) - 0) + '%');
-					gaugeOption.series[1].data[0].value = (result.data.network.rxbps / 1024 / 1024 / 8).toFixed(2) - 0;
-					$('#ram').text((result.data.ramUasge.toFixed(2) - 0) + '%');
-					$('#jvm').text((result.data.jvmUasge.toFixed(2) - 0) + '%');
-					$('#swap').text((result.data.swapUasge.toFixed(2) - 0) + '%');
-					$('#network').text(
-							((result.data.network.rxbps / 1024 / 1024 / 8).toFixed(2) - 0) + ' & ' + ((result.data.network.txbps / 1024 / 1024 / 8).toFixed(2) - 0) + ' M/s');
-
-					gaugeOption.series[2].data[0].value = result.data.jvmUasge.toFixed(2) - 0;
-					gaugeOption.series[3].data[0].value = result.data.ramUasge.toFixed(2) - 0;
-					gauge.setOption(gaugeOption, true);
-
-					option.series[0].data.push(result.data.cpuUsage.toFixed(2) - 0);
-					option.series[1].data.push(result.data.jvmUasge.toFixed(2) - 0);
-					option.series[2].data.push(result.data.ramUasge.toFixed(2) - 0);
-					option.series[3].data.push(result.data.swapUasge.toFixed(2) - 0);
-					option.series[4].data.push((result.data.network.rxbps / 1024 / 1024 / 8).toFixed(2) - 0);
-					option.xAxis[0].data.push(new Date().format('mm:ss'));
-					keepLength(option.series[0].data, 25);
-					keepLength(option.series[1].data, 25);
-					keepLength(option.series[2].data, 25);
-					keepLength(option.series[3].data, 25);
-					keepLength(option.series[4].data, 25);
-					keepLength(option.xAxis[0].data, 25);
+			showEcharts()
+		}, 2000);
+		function showEcharts() {
+			$.post('${base}/dashboard', {}, function(result) {
+				var option = {
+					title : {
+						text : '',
+					},
+					tooltip : {
+						trigger : 'axis'
+					},
+					legend : {
+						data : [ 'CPU', 'JVM', 'RAM', 'SWAP', 'NETWORK IN', 'NETWORK OUT' ]
+					},
+					toolbox : {
+						show : true,
+						feature : {
+							restore : {},
+							saveAsImage : {}
+						}
+					},
+					dataZoom : {
+						show : false,
+						start : 0,
+						end : 100
+					},
+					xAxis : [ {
+						type : 'category',
+						boundaryGap : true,
+						data : result.data.timePoints
+					} ],
+					yAxis : [ {
+						type : 'value',
+						scale : true,
+						name : '百分比',
+						max : 100,
+						min : 0,
+						boundaryGap : [ 0.2, 0.2 ]
+					}, {
+						type : 'value',
+						scale : true,
+						max : 5000,
+						min : 0,
+						name : ' k/s',
+						boundaryGap : [ 0.2, 0.2 ]
+					} ],
+					series : [ {
+						name : 'CPU',
+						type : 'line',
+						smooth : true,
+						data : result.data.cpuUsages
+					}, {
+						name : 'JVM',
+						type : 'line',
+						smooth : true,
+						data : result.data.jvmUsages
+					}, {
+						name : 'RAM',
+						type : 'line',
+						smooth : true,
+						data : result.data.ramUsages
+					}, {
+						name : 'SWAP',
+						type : 'line',
+						smooth : true,
+						yAxisIndex : 0,
+						data : result.data.swapUsages
+					}, {
+						name : 'NETWORK IN',
+						type : 'line',
+						smooth : true,
+						yAxisIndex : 1,
+						data : result.data.niUsages
+					}, {
+						name : 'NETWORK OUT',
+						type : 'line',
+						smooth : true,
+						yAxisIndex : 1,
+						data : result.data.noUsages
+					} ]
+				};
+				if (option && typeof option === "object") {
 					line.setOption(option, true);
-
-				} else {
-					location.reload(true);
 				}
-			}, 'json');
 
-		}, 1000);
+				gaugeOption = {
+					tooltip : {
+						formatter : "{a} <br/>{c} {b}"
+					},
+					toolbox : {
+						show : true,
+						feature : {
+							restore : {
+								show : true
+							},
+							saveAsImage : {
+								show : true
+							}
+						}
+					},
+					series : [ {
+						name : 'CPU',
+						type : 'gauge',
+						z : 3,
+						min : 0,
+						max : 100,
+						splitNumber : 10,
+						radius : '50%',
+						axisLine : { // 坐标轴线
+							lineStyle : { // 属性lineStyle控制线条样式
+								width : 10
+							}
+						},
+						axisTick : { // 坐标轴小标记
+							length : 15, // 属性length控制线长
+							lineStyle : { // 属性lineStyle控制线条样式
+								color : 'auto'
+							}
+						},
+						splitLine : { // 分隔线
+							length : 20, // 属性length控制线长
+							lineStyle : { // 属性lineStyle（详见lineStyle）控制线条样式
+								color : 'auto'
+							}
+						},
+						title : {
+							textStyle : { // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+								fontWeight : 'bolder',
+								fontSize : 20,
+								fontStyle : 'italic'
+							}
+						},
+						detail : {
+							textStyle : { // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+								fontWeight : 'bolder'
+							}
+						},
+						data : [ {
+							value : result.data.cpuUsages[result.data.cpuUsages.length - 1],
+							name : 'CPU'
+						} ]
+					}, {
+						name : 'NETWORK',
+						type : 'gauge',
+						center : [ '15%', '55%' ], // 默认全局居中
+						radius : '30%',
+						min : 0,
+						max : 5000,
+						endAngle : 0,
+						splitNumber : 5,
+						axisLine : { // 坐标轴线
+							lineStyle : { // 属性lineStyle控制线条样式
+								width : 8
+							}
+						},
+						axisTick : { // 坐标轴小标记
+							length : 12, // 属性length控制线长
+							lineStyle : { // 属性lineStyle控制线条样式
+								color : 'auto'
+							}
+						},
+						splitLine : { // 分隔线
+							length : 20, // 属性length控制线长
+							lineStyle : { // 属性lineStyle（详见lineStyle）控制线条样式
+								color : 'auto'
+							}
+						},
+						pointer : {
+							width : 5
+						},
+						title : {
+							offsetCenter : [ '0', '0' ], // x, y，单位px
+						},
+						detail : {
+							textStyle : { // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+								fontWeight : 'bolder'
+							}
+						},
+						data : [ {
+							value : result.data.niUsages[result.data.niUsages.length - 1],
+							name : 'NI'
+						} ]
+					}, {
+						name : 'JVM',
+						type : 'gauge',
+						center : [ '85%', '50%' ], // 默认全局居中
+						radius : '30%',
+						min : 0,
+						max : 100,
+						startAngle : 135,
+						endAngle : 45,
+						splitNumber : 10,
+						axisLine : { // 坐标轴线
+							lineStyle : { // 属性lineStyle控制线条样式
+								width : 8
+							}
+						},
+						axisTick : { // 坐标轴小标记
+							splitNumber : 5,
+							length : 10, // 属性length控制线长
+							lineStyle : { // 属性lineStyle控制线条样式
+								color : 'auto'
+							}
+						},
+						axisLabel : {
+							formatter : function(v) {
+								switch (v + '') {
+								case '0':
+									return 'L';
+								case '80':
+									return 'W';
+								case '100':
+									return 'H';
+								}
+							}
+						},
+						splitLine : { // 分隔线
+							length : 15, // 属性length控制线长
+							lineStyle : { // 属性lineStyle（详见lineStyle）控制线条样式
+								color : 'auto'
+							}
+						},
+						pointer : {
+							width : 2
+						},
+						title : {
+							show : false
+						},
+						detail : {
+							show : false
+						},
+						data : [ {
+							value : result.data.jvmUsages[result.data.jvmUsages.length - 1],
+							name : 'JVM'
+						} ]
+					}, {
+						name : 'RAM',
+						type : 'gauge',
+						center : [ '85%', '50%' ], // 默认全局居中
+						radius : '30%',
+						min : 0,
+						max : 100,
+						startAngle : 315,
+						endAngle : 225,
+						splitNumber : 10,
+						axisLine : { // 坐标轴线
+							lineStyle : { // 属性lineStyle控制线条样式
+								width : 8
+							}
+						},
+						axisTick : { // 坐标轴小标记
+							show : false
+						},
+						axisLabel : {
+							formatter : function(v) {
+								switch (v + '') {
+								case '0':
+									return 'L';
+								case '80':
+									return 'W';
+								case '100':
+									return 'H';
+								}
+							}
+						},
+						splitLine : { // 分隔线
+							length : 15, // 属性length控制线长
+							lineStyle : { // 属性lineStyle（详见lineStyle）控制线条样式
+								color : 'auto'
+							}
+						},
+						pointer : {
+							width : 2
+						},
+						title : {
+							show : false
+						},
+						detail : {
+							show : false
+						},
+						data : [ {
+							value : result.data.ramUsages[result.data.ramUsages.length - 1],
+							name : 'RAM'
+						} ]
+					} ]
+				};
+				gauge.setOption(gaugeOption);
+			}, 'json')
+		}
+
 	})
 </script>
