@@ -11,6 +11,7 @@ import org.beetl.core.Template;
 import org.beetl.core.resource.StringTemplateResourceLoader;
 import org.nutz.aop.interceptor.async.Async;
 import org.nutz.ioc.Ioc;
+import org.nutz.ioc.impl.PropertiesProxy;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
 import org.nutz.lang.Files;
@@ -45,6 +46,9 @@ public class EmailService {
 	@Inject("refer:$ioc")
 	protected Ioc ioc;
 
+	@Inject
+	private PropertiesProxy config;
+
 	/**
 	 * 发送邮件
 	 * 
@@ -59,6 +63,7 @@ public class EmailService {
 	public Result send(String subject, String content, String... to) {
 		try {
 			HtmlEmail email = ioc.get(HtmlEmail.class);
+			email.setFrom(config.get("mail.From"), config.get("mail.From.Name"));
 			email.setSubject(MimeUtility.encodeText(subject));
 			email.setHtmlMsg(content);
 			email.addTo(to);
