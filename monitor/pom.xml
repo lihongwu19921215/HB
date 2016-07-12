@@ -23,7 +23,7 @@
 	
 	<repositories>
 		 <repository>
-            <id>dgj nexus</id>
+            <id>kerbores nexus</id>
             <name>Team Nexus Repository</name>
             <url>http://maven.kerbores.com/nexus/content/groups/public</url>
         </repository>
