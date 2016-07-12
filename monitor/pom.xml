@@ -52,6 +52,7 @@
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 			<version>3.1.0</version>
+			<scope>provided</scope>
 		</dependency>
 		<!-- servlet -->
 
@@ -92,11 +93,6 @@
 			<version>1.r.56</version>
 		</dependency>
 
-		<dependency>
-			<groupId>org.nutz</groupId>
-			<artifactId>nutz-integration-quartz</artifactId>
-			<version>1.r.56</version>
-		</dependency>
 
 		<dependency>
 			<groupId>org.nutz</groupId>
