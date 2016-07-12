@@ -3,6 +3,7 @@ package club.zhcs.monitor.module;
 import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.beetl.ext.nutz.BeetlViewMaker;
@@ -36,6 +37,7 @@ import club.zhcs.monitor.chain.MonitorChainMaker;
 import club.zhcs.monitor.domain.acl.User;
 import club.zhcs.monitor.domain.acl.User.Status;
 import club.zhcs.monitor.service.acl.RoleService;
+import club.zhcs.monitor.service.acl.ShiroUserService;
 import club.zhcs.monitor.service.acl.UserService;
 import club.zhcs.monitor.service.email.EmailService;
 import club.zhcs.monitor.tasks.APMTask;
@@ -107,6 +109,9 @@ public class MainModule extends AbstractBaseModule {
 
 	private @Inject EmailService emailService;
 
+	@Inject
+	ShiroUserService shiroUserService;
+
 	@At
 	@Filters
 	public View captcha(@Param("length") int length) {
@@ -135,6 +140,22 @@ public class MainModule extends AbstractBaseModule {
 	@Filters
 	public Result login() {
 		return Result.success().setTitle("控制台");
+	}
+
+	@At
+	@POST
+	@Filters
+	public Result login(@Param("name") String user, @Param("password") String password, @Param("captcha") String captcha, HttpSession session) {
+		if (Strings.equalsIgnoreCase(captcha, session.getAttribute(JPEGView.CAPTCHA).toString())) {
+			Result result = shiroUserService.login(user, password);
+			if (result.isSuccess()) {
+				// 登录成功处理
+				_putSession(SessionKeys.USER_KEY, result.getData().get("loginUser"));
+			}
+			return result;
+		} else {
+			return Result.fail("验证码输入错误");
+		}
 	}
 
 	@At

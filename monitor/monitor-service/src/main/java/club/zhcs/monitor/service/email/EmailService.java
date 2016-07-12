@@ -147,7 +147,7 @@ public class EmailService {
 		Configuration cfg = Configuration.defaultConfiguration();
 		GroupTemplate gt = new GroupTemplate(resourceLoader, cfg);
 		Template t = gt.getTemplate(Files.read("templates/register.html"));
-		t.binding("url", String.format("http://%s/%s/active/%s/%d", Application.DOMAIN, Mvcs.getReq().getContextPath(), user.getPassword(), user.getId()));
+		t.binding("url", String.format("http://%s%s/active/%s/%d", Application.DOMAIN, Mvcs.getReq().getContextPath(), user.getPassword(), user.getId()));
 
 		return t.render();
 	}

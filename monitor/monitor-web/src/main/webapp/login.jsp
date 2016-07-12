@@ -297,7 +297,6 @@
 					captcha : $('#captcha').val(),
 					rememberMe : $('#rememberMeCheckBox')[0].checked
 				}, function(result) {
-					console.log(result);
 					if (result.operationState == 'SUCCESS') {
 						//TODO 跳转到系统主界面
 						location.href = '${base}/system/main'
