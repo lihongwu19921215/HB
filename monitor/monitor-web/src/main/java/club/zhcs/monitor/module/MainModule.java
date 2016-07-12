@@ -65,7 +65,7 @@ import club.zhcs.titans.utils.db.Result;
 @Views({ BeetlViewMaker.class })
 @Fail("http:500")
 @Ok("json")
-@Filters({ @By(type = CheckSession.class, args = { SessionKeys.USER_KEY, "/admin" }) })
+@Filters({ @By(type = CheckSession.class, args = { SessionKeys.USER_KEY, "/login" }) })
 @SetupBy(MonitorSetup.class)
 @ChainBy(type = MonitorChainMaker.class, args = {})
 public class MainModule extends AbstractBaseModule {
