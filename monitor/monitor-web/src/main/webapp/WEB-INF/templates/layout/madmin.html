@@ -167,6 +167,7 @@
 								</li>
 								<li class="last"><a href="email-view-mail.html" target="_blank">Read all messages</a></li>
 							</ul></li>
+						<!--# if(loginUser() != null){  #-->
 						<li class="dropdown topbar-user"><a data-hover="dropdown" href="#" class="dropdown-toggle"><img src="https://s3.amazonaws.com/uifaces/faces/twitter/kolage/48.jpg"
 								alt="" class="img-responsive img-circle" />&nbsp;<span class="hidden-xs">John Doe</span>&nbsp;<span class="caret"></span> </a>
 							<ul class="dropdown-menu dropdown-user pull-right">
@@ -178,6 +179,10 @@
 								<li class="divider"></li>
 								<li><a href="extra-signin.html"><i class="fa fa-key"></i>退出登录</a></li>
 							</ul></li>
+						<!--# }else{ #-->
+						<li><a href="${base}/register">注册 </a></li>
+						<li><a href="${base}/login">登录</a></li>
+						<!--#  }#-->
 					</ul>
 				</div>
 			</nav>
@@ -232,12 +237,15 @@
 				<!--BEGIN TITLE & BREADCRUMB PAGE-->
 				<div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
 					<div class="page-header pull-left">
-						<div class="page-title">Dashboard</div>
+						<div class="page-title">监控中心</div>
 					</div>
 					<ol class="breadcrumb page-breadcrumb pull-left">
-						<li><i class="fa fa-home"></i>&nbsp;<a href="index.html">Home</a></li>
+						<!--# for(breadCrumb in breadCrumbs){ #-->
+						<!--# if(breadCrumbLP.index !=1){  #-->
 						<li><i class="fa fa-angle-double-right"></i></li>
-						<li class="active">Dashboard</li>
+						<!--# } #-->
+						<li class="${breadCrumb.active!}"><i class="fa fa-${breadCrumb.icon!}"></i>&nbsp;<a href="${base}${breadCrumb.url!}">${breadCrumb.name}</a></li>
+						<!--# } #-->
 					</ol>
 					<div class="clearfix"></div>
 				</div>
@@ -248,7 +256,7 @@
 			</div>
 			<!--BEGIN FOOTER-->
 			<div id="footer">
-				<div class="copyright">2014 © &mu;Admin - Responsive Multi-Style Admin Template</div>
+				<div class="copyright">${global("copyright")}</div>
 			</div>
 			<!--END FOOTER-->
 			<!--END PAGE WRAPPER-->
