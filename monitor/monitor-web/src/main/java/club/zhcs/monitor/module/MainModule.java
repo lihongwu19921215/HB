@@ -11,6 +11,7 @@ import org.nutz.lang.Lang;
 import org.nutz.lang.Strings;
 import org.nutz.lang.meta.Email;
 import org.nutz.lang.util.NutMap;
+import org.nutz.mvc.Mvcs;
 import org.nutz.mvc.View;
 import org.nutz.mvc.annotation.At;
 import org.nutz.mvc.annotation.Attr;
@@ -116,6 +117,7 @@ public class MainModule extends AbstractBaseModule {
 	@Ok("beetl:pages/front/index.html")
 	@Filters
 	public Result index() {
+		Mvcs.getReq().getSession(true);
 		return Result.success().setTitle("控制台");
 	}
 

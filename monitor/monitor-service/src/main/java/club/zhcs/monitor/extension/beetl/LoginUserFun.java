@@ -29,7 +29,7 @@ public class LoginUserFun implements Function {
 	 */
 	@Override
 	public Object call(Object[] paras, Context ctx) {
-		return Mvcs.getReq().getSession().getAttribute(SessionKeys.USER_KEY);
+		return Mvcs.getReq().getSession(true).getAttribute(SessionKeys.USER_KEY);
 	}
 
 }
