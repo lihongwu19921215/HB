@@ -139,7 +139,6 @@
 			<version>7.1.0</version>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/commons-net/commons-net -->
 		<dependency>
 			<groupId>commons-net</groupId>
 			<artifactId>commons-net</artifactId>

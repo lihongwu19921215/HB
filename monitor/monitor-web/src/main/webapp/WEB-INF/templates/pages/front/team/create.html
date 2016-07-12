@@ -1,393 +1,61 @@
 <!--# 
 layout("/layout/madmin.html",{'breadCrumbs': [{'name':'主页','icon':'home','url':'/'},{'name':'团队创建','active':'active'}] ,'active':'team'}){ 
  #-->
- 团队创建
-<div class="panel panel-blue">
-	<div class="panel-heading">
-		<h3 class="panel-title">控制台</h3>
-	</div>
-	<div class="panel-body">
-		<div id="sum_box" class="row mbl">
-			<div class="col-sm-6 col-md-3">
-				<div class="panel profit db mbm">
-					<div class="panel-body">
-						<p class="icon">
-							<i class="icon fa fa-leaf"></i>
-						</p>
-						<h4 class="value">
-							<span data-counter="" data-start="10" data-end="50" data-step="1" data-duration="0">400</span> <span>台</span>
-						</h4>
-						<p class="description">已监控资源</p>
-						<div class="progress progress-sm mbn">
-							<div role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%;" class="progress-bar progress-bar-success">
-								<span class="sr-only">80% Complete (success)</span>
-							</div>
+<div class="panel panel-green">
+	<div class="panel-heading">创建团队</div>
+	<div class="panel-body pan">
+		<form action="#" class="form-horizontal">
+			<div class="form-body pal">
+				<div class="form-group">
+					<label for="inputUsername" class="col-md-3 control-label">团队名 <span class="require">*</span>
+					</label>
+					<div class="col-md-9">
+						<div class="input-icon">
+							<i class="fa fa-users"></i> <input id="name" name="name" type="text" placeholder="团队名称" class="form-control" data-type='required'>
 						</div>
 					</div>
 				</div>
-			</div>
-			<div class="col-sm-6 col-md-3">
-				<div class="panel income db mbm">
-					<div class="panel-body">
-						<p class="icon">
-							<i class="icon fa fa-hdd-o"></i>
-						</p>
-						<h4 class="value">
-							<span>200</span> <span>台</span>
-						</h4>
-						<p class="description">已监控FTP服务器</p>
-						<div class="progress progress-sm mbn">
-							<div role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;" class="progress-bar progress-bar-info">
-								<span class="sr-only">60% Complete (success)</span>
-							</div>
-						</div>
+				<div class="form-group mbn">
+					<label for="inputContent" class="col-md-3 control-label">团队简介</label>
+					<div class="col-md-9">
+						<textarea id="description" name="description" rows="3" class="form-control" placeholder="团队介绍"></textarea>
 					</div>
 				</div>
 			</div>
-			<div class="col-sm-6 col-md-3">
-				<div class="panel task db mbm">
-					<div class="panel-body">
-						<p class="icon">
-							<i class="icon fa fa-server"></i>
-						</p>
-						<h4 class="value">
-							<span>158</span> <span>台</span>
-						</h4>
-						<p class="description">应用服务器</p>
-						<div class="progress progress-sm mbn">
-							<div role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%;" class="progress-bar progress-bar-danger">
-								<span class="sr-only">50% Complete (success)</span>
-							</div>
-						</div>
-					</div>
+			<div class="form-actions">
+				<div class="col-md-offset-3 col-md-9">
+					<button type="button" class="btn btn-primary">创建</button>
+					&nbsp;
+					<button type="button" class="btn btn-green btn-back">取消</button>
 				</div>
 			</div>
-			<div class="col-sm-6 col-md-3">
-				<div class="panel visit db mbm">
-					<div class="panel-body">
-						<p class="icon">
-							<i class="icon fa fa-database"></i>
-						</p>
-						<h4 class="value">
-							<span>42</span> <span>台</span>
-						</h4>
-						<p class="description">数据库服务器</p>
-						<div class="progress progress-sm mbn">
-							<div role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 70%;" class="progress-bar progress-bar-warning">
-								<span class="sr-only">70% Complete (success)</span>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+		</form>
 	</div>
 </div>
-<div class="panel panel-blue">
-	<div class="panel-heading">
-		<h3 class="panel-title">本机状态</h3>
-	</div>
-	<div class="panel-body">
-		<div class="row">
-			<div class="col-md-12" id="bar-chart"></div>
-			<div class="col-md-12" id="gauge"></div>
-		</div>
-	</div>
-</div>
-<script type="text/javascript" src="${base}/resources/asset/js/echarts.js"></script>
 <script type="text/javascript">
-<!--
 	$(function() {
-		var line = echarts.init($('#bar-chart')[0]);
-		gauge = echarts.init($('#gauge')[0]);
-		showEcharts();
-		setInterval(function() {
-			showEcharts()
-		}, 2000);
-		function showEcharts() {
-			$.post('${base}/dashboard', {}, function(result) {
-				var option = {
-					title : {
-						text : '',
-					},
-					tooltip : {
-						trigger : 'axis'
-					},
-					legend : {
-						data : [ 'CPU', 'JVM', 'RAM', 'SWAP', 'NETWORK IN', 'NETWORK OUT' ]
-					},
-					toolbox : {
-						show : true,
-						feature : {
-							restore : {},
-							saveAsImage : {}
-						}
-					},
-					dataZoom : {
-						show : false,
-						start : 0,
-						end : 100
-					},
-					xAxis : [ {
-						type : 'category',
-						boundaryGap : true,
-						data : result.data.timePoints
-					} ],
-					yAxis : [ {
-						type : 'value',
-						scale : true,
-						name : '百分比',
-						max : 100,
-						min : 0,
-						boundaryGap : [ 0.2, 0.2 ]
-					}, {
-						type : 'value',
-						scale : true,
-						max : 5000,
-						min : 0,
-						name : ' k/s',
-						boundaryGap : [ 0.2, 0.2 ]
-					} ],
-					series : [ {
-						name : 'CPU',
-						type : 'line',
-						smooth : true,
-						data : result.data.cpuUsages
-					}, {
-						name : 'JVM',
-						type : 'line',
-						smooth : true,
-						data : result.data.jvmUsages
-					}, {
-						name : 'RAM',
-						type : 'line',
-						smooth : true,
-						data : result.data.ramUsages
-					}, {
-						name : 'SWAP',
-						type : 'line',
-						smooth : true,
-						yAxisIndex : 0,
-						data : result.data.swapUsages
-					}, {
-						name : 'NETWORK IN',
-						type : 'line',
-						smooth : true,
-						yAxisIndex : 1,
-						data : result.data.niUsages
-					}, {
-						name : 'NETWORK OUT',
-						type : 'line',
-						smooth : true,
-						yAxisIndex : 1,
-						data : result.data.noUsages
-					} ]
-				};
-				if (option && typeof option === "object") {
-					line.setOption(option, true);
-				}
-
-				gaugeOption = {
-					tooltip : {
-						formatter : "{a} <br/>{c} {b}"
-					},
-					toolbox : {
-						show : true,
-						feature : {
-							restore : {},
-							saveAsImage : {}
-						}
-					},
-					series : [ {
-						name : 'CPU',
-						type : 'gauge',
-						z : 3,
-						min : 0,
-						max : 100,
-						splitNumber : 10,
-						radius : '50%',
-						axisLine : { // 坐标轴线
-							lineStyle : { // 属性lineStyle控制线条样式
-								width : 10
-							}
-						},
-						axisTick : { // 坐标轴小标记
-							length : 15, // 属性length控制线长
-							lineStyle : { // 属性lineStyle控制线条样式
-								color : 'auto'
-							}
-						},
-						splitLine : { // 分隔线
-							length : 20, // 属性length控制线长
-							lineStyle : { // 属性lineStyle（详见lineStyle）控制线条样式
-								color : 'auto'
-							}
-						},
-						title : {
-							textStyle : { // 其余属性默认使用全局文本样式，详见TEXTSTYLE
-								fontWeight : 'bolder',
-								fontSize : 20,
-								fontStyle : 'italic'
-							}
-						},
-						detail : {
-							textStyle : { // 其余属性默认使用全局文本样式，详见TEXTSTYLE
-								fontWeight : 'bolder'
-							}
-						},
-						data : [ {
-							value : result.data.cpuUsages[result.data.cpuUsages.length - 1],
-							name : 'CPU'
-						} ]
-					}, {
-						name : 'NETWORK',
-						type : 'gauge',
-						center : [ '15%', '55%' ], // 默认全局居中
-						radius : '50%',
-						min : 0,
-						max : 5000,
-						endAngle : 0,
-						splitNumber : 5,
-						axisLine : { // 坐标轴线
-							lineStyle : { // 属性lineStyle控制线条样式
-								width : 8
-							}
-						},
-						axisTick : { // 坐标轴小标记
-							length : 12, // 属性length控制线长
-							lineStyle : { // 属性lineStyle控制线条样式
-								color : 'auto'
-							}
-						},
-						splitLine : { // 分隔线
-							length : 20, // 属性length控制线长
-							lineStyle : { // 属性lineStyle（详见lineStyle）控制线条样式
-								color : 'auto'
-							}
-						},
-						pointer : {
-							width : 5
-						},
-						title : {
-							offsetCenter : [ '0', '0' ], // x, y，单位px
-						},
-						detail : {
-							textStyle : { // 其余属性默认使用全局文本样式，详见TEXTSTYLE
-								fontWeight : 'bolder'
-							}
-						},
-						data : [ {
-							value : result.data.niUsages[result.data.niUsages.length - 1],
-							name : 'NI'
-						} ]
-					}, {
-						name : 'JVM',
-						type : 'gauge',
-						center : [ '85%', '50%' ], // 默认全局居中
-						radius : '50%',
-						min : 0,
-						max : 100,
-						startAngle : 135,
-						endAngle : 45,
-						splitNumber : 10,
-						axisLine : { // 坐标轴线
-							lineStyle : { // 属性lineStyle控制线条样式
-								width : 8
-							}
-						},
-						axisTick : { // 坐标轴小标记
-							splitNumber : 5,
-							length : 10, // 属性length控制线长
-							lineStyle : { // 属性lineStyle控制线条样式
-								color : 'auto'
-							}
-						},
-						axisLabel : {
-							formatter : function(v) {
-								switch (v + '') {
-								case '0':
-									return 'L';
-								case '80':
-									return 'W';
-								case '100':
-									return 'H';
-								}
-							}
-						},
-						splitLine : { // 分隔线
-							length : 15, // 属性length控制线长
-							lineStyle : { // 属性lineStyle（详见lineStyle）控制线条样式
-								color : 'auto'
-							}
-						},
-						pointer : {
-							width : 2
-						},
-						title : {
-							show : false
-						},
-						detail : {
-							show : false
-						},
-						data : [ {
-							value : result.data.jvmUsages[result.data.jvmUsages.length - 1],
-							name : 'JVM'
-						} ]
-					}, {
-						name : 'RAM',
-						type : 'gauge',
-						center : [ '85%', '50%' ], // 默认全局居中
-						radius : '50%',
-						min : 0,
-						max : 100,
-						startAngle : 315,
-						endAngle : 225,
-						splitNumber : 10,
-						axisLine : { // 坐标轴线
-							lineStyle : { // 属性lineStyle控制线条样式
-								width : 8
-							}
-						},
-						axisTick : { // 坐标轴小标记
-							show : false
-						},
-						axisLabel : {
-							formatter : function(v) {
-								switch (v + '') {
-								case '0':
-									return 'L';
-								case '80':
-									return 'W';
-								case '100':
-									return 'H';
-								}
-							}
-						},
-						splitLine : { // 分隔线
-							length : 15, // 属性length控制线长
-							lineStyle : { // 属性lineStyle（详见lineStyle）控制线条样式
-								color : 'auto'
-							}
-						},
-						pointer : {
-							width : 2
-						},
-						title : {
-							show : false
-						},
-						detail : {
-							show : false
-						},
-						data : [ {
-							value : result.data.ramUsages[result.data.ramUsages.length - 1],
-							name : 'RAM'
-						} ]
-					} ]
-				};
-				gauge.setOption(gaugeOption);
-			}, 'json')
-		}
+		$('.btn-primary').on('click', function() {
+			var that = this;
+			if ($('.form-horizontal').validation(function(status, dom, errorMsg, defaultValue) {
+				status ? function() {
+					$(dom).parent().parent().removeClass('has-error').addClass('has-success');
+				}.call() : function() {
+					validationFail(errorMsg, dom);
+					$(dom).parent().parent().removeClass('has-success').addClass('has-error');
+				}.call();
+			})) {
+				$.post(getRootPath() + '/team/create', $('.form-horizontal').serialize(), function(result) {
+					if (result.operationState == 'SUCCESS') {
+						validationFail('添加团队 ' + result.data.team.name + ' 成功', $(that));
+						setTimeout(function() {
+							location.href = '${base}'
+						}, 2000);
+					} else {
+						validationFail(result.data.reason, $(that));
+					}
+				}, 'json')
+			}
+		})
 	})
-//-->
 </script>
 <!--# } #-->

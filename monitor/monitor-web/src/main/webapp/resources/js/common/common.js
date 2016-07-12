@@ -1,24 +1,4 @@
 $(function() {
-	if (!!KindEditor) {
-		KindEditor.lang({
-			preview : '预览'
-		});
-		if (KindEditor) {
-			KindEditor.plugin('preview', function(K) {
-				var self = this, name = 'preview';
-				self.clickToolbar(name, function() {
-					layer.open({
-						title : '内容预览',
-						type : 1,
-						skin : 'layui-layer-rim',
-						area : [ '640px', '960px' ],
-						content : self.html()
-					});
-				});
-			});
-		}
-	}
-
 	console.log("common.js is runnning...");
 	// 收回展开效果
 	$('.dropdown-toggle').on('click', function() {
@@ -53,6 +33,7 @@ $(function() {
 	});
 	// 返回按钮
 	$('.btn-back').on('click', function() {
+		console.log(1)
 		history.go(-1);
 	});
 	// 删除按钮功能
@@ -73,8 +54,27 @@ $(function() {
 					showMessage(result.data.reason);
 				}
 			}, 'json');
-
 		});
+
+		if (!!KindEditor) {
+			KindEditor.lang({
+				preview : '预览'
+			});
+			if (KindEditor) {
+				KindEditor.plugin('preview', function(K) {
+					var self = this, name = 'preview';
+					self.clickToolbar(name, function() {
+						layer.open({
+							title : '内容预览',
+							type : 1,
+							skin : 'layui-layer-rim',
+							area : [ '640px', '960px' ],
+							content : self.html()
+						});
+					});
+				});
+			}
+		}
 	});
 	// 弹窗返回按钮
 	$('.btn-dialog-undo').on('click', function() {

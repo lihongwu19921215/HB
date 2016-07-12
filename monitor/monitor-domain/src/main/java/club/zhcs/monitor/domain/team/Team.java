@@ -5,6 +5,7 @@ import java.util.Date;
 import org.nutz.dao.entity.annotation.Column;
 import org.nutz.dao.entity.annotation.Comment;
 import org.nutz.dao.entity.annotation.Table;
+import org.nutz.lang.Times;
 
 import club.zhcs.titans.utils.db.po.Entity;
 
@@ -34,7 +35,7 @@ public class Team extends Entity {
 
 	@Column("t_create_time")
 	@Comment("团队创建时间")
-	private Date createTime;
+	private Date createTime = Times.now();
 
 	@Column("t_app_limit")
 	@Comment("应用限量")
