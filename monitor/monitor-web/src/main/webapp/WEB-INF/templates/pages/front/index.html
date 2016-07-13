@@ -93,12 +93,13 @@ layout("/layout/madmin.html",{'breadCrumbs': [{'name':'主页','icon':'home','ur
 		</div>
 	</div>
 </div>
-<script type="text/javascript" src="${base}/resources/asset/js/echarts.js"></script>
+<script type="text/javascript" src="${base}/resources/echarts/echarts.js"></script>
+<script type="text/javascript" src="${base}/resources/echarts/dark.js"></script>
 <script type="text/javascript">
 <!--
 	$(function() {
-		var line = echarts.init($('#bar-chart')[0]);
-		gauge = echarts.init($('#gauge')[0]);
+		var line = echarts.init($('#bar-chart')[0],'dark');
+		gauge = echarts.init($('#gauge')[0],'dark');
 		showEcharts();
 		setInterval(function() {
 			showEcharts()
@@ -245,7 +246,7 @@ layout("/layout/madmin.html",{'breadCrumbs': [{'name':'主页','icon':'home','ur
 						radius : '30%',
 						min : 0,
 						max : 5000,
-						endAngle : 0,
+						endAngle : 45,
 						splitNumber : 5,
 						axisLine : { // 坐标轴线
 							lineStyle : { // 属性lineStyle控制线条样式

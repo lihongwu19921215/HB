@@ -20,13 +20,13 @@
 		<module>monitor-service</module>
 		<module>monitor-web</module>
 	</modules>
-	
+
 	<repositories>
-		 <repository>
-            <id>kerbores nexus</id>
-            <name>Team Nexus Repository</name>
-            <url>http://maven.kerbores.com/nexus/content/groups/public</url>
-        </repository>
+		<repository>
+			<id>kerbores nexus</id>
+			<name>Team Nexus Repository</name>
+			<url>http://maven.kerbores.com/nexus/content/groups/public</url>
+		</repository>
 	</repositories>
 	<dependencies>
 
@@ -149,6 +149,12 @@
 			<groupId>com.squareup.retrofit2</groupId>
 			<artifactId>retrofit</artifactId>
 			<version>2.1.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>cn.easyproject</groupId>
+			<artifactId>easyocr</artifactId>
+			<version>3.0.4-RELEASE</version>
 		</dependency>
 
 
