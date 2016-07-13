@@ -199,14 +199,6 @@ public class MainModule extends AbstractBaseModule {
 		return Result.fail("激活地址不正确,请确认!");
 	}
 
-	@At
-	@POST
-	@Ok("beetl:pages/front/login.html")
-	@Filters
-	public Result login(NutMap data) {
-		return Result.success().setTitle("控制台");
-	}
-
 	@At("/admin")
 	@Ok("jsp:/login")
 	@Filters

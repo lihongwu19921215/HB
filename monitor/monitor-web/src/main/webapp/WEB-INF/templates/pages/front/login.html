@@ -66,7 +66,7 @@ layout("/layout/register_login.html"){
 						location.href = '${base}'
 					} else {
 						$('.captchaRefresh').find('img').attr('src', getRootPath() + "/captcha?" + Math.random());
-						validationFail(result.data.reason, $(this));
+						validationFail(result.data.reason, $('.btn-primary'));
 					}
 				}, 'json')
 			}
