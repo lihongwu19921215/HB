@@ -22,6 +22,7 @@ import org.nutz.mvc.annotation.Fail;
 import org.nutz.mvc.annotation.Filters;
 import org.nutz.mvc.annotation.GET;
 import org.nutz.mvc.annotation.IocBy;
+import org.nutz.mvc.annotation.Localization;
 import org.nutz.mvc.annotation.Modules;
 import org.nutz.mvc.annotation.Ok;
 import org.nutz.mvc.annotation.POST;
@@ -68,6 +69,7 @@ import club.zhcs.titans.utils.db.Result;
 @Filters({ @By(type = CheckSession.class, args = { SessionKeys.USER_KEY, "/login" }) })
 @SetupBy(MonitorSetup.class)
 @ChainBy(type = MonitorChainMaker.class, args = {})
+@Localization(value = "msg/", defaultLocalizationKey = "zh-CN")
 public class MainModule extends AbstractBaseModule {
 
 	@Inject
