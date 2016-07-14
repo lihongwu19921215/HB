@@ -37,7 +37,7 @@
 
 <script type="text/javascript">
 	var contextPath = '${base}';
-	var msg ='${msg}'
+	var msg = '${msg}'
 </script>
 <script src="${base}/resources/madmin/js/jquery-1.10.2.min.js"></script>
 </head>
@@ -54,23 +54,30 @@
 					<button type="button" data-toggle="collapse" data-target=".sidebar-collapse" class="navbar-toggle">
 						<span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
 					</button>
-					<a id="logo" href="${base}" class="navbar-brand"><span class="fa fa-rocket"></span><span class="logo-text">µAdmin</span><span style="display: none"
-						class="logo-text-icon">µ</span></a>
+					<a id="logo" href="${base}" class="navbar-brand"><span class="fa fa-rocket"></span><span class="logo-text">µAdmin</span><span style="display: none" class="logo-text-icon">µ</span></a>
 				</div>
 				<div class="topbar-main">
 					<form id="topbar-search" action="#" method="GET" class="hidden-xs">
 						<div class="input-group">
-							<input type="text" placeholder="输入你想检索的内容" class="form-control" /><span class="input-group-btn"><a href="javascript:;" class="btn submit"><i class="fa fa-search"></i></a></span>
+							<input type="text" placeholder="${msg['search']}" class="form-control" /><span class="input-group-btn"><a href="javascript:;" class="btn submit"><i
+									class="fa fa-search"></i></a></span>
 						</div>
 					</form>
 					<ul class="nav navbar navbar-top-links navbar-right mbn">
+						<li class="dropdown"><a data-hover="dropdown" href="#" class="dropdown-toggle"><i class="fa fa-flag fa-fw"></i></a>
+							<ul class="dropdown-menu dropdown-user pull-right">
+								<li  onclick="switchLocale('zh-CN')"><a href="javascript:;"><i class="fa fa-cny"></i>中文</a></li>
+								<li onclick="switchLocale('en')"><a href="javascript:;" ><i class="fa fa-dollar"></i>English</a></li>
+							</ul></li>
+
 						<li class="dropdown"><a data-hover="dropdown" href="#" class="dropdown-toggle"><i class="fa fa-qrcode fa-fw"></i></a>
 							<ul class="dropdown-menu dropdown-alerts">
 								<li>
-									<p>扫描关注微信服务号</p>
+									<p>${msg['scanToAttention']}</p>
 								</li>
 								<li><img src="${base}/resources/madmin/images/qrcode.png" width="250" /></li>
 							</ul></li>
+
 						<li class="dropdown"><a data-hover="dropdown" href="#" class="dropdown-toggle"><i class="fa fa-bell fa-fw"></i><span class="badge badge-green">14</span></a>
 							<ul class="dropdown-menu dropdown-alerts">
 								<li>
@@ -174,8 +181,8 @@
 								<li class="last"><a href="email-view-mail.html" target="_blank">Read all messages</a></li>
 							</ul></li>
 						<!--# if(loginUser() != null){  #-->
-						<li class="dropdown topbar-user"><a data-hover="dropdown" href="#" class="dropdown-toggle"><img src="${base}/resources/ace/avatars/user.jpg"
-								alt="" class="img-responsive img-circle" />&nbsp;<span class="hidden-xs">${loginUser().nickName}</span>&nbsp;<span class="caret"></span> </a>
+						<li class="dropdown topbar-user"><a data-hover="dropdown" href="#" class="dropdown-toggle"><img src="${base}/resources/ace/avatars/user.jpg" alt=""
+								class="img-responsive img-circle" />&nbsp;<span class="hidden-xs">${loginUser().nickName}</span>&nbsp;<span class="caret"></span> </a>
 							<ul class="dropdown-menu dropdown-user pull-right">
 								<li><a href="extra-profile.html"><i class="fa fa-user"></i>我的资料</a></li>
 								<li class="divider"></li>
@@ -221,8 +228,9 @@
 			<nav id="sidebar" role="navigation" class="navbar-default navbar-static-side">
 				<div class="sidebar-collapse menu-scroll">
 					<ul id="side-menu" class="nav">
-						<li class="${active =='dashbord' ? 'active' : ''}"><a href="${base}"><i class="fa fa-tachometer fa-fw"><div class="icon-bg bg-orange"></div></i><span class="menu-title">控制台</span></a></li>
-						<li class="${active =='team' ? 'active' : ''}"><a href="#"><i class="fa fa-group fa-fw"><div class="icon-bg bg-pink"></div></i><span class="menu-title">团队</span></a>
+						<li class="${active =='dashbord' ? 'active' : ''}"><a href="${base}"><i class="fa fa-tachometer fa-fw"><div class="icon-bg bg-orange"></div></i><span
+								class="menu-title">${msg['dashbord']}</span></a></li>
+						<li class="${active =='team' ? 'active' : ''}"><a href="#"><i class="fa fa-group fa-fw"><div class="icon-bg bg-pink"></div></i><span class="menu-title">${msg['team']}</span></a>
 							<ul class="nav nav-second-level">
 								<li><a href="frontend-one-page.html"><i class="fa fa-rocket"></i><span class="submenu-title">One Page</span></a></li>
 								<li><a href="frontend-one-page.html"><i class="fa fa-rocket"></i><span class="submenu-title">One Page</span></a></li>
@@ -230,10 +238,11 @@
 								<li><a href="frontend-one-page.html"><i class="fa fa-rocket"></i><span class="submenu-title">One Page</span></a></li>
 								<li><a href="${base}/team/create"><i class="fa fa-plus"></i><span class="submenu-title">新建团队</span></a></li>
 							</ul></li>
-						<li class="${active =='ftp' ? 'active' : ''}"><a href="index.html"><i class="fa fa-hdd-o fa-fw"><div class="icon-bg bg-orange"></div></i><span class="menu-title">FTP</span></a></li>
-						<li class="${active =='db' ? 'active' : ''}"><a href="index.html"><i class="fa fa-database fa-fw"><div class="icon-bg bg-orange"></div></i><span class="menu-title">数据库</span></a></li>
-						<li class="${active =='app' ? 'active' : ''}"><a href="index.html"><i class="fa fa-server fa-fw"><div class="icon-bg bg-orange"></div></i><span class="menu-title">应用程序</span></a></li>
-						<li class="${active =='setting' ? 'active' : ''}"><a href="animations.html"><i class="fa fa-cogs fa-fw"><div class="icon-bg bg-green"></div></i><span class="menu-title">设置</span></a></li>
+						<li class="${active =='ftp' ? 'active' : ''}"><a href="index.html"><i class="fa fa-hdd-o fa-fw"><div class="icon-bg bg-orange"></div></i><span class="menu-title">${msg['FTP']}</span></a></li>
+						<li class="${active =='db' ? 'active' : ''}"><a href="index.html"><i class="fa fa-database fa-fw"><div class="icon-bg bg-orange"></div></i><span class="menu-title">${msg['db']}</span></a></li>
+						<li class="${active =='app' ? 'active' : ''}"><a href="index.html"><i class="fa fa-server fa-fw"><div class="icon-bg bg-orange"></div></i><span class="menu-title">${msg['application']}</span></a></li>
+						<li class="${active =='setting' ? 'active' : ''}"><a href="animations.html"><i class="fa fa-cogs fa-fw"><div class="icon-bg bg-green"></div></i><span
+								class="menu-title">${msg['setting']}</span></a></li>
 					</ul>
 				</div>
 			</nav>
@@ -295,7 +304,7 @@
 	<script src="${base}/resources/madmin/vendors/calendar/zabuto_calendar.min.js"></script>
 	<script src="${base}/resources/madmin/vendors/sco.message/sco.message.js"></script>
 	<script src="${base}/resources/madmin/vendors/intro.js/intro.js"></script>
-	
+
 	<script src="${base}/resources/layer/layer.js"></script>
 	<script src="${base}/resources/layer/extend/layer.ext.js"></script>
 	<script src="${base}/resources/js/common/common.js"></script>

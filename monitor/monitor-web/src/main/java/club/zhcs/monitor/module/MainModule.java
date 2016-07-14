@@ -124,7 +124,6 @@ public class MainModule extends AbstractBaseModule {
 	@Ok("beetl:pages/front/index.html")
 	@Filters
 	public Result index() {
-		Mvcs.getReq().getSession(true);
 		return Result.success().setTitle("控制台");
 	}
 
@@ -158,6 +157,13 @@ public class MainModule extends AbstractBaseModule {
 		} else {
 			return Result.fail("验证码输入错误");
 		}
+	}
+
+	@At
+	@POST
+	@Filters
+	public Result switchLocale(@Param("locale") String locale) {
+		return Mvcs.setLocalizationKey(locale) ? Result.success() : Result.fail(Strings.equalsIgnoreCase(locale, "zh-CN") ? "设置失败" : "Setting failed!");
 	}
 
 	@At

@@ -76,6 +76,7 @@ $(function() {
 			}
 		}
 	});
+
 	// 弹窗返回按钮
 	$('.btn-dialog-undo').on('click', function() {
 		closePopWindow();
@@ -109,6 +110,18 @@ $(function() {
 		})
 	}
 })
+
+function switchLocale(locale) {
+	$.post(getRootPath() + '/switchLocale', {
+		locale : locale
+	}, function(result) {
+		if (result.operationState == 'SUCCESS') {
+			location.reload(true);
+		} else {
+			showMessage(result.data.reason);
+		}
+	}, 'json')
+}
 
 /**
  * 通用JavaScript方法
