@@ -124,6 +124,7 @@ public class MainModule extends AbstractBaseModule {
 	@Ok("beetl:pages/front/index.html")
 	@Filters
 	public Result index() {
+		Mvcs.getReq().getSession(true);// 哈哈,你猜猜我能有什么用
 		return Result.success().setTitle("控制台");
 	}
 
