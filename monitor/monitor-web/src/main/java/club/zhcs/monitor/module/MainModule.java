@@ -46,7 +46,6 @@ import club.zhcs.titans.nutz.captcha.JPEGView;
 import club.zhcs.titans.nutz.module.base.AbstractBaseModule;
 import club.zhcs.titans.utils.codec.DES;
 import club.zhcs.titans.utils.db.Result;
-import cn.easyproject.easyocr.EasyOCR;
 
 /**
  * 
@@ -72,11 +71,6 @@ import cn.easyproject.easyocr.EasyOCR;
 @ChainBy(type = MonitorChainMaker.class, args = {})
 @Localization(value = "msg/", defaultLocalizationKey = "zh-CN")
 public class MainModule extends AbstractBaseModule {
-
-	public static void main(String[] args) {
-		EasyOCR ocr = new EasyOCR();
-		System.err.println(ocr.discern("C:\\Users\\Kerbores\\Desktop\\captcha.jpg"));
-	}
 
 	@Inject
 	APMTask apmTask;
