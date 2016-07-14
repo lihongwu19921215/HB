@@ -53,8 +53,6 @@ public class TeamService extends BaseService<Team> {
 		teamUser.setTeamId(team.getId());
 		teamUser.setUserId(user.getId());
 
-		teamUser = teamUserService.save(teamUser);
-
 		return teamUserService.save(teamUser) == null ? Result.fail("添加团队失败!") : Result.success().addData("team", team);
 	}
 }
