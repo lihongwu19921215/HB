@@ -41,12 +41,19 @@ public class TeamService extends BaseService<Team> {
 	public Result createTeam(Team team, User user) {
 		/**
 		 * 1.检查团队是否存在<br>
-		 * 2.保存团队数据<br>
-		 * 3.设置用户为管理员<br>
+		 * 2.检查用户的团队数是否超过5个<br>
+		 * 3.保存团队数据<br>
+		 * 4.设置用户为管理员<br>
 		 */
 		if (fetch(Cnd.where("name", "=", team.getName())) != null) {
 			return Result.fail("团队 " + team.getName() + " 已经存在!");
 		}
+
+		// TODO 这里的数量理论上是可配置的,而且可以单独对用户进行配置
+		if (listTeam(user.getId()).size() >= 5) {
+			return Result.fail("个人最多只能创建5个团队!");
+		}
+
 		team = save(team);
 		if (team == null) {
 			return Result.fail("添加团队失败!");
