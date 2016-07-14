@@ -29,6 +29,25 @@ public class TeamUser extends Entity {
 	@Comment("用户id")
 	private int userId;
 
+	@Column("tu_u_is_admin")
+	@Comment("是否管理员标识")
+	private boolean admin;
+
+	/**
+	 * @return the admin
+	 */
+	public boolean isAdmin() {
+		return admin;
+	}
+
+	/**
+	 * @param admin
+	 *            the admin to set
+	 */
+	public void setAdmin(boolean admin) {
+		this.admin = admin;
+	}
+
 	/**
 	 * @return the teamId
 	 */

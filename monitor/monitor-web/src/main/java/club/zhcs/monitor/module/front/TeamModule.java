@@ -2,11 +2,14 @@ package club.zhcs.monitor.module.front;
 
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.mvc.annotation.At;
+import org.nutz.mvc.annotation.Attr;
 import org.nutz.mvc.annotation.GET;
 import org.nutz.mvc.annotation.Ok;
 import org.nutz.mvc.annotation.POST;
 import org.nutz.mvc.annotation.Param;
 
+import club.zhcs.monitor.Application.SessionKeys;
+import club.zhcs.monitor.domain.acl.User;
 import club.zhcs.monitor.domain.team.Team;
 import club.zhcs.monitor.service.team.TeamService;
 import club.zhcs.titans.nutz.module.base.AbstractBaseModule;
@@ -39,7 +42,8 @@ public class TeamModule extends AbstractBaseModule {
 
 	@At
 	@POST
-	public Result create(@Param("..") Team team) {
-		return teamService.save(team) == null ? Result.fail("添加团队失败!") : Result.success().addData("team", team);
+	public Result create(@Param("..") Team team, @Attr(SessionKeys.USER_KEY) User user) {
+
+		return teamService.createTeam(team, user);
 	}
 }
