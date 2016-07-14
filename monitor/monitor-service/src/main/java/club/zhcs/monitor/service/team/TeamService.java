@@ -1,6 +1,9 @@
 package club.zhcs.monitor.service.team;
 
+import java.util.List;
+
 import org.nutz.dao.Cnd;
+import org.nutz.dao.sql.Sql;
 import org.nutz.ioc.loader.annotation.Inject;
 
 import club.zhcs.monitor.domain.acl.User;
@@ -54,5 +57,16 @@ public class TeamService extends BaseService<Team> {
 		teamUser.setUserId(user.getId());
 
 		return teamUserService.save(teamUser) == null ? Result.fail("添加团队失败!") : Result.success().addData("team", team);
+	}
+
+	/**
+	 * @param id
+	 * @return
+	 */
+	public List<Team> listTeam(int id) {
+		// 需要缓存,不要每次都从数据库去获取
+		Sql sql = create("list.team.by.user.id");
+		sql.params().set("userId", id);
+		return searchObj(sql);
 	}
 }

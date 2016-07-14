@@ -238,10 +238,9 @@
 								class="menu-title">${msg['dashbord']}</span></a></li>
 						<li class="${active =='team' ? 'active' : ''}"><a href="#"><i class="fa fa-group fa-fw"><div class="icon-bg bg-pink"></div></i><span class="menu-title">${msg['team']}</span></a>
 							<ul class="nav nav-second-level">
-								<li><a href="frontend-one-page.html"><i class="fa fa-rocket"></i><span class="submenu-title">One Page</span></a></li>
-								<li><a href="frontend-one-page.html"><i class="fa fa-rocket"></i><span class="submenu-title">One Page</span></a></li>
-								<li><a href="frontend-one-page.html"><i class="fa fa-rocket"></i><span class="submenu-title">One Page</span></a></li>
-								<li><a href="frontend-one-page.html"><i class="fa fa-rocket"></i><span class="submenu-title">One Page</span></a></li>
+								<!--# for(team in team()){  #-->
+								<li><a href="${base}/team/${team.uuid!}"><i class="fa fa-rocket"></i><span class="submenu-title">${team.name!}</span></a></li>
+								<!--# }  #-->
 								<li><a href="${base}/team/create"><i class="fa fa-plus"></i><span class="submenu-title">新建团队</span></a></li>
 							</ul></li>
 						<li class="${active =='ftp' ? 'active' : ''}"><a href="index.html"><i class="fa fa-hdd-o fa-fw"><div class="icon-bg bg-orange"></div></i><span class="menu-title">${msg['FTP']}</span></a></li>

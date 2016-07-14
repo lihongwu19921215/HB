@@ -6,6 +6,7 @@ import org.nutz.dao.entity.annotation.Column;
 import org.nutz.dao.entity.annotation.Comment;
 import org.nutz.dao.entity.annotation.Table;
 import org.nutz.lang.Times;
+import org.nutz.lang.random.R;
 
 import club.zhcs.titans.utils.db.po.Entity;
 
@@ -29,6 +30,10 @@ public class Team extends Entity {
 	@Comment("团队名称")
 	private String name;
 
+	@Column("t_uuid")
+	@Comment("团队UUID")
+	private String uuid = R.UU16();
+
 	@Column("t_description")
 	@Comment("团队描述")
 	private String description;
@@ -48,6 +53,21 @@ public class Team extends Entity {
 	@Column("t_ftp_limit")
 	@Comment("FTP资源限量")
 	private int ftpLimit = 1;
+
+	/**
+	 * @return the uuid
+	 */
+	public String getUuid() {
+		return uuid;
+	}
+
+	/**
+	 * @param uuid
+	 *            the uuid to set
+	 */
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
 
 	/**
 	 * @return the appLimit
