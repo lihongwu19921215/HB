@@ -36,6 +36,7 @@ public class Application {
 		 * 用戶在session中保存的key
 		 */
 		public static final String USER_KEY = "KERBORES_USER";
+		public static final String TEAM_KEY = "KERBORES_TEAM";
 	}
 
 }

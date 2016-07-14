@@ -1,5 +1,6 @@
 package club.zhcs.monitor.module.front;
 
+import org.nutz.dao.Cnd;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.mvc.annotation.At;
 import org.nutz.mvc.annotation.Attr;
@@ -45,5 +46,13 @@ public class TeamModule extends AbstractBaseModule {
 	public Result create(@Param("..") Team team, @Attr(SessionKeys.USER_KEY) User user) {
 
 		return teamService.createTeam(team, user);
+	}
+
+	@At("/*")
+	@Ok("beetl:pages/front/team/detail.html")
+	public Result detail(String uuid) {
+		Team team = teamService.fetch(Cnd.where("uuid", "=", uuid));
+		_putSession(SessionKeys.TEAM_KEY, team);
+		return Result.success().addData("team", team);
 	}
 }

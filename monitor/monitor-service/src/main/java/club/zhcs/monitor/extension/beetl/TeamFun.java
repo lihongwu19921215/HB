@@ -1,11 +1,14 @@
 package club.zhcs.monitor.extension.beetl;
 
+import java.util.List;
+
 import org.beetl.core.Context;
 import org.beetl.core.Function;
 import org.nutz.mvc.Mvcs;
 
 import club.zhcs.monitor.Application.SessionKeys;
 import club.zhcs.monitor.domain.acl.User;
+import club.zhcs.monitor.domain.team.Team;
 import club.zhcs.monitor.service.team.TeamService;
 
 import com.google.common.collect.Lists;
@@ -41,8 +44,11 @@ public class TeamFun implements Function {
 		User user = (User) object;
 
 		TeamService teamService = Mvcs.getIoc().get(TeamService.class);
-
-		return teamService.listTeam(user.getId());
+		List<Team> teams = teamService.listTeam(user.getId());
+		if (teams.size() > 0) {
+			Mvcs.getReq().getSession().setAttribute(SessionKeys.TEAM_KEY, teams.get(0));
+		}
+		return teams;
 	}
 
 }
