@@ -1,6 +1,7 @@
 package club.zhcs.monitor.module;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -37,10 +38,12 @@ import club.zhcs.monitor.MonitorSetup;
 import club.zhcs.monitor.chain.MonitorChainMaker;
 import club.zhcs.monitor.domain.acl.User;
 import club.zhcs.monitor.domain.acl.User.Status;
+import club.zhcs.monitor.domain.team.Team;
 import club.zhcs.monitor.service.acl.RoleService;
 import club.zhcs.monitor.service.acl.ShiroUserService;
 import club.zhcs.monitor.service.acl.UserService;
 import club.zhcs.monitor.service.email.EmailService;
+import club.zhcs.monitor.service.team.TeamService;
 import club.zhcs.monitor.tasks.APMTask;
 import club.zhcs.titans.nutz.captcha.JPEGView;
 import club.zhcs.titans.nutz.module.base.AbstractBaseModule;
@@ -111,6 +114,8 @@ public class MainModule extends AbstractBaseModule {
 
 	private @Inject EmailService emailService;
 
+	private @Inject TeamService teamService;
+
 	@Inject
 	ShiroUserService shiroUserService;
 
@@ -152,7 +157,12 @@ public class MainModule extends AbstractBaseModule {
 			Result result = shiroUserService.login(user, password);
 			if (result.isSuccess()) {
 				// 登录成功处理
-				_putSession(SessionKeys.USER_KEY, result.getData().get("loginUser"));
+				User u = (User) result.getData().get("loginUser");
+				_putSession(SessionKeys.USER_KEY, u);
+				List<Team> teams = teamService.listTeam(u.getId());
+				if (teams != null && teams.size() > 0) {
+					_putSession(SessionKeys.TEAM_KEY, teams.get(0));
+				}
 			}
 			return result;
 		} else {

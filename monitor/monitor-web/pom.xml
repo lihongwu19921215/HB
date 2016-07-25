@@ -25,4 +25,5 @@
   		<version>${project.version}</version>
   	</dependency>
   </dependencies>
+  <description>监控中心</description>
 </project>
