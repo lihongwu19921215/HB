@@ -1,0 +1,61 @@
+<!--# 
+layout("/layout/madmin.html",{'breadCrumbs': [{'name':'主页','icon':'home','url':'/'},{'name':'FTP资源列表','active':'active'}] ,'active':'ftp'}){ 
+ #-->
+ <table class="table table-striped table-bordered table-hover">
+	<thead>
+		<tr>
+			<th colspan="6">
+				<div class="row">
+					<div class="col-md-3 ">
+						<form action="${base!}/permission/search" method="post" class="search-form">
+							<div class="input-group">
+								<span class="input-group-addon"> 关键词 </span> <input class="form-control search-query" type="text" name="key" value="${obj.data.pager.paras.key!}" data-type="reg"
+									data-reg="/^[\u4e00-\u9fa5\d\w]{1,}$/" data-default="Search..." data-error="请输入搜索关键词" placeholder="请输入搜索关键词"> <span class="input-group-addon  search-btn"
+									id="queryInfo" style="cursor: pointer;"> <i class="fa fa-search"></i> GO
+								</span>
+							</div>
+						</form>
+					</div>
+					<div class="col-md-2 col-md-offset-7">
+						<a href="${base}/ftp/add" class="btn btn-embossed btn-info btn-sm"><i class="fa fa-plus-circle"></i> 添加FTP</a>
+					</div>
+				</div>
+			</th>
+		</tr>
+		<tr class="center">
+			<th>ID</th>
+			<th>名称</th>
+			<th>地址</th>
+			<th>端口</th>
+			<th>类型</th>
+			<th>操作</th>
+		</tr>
+	</thead>
+
+	<tbody>
+		<!--# for(ftp in obj.data.pager.entities){ #-->
+		<tr>
+			<td class="center">${ftp.uuid!}</td>
+			<td>${ftp.name!}</td>
+			<td>${ftp.name!}</td>
+			<td>${ftp.name!}</td>
+			<td>${ftp.name!}</td>
+			<td>${permission.uuid!}</td>
+		</tr>
+		<!--# } #-->
+	</tbody>
+	<tfoot>
+		<!--#if(obj.data.pager.count == 0){  #-->
+		<tr>
+			<td colspan="6" class="null-pager">没有符合条件的数据</td>
+		</tr>
+		<!--# }else{ #-->
+		<tr>
+			<td colspan="6">
+				<div class="pull-right">${obj.data.pager.pagerBar!}</div>
+			</td>
+		</tr>
+		<!--# }#-->
+	</tfoot>
+</table>
+<!--# } #-->

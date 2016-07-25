@@ -242,7 +242,7 @@
 								<!--# }  #-->
 								<li><a href="${base}/team/create"><i class="fa fa-plus"></i><span class="submenu-title">新建团队</span></a></li>
 							</ul></li>
-						<li class="${active =='ftp' ? 'active' : ''}"><a href="index.html"><i class="fa fa-hdd-o fa-fw"><div class="icon-bg bg-orange"></div></i><span class="menu-title">${msg['FTP']}</span></a></li>
+						<li class="${active =='ftp' ? 'active' : ''}"><a href="${base}/ftp"><i class="fa fa-hdd-o fa-fw"><div class="icon-bg bg-orange"></div></i><span class="menu-title">${msg['FTP']}</span></a></li>
 						<li class="${active =='db' ? 'active' : ''}"><a href="index.html"><i class="fa fa-database fa-fw"><div class="icon-bg bg-orange"></div></i><span class="menu-title">${msg['db']}</span></a></li>
 						<li class="${active =='app' ? 'active' : ''}"><a href="index.html"><i class="fa fa-server fa-fw"><div class="icon-bg bg-orange"></div></i><span class="menu-title">${msg['application']}</span></a></li>
 						<li class="${active =='setting' ? 'active' : ''}"><a href="animations.html"><i class="fa fa-cogs fa-fw"><div class="icon-bg bg-green"></div></i><span
@@ -263,7 +263,7 @@
 						<!--# if(breadCrumbLP.index !=1){  #-->
 						<li><i class="fa fa-angle-double-right"></i></li>
 						<!--# } #-->
-						<li class="${breadCrumb.active!}"><i class="fa fa-${breadCrumb.icon!}"></i>&nbsp;<a href="${base}${breadCrumb.url!}">${breadCrumb.name}</a></li>
+						<li class="${breadCrumb.active!}"><i class="fa fa-${breadCrumb.icon!}"></i>&nbsp;<a href="${breadCrumb.url == null ? '#':base+breadCrumb.url}">${breadCrumb.name}</a></li>
 						<!--# } #-->
 					</ol>
 					<div class="clearfix"></div>
