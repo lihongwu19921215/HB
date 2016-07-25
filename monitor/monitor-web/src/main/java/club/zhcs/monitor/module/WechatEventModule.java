@@ -13,6 +13,7 @@ import org.nutz.mvc.annotation.Filters;
 import org.nutz.weixin.bean.WxInMsg;
 import org.nutz.weixin.bean.WxOutMsg;
 import org.nutz.weixin.impl.AbstractWxHandler;
+import org.nutz.weixin.repo.com.qq.weixin.mp.aes.WXBizMsgCrypt;
 import org.nutz.weixin.spi.WxApi2;
 import org.nutz.weixin.spi.WxHandler;
 import org.nutz.weixin.util.Wxs;
@@ -107,6 +108,11 @@ public class WechatEventModule extends AbstractBaseModule {
 		public WxOutMsg eventUnsubscribe(WxInMsg msg) {
 			// 将客户状态设置为禁用
 			return defaultMsg(msg);
+		}
+
+		@Override
+		public WXBizMsgCrypt getMsgCrypt() {
+			return null;
 		}
 	};
 
