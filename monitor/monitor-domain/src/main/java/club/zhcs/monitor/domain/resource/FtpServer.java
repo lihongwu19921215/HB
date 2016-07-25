@@ -20,6 +20,10 @@ import org.nutz.dao.entity.annotation.Table;
 @Comment("ftp服务器")
 public class FtpServer extends Resource {
 
+	{
+		setResourceType(ResourceType.FTP);
+	}
+
 	@Column("ftp_type")
 	@Comment("ftp服务类型")
 	private Type type = Type.FTP;

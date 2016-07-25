@@ -22,6 +22,9 @@ import org.nutz.lang.Lang;
 @Comment("数据库资源")
 public class DataBase extends Resource {
 
+	{
+		setResourceType(ResourceType.DATABASE);
+	}
 	@Column("d_type")
 	@Comment("数据库类型")
 	private DB type;
