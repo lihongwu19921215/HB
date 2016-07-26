@@ -160,7 +160,7 @@ public class APMTask implements Job {
 	 */
 	@Override
 	public void execute(JobExecutionContext context) throws JobExecutionException {
-		add(timePoints, Times.format("HH:mm:ss", Times.now()));
+
 		try {
 			Sigar sigar = new Sigar();
 			MemoryGather memory = MemoryGather.gather(sigar);
@@ -178,9 +178,6 @@ public class APMTask implements Job {
 					alarm(Type.MEM, "内存警告", "SWAP", swapUsage, config.getInt("swap.alarm.percent"));
 				}
 			}
-			add(jvmUsages, jvmUsage);
-			add(ramUsages, ramUsage);
-			add(swapUsages, swapUsage);
 
 			CPUGather cpu = CPUGather.gather(sigar);
 
@@ -208,6 +205,10 @@ public class APMTask implements Job {
 			if ((noUsage = ni.getTxbps() * 100 / ni.getStat().getSpeed()) > config.getInt("network.alarm.percent")) {
 				alarm(Type.NETWORK, "流量警告", "NETWORK", noUsage, config.getInt("network.alarm.percent"));
 			}
+			add(timePoints, Times.format("HH:mm:ss", Times.now()));
+			add(jvmUsages, jvmUsage);
+			add(ramUsages, ramUsage);
+			add(swapUsages, swapUsage);
 			add(cpuUsages, cpuUsage);
 			add(niUsages, niUsage);
 			add(noUsages, noUsage);
