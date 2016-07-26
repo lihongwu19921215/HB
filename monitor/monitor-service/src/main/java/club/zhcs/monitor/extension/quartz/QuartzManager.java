@@ -13,6 +13,7 @@ import org.quartz.SchedulerException;
 import org.quartz.TriggerBuilder;
 
 import club.zhcs.monitor.domain.resource.FtpServer;
+import club.zhcs.monitor.domain.resource.Resource.TESTINGPERIOD;
 
 /**
  * 
@@ -55,7 +56,6 @@ public class QuartzManager {
 	public void addJob(String jobName, String jobGroup, String triggerName, String triggerGroup, Class<? extends Job> job, String cron, JobDataMap data) throws SchedulerException {
 
 		JobDetail jobDetail = JobBuilder.newJob(job).withIdentity(jobName, jobGroup).usingJobData(data).build();
-
 		CronTrigger trigger = TriggerBuilder.newTrigger().withIdentity(triggerName, triggerGroup).withSchedule(CronScheduleBuilder.cronSchedule(cron)).build();
 
 		scheduler.scheduleJob(jobDetail, trigger);
@@ -72,11 +72,10 @@ public class QuartzManager {
 	 * @throws SchedulerException
 	 */
 	public void addFtpCheckJob(FtpServer server) throws SchedulerException {
-		// TODO 固定频率而非cron设置的
 		JobDataMap data = new JobDataMap();
 		data.put("ftpServer", server);
-		addJob(server.getUuid(), server.getOwnerType() + "_" + server.getOwnerId(), "FTPCHECKTRIGGER", "FTPCHECKTRIGGER" + server.getOwnerId(), FTPMonitorJob.class,
-				server.getTaskCron(), data);
+		String cron = server.getTestingperiod() == TESTINGPERIOD.Other ? server.getTaskCron() : server.getTestingperiod().getCron();
+		addJob(server.getUuid(), server.getOwnerType() + "_" + server.getOwnerId(), "FTPCHECKTRIGGER", "FTPCHECKTRIGGER" + server.getOwnerId(), FTPMonitorJob.class, cron, data);
 	}
 
 	// /**

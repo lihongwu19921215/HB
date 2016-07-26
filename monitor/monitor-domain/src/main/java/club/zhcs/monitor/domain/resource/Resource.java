@@ -46,7 +46,7 @@ public class Resource extends Entity {
 
 	@Column("r_test_period")
 	@Comment("监测周期")
-	private TESTINGPERIOD testingperiod;
+	private TESTINGPERIOD testingperiod = TESTINGPERIOD.Other;
 
 	@Column("r_task_cron")
 	@Comment("任务Cron表达式")
