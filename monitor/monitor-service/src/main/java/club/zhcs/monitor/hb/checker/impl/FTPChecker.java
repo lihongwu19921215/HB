@@ -3,6 +3,7 @@ package club.zhcs.monitor.hb.checker.impl;
 import java.io.IOException;
 
 import org.apache.commons.net.ftp.FTPClient;
+import org.nutz.ioc.loader.annotation.IocBean;
 import org.nutz.lang.Lang;
 
 import club.zhcs.monitor.domain.record.MonitorRecord;
@@ -27,6 +28,7 @@ import com.jcraft.jsch.Session;
  *
  * @createTime 2016年7月27日 上午9:39:49
  */
+@IocBean
 public class FTPChecker implements Checker {
 
 	/*

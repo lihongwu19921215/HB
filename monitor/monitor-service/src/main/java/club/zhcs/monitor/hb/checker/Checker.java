@@ -1,6 +1,5 @@
 package club.zhcs.monitor.hb.checker;
 
-import org.nutz.ioc.loader.annotation.IocBean;
 import org.nutz.log.Log;
 import org.nutz.log.Logs;
 
@@ -19,7 +18,6 @@ import club.zhcs.monitor.domain.resource.Resource;
  *
  * @createTime 2016年7月27日 上午9:37:01
  */
-@IocBean
 public interface Checker {
 
 	Log log = Logs.get();

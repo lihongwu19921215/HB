@@ -39,6 +39,7 @@ import club.zhcs.monitor.chain.MonitorChainMaker;
 import club.zhcs.monitor.domain.acl.User;
 import club.zhcs.monitor.domain.acl.User.Status;
 import club.zhcs.monitor.domain.team.Team;
+import club.zhcs.monitor.hb.checker.impl.FTPChecker;
 import club.zhcs.monitor.service.acl.RoleService;
 import club.zhcs.monitor.service.acl.ShiroUserService;
 import club.zhcs.monitor.service.acl.UserService;
@@ -78,6 +79,9 @@ public class MainModule extends AbstractBaseModule {
 	@Inject
 	APMTask apmTask;
 
+	@Inject
+	FTPChecker ftpChecker;
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -91,6 +95,7 @@ public class MainModule extends AbstractBaseModule {
 	@At
 	@Filters
 	public Result hello() {
+		ftpChecker.check(null);
 		return Result.success().addData("msg", "Hello nutz-monitor!");
 	}
 
