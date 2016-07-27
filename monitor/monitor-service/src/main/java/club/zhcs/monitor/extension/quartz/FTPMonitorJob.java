@@ -9,9 +9,9 @@ import org.quartz.JobDetail;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
+import club.zhcs.monitor.domain.record.MonitorRecord;
 import club.zhcs.monitor.domain.resource.FtpServer;
-import club.zhcs.monitor.ftp.FTPConnectionChecker;
-import club.zhcs.titans.utils.db.Result;
+import club.zhcs.monitor.hb.checker.impl.FTPChecker;
 
 /**
  * 
@@ -19,7 +19,7 @@ import club.zhcs.titans.utils.db.Result;
  *
  * @email kerbores@kerbores.com
  *
- * @description FTP检测任务
+ * @description FTP检测任务,此处只管数据的收集
  * 
  * @copyright copyright©2016 zhcs.club
  *
@@ -29,7 +29,7 @@ import club.zhcs.titans.utils.db.Result;
 public class FTPMonitorJob implements Job {
 
 	@Inject
-	FTPConnectionChecker checker;
+	FTPChecker checker;
 
 	/*
 	 * (non-Javadoc)
@@ -47,10 +47,7 @@ public class FTPMonitorJob implements Job {
 		 * 2.检测资源可下载性<br>
 		 * 3.记录数据<br>
 		 */
-		Result conResult = checker.check(server.getType(), server.getServer(), server.getPort(), server.getUser(), server.getPassword());
-		if (!conResult.isSuccess()) {
-			// TODO 记录数据
-		}
-		// check download
+		MonitorRecord record = checker.check(server);
+		System.err.println(record);
 	}
 }

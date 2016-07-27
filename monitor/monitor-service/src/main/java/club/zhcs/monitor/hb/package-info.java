@@ -4,10 +4,10 @@
  *
  * @email kerbores@kerbores.com
  *
- * @description FTP
+ * @description 心跳
  * 
  * @copyright copyright©2016 zhcs.club
  *
- * @createTime 2016年7月26日 上午11:34:55
+ * @createTime 2016年7月27日 上午9:35:20
  */
-package club.zhcs.monitor.ftp;
+package club.zhcs.monitor.hb;

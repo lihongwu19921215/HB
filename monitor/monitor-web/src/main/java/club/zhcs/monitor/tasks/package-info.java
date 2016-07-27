@@ -4,7 +4,7 @@
  *
  * @email kerbores@kerbores.com
  *
- * @description 定时任务
+ * @description 定时任务,监控的告警扫描从这里来处理
  * 
  * @copyright copyright©2016 zhcs.club
  *
