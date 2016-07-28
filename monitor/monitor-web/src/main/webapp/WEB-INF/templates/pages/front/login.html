@@ -63,7 +63,7 @@ layout("/layout/register_login.html"){
 			})) {
 				$.post(getRootPath() + '/login', $('.form-horizontal').serialize(), function(result) {
 					if (result.operationState == 'SUCCESS') {
-						location.href = '${base}'
+						location.href = '${base}/'
 					} else {
 						$('.captchaRefresh').find('img').attr('src', getRootPath() + "/captcha?" + Math.random());
 						validationFail(result.data.reason, $('.btn-primary'));
