@@ -57,7 +57,6 @@ public class QuartzManager {
 
 		JobDetail jobDetail = JobBuilder.newJob(job).withIdentity(jobName, jobGroup).usingJobData(data).build();
 		CronTrigger trigger = TriggerBuilder.newTrigger().withIdentity(triggerName, triggerGroup).withSchedule(CronScheduleBuilder.cronSchedule(cron)).build();
-
 		scheduler.scheduleJob(jobDetail, trigger);
 		// 启动
 		if (!scheduler.isShutdown())
