@@ -46,6 +46,7 @@ public class QuartzService {
 	public void addResourceMonitorJob(Resource resource) {
 		JobDataMap data = new JobDataMap();
 		data.put("resource", resource);
+		// 组装一个 quartzJob对象,代码稍显复杂
 		QuartzJob job = new QuartzJob(JobKey.jobKey(resource.getName(), resource.getResourceType().getName()),
 				TriggerBuilder.newTrigger().withIdentity(resource.getName(), resource.getResourceType().getName())
 						.withSchedule(CronScheduleBuilder.cronSchedule(resource.getTaskCron())).build(),

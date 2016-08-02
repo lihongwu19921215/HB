@@ -16,6 +16,7 @@ import club.zhcs.monitor.domain.acl.User;
 import club.zhcs.monitor.domain.resource.FtpServer;
 import club.zhcs.monitor.domain.resource.FtpServer.Type;
 import club.zhcs.monitor.domain.resource.Resource.OwnerType;
+import club.zhcs.monitor.domain.resource.Resource.TESTINGPERIOD;
 import club.zhcs.monitor.domain.team.Team;
 import club.zhcs.monitor.service.resource.FTPServerService;
 import club.zhcs.titans.nutz.module.base.AbstractBaseModule;
@@ -57,6 +58,6 @@ public class FTPModule extends AbstractBaseModule {
 	@GET
 	@Ok("beetl:pages/front/ftp/add_edit.html")
 	public Result add() {
-		return Result.success().setTitle("添加FTP服务器").addData("types", Type.values());
+		return Result.success().setTitle("添加FTP服务器").addData("types", Type.values()).addData("testingperiods", TESTINGPERIOD.values());
 	}
 }

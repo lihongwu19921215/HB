@@ -1,83 +1,175 @@
 <!--# 
 layout("/layout/madmin.html",{'breadCrumbs': [{'name':'主页','icon':'home','url':'/'},{'name':'FTP列表','icon':'hdd-o','url':'/ftp'},{'name':(obj.data.ftp==null?"添加FTP服务器":"编辑FTP服务器"),'active':'active'}] ,'active':'ftp'}){ 
  #-->
+<link type="text/css" rel="stylesheet" href="${base!}/resources/madmin/vendors/jquery-bootstrap-wizard/custom.css">
+
 ${obj}
-<div class="space-4"></div>
+
 <div class="row">
-	<div class="col-md-8 col-md-offset-2 col-sm-12">
-		<div class="panel panel-info">
-			<div class="panel-heading">
-				<h3 class="panel-title">${obj.data.ftp==null ? "添加FTP":"编辑FTP"}</h3>
-			</div>
-			<div class="panel-body">
-				<form id="addUserForm" class="cmxform form-horizontal adminex-form" novalidate="novalidate">
-					<div class="form-group ">
-						<label for="用户名" class="control-label col-lg-3">资源名称 : </label>
-						<div class="col-lg-9">
-							<input class="form-control" type="text" placeholder="请输入资源名称" name="name" data-type='required' data-error='请输入资源名称' value="${obj.data.ftp.name!}" />
-						</div>
+	<div class="col-md-12">
+		<div class="col-lg-12">
+			<div class="portlet box portlet-green">
+				<div class="portlet-header">
+					<div class="caption">FTP 服务器${obj.data.ftp == null ? '添加' : '编辑'}向导</div>
+					<div class="tools">
+						<i class="fa fa-chevron-up"></i><i data-toggle="modal" data-target="#modal-config" class="fa fa-cog"></i><i class="fa fa-refresh"></i><i class="fa fa-times"></i>
 					</div>
-					<div class="form-group ">
-						<label class="control-label col-lg-3"> FTP类型 : </label>
-						<div class="col-lg-9">
-							<select class="form-control">
-								<!--# for(type in obj.data.types){ #-->
-								<option value="${type!}">${type!}</option>
-								<!--# } #-->
-							</select>
+				</div>
+				<div class="portlet-body">
+					<div id="rootwizard-custom-circle">
+						<div class="navbar">
+							<div class="navbar-inner">
+								<ul>
+									<li><a href="#tab1-wizard-custom-circle" data-toggle="tab"><i class="fa fa-hdd-o"></i>
+											<p class="anchor">1. FTP信息</p>
+											<p class="description">FTP 服务器连接信息</p></a></li>
+									<li><a href="#tab2-wizard-custom-circle" data-toggle="tab"><i class="fa fa-leaf"></i>
+											<p class="anchor">2. 资源通用信息</p>
+											<p class="description">受监控资源基本信息</p></a></li>
+									<li><a href="#tab3-wizard-custom-circle" data-toggle="tab"><i class="fa fa-tasks"></i>
+											<p class="anchor">3. 资源监测任务信息</p>
+											<p class="description">资源监测参数配置</p></a></li>
+									<li><a href="#tab4-wizard-custom-circle" data-toggle="tab"><i class="fa fa-check"></i>
+											<p class="anchor">4. 完成</p>
+											<p class="description">确认信息</p></a></li>
+								</ul>
+							</div>
 						</div>
-					</div>
-					<div class="form-group ">
-						<label class="control-label col-lg-3"> 服务器地址 : </label>
-						<div class="col-lg-9">
-							<input class="form-control" type="text" placeholder="请输入FTP服务器地址" name="server" data-type='required' data-error='请输入FTP服务器地址'>
+						<div id="bar" class="progress active">
+							<div class="bar progress-bar progress-bar-primary"></div>
 						</div>
-					</div>
+						<div class="tab-content">
+							<div id="tab1-wizard-custom-circle" class="tab-pane">
+								<div class="row">
+									<div class="col-md-8 col-md-offset-2">
+										<h3 class="mbxl">请填写 FTP 连接信息</h3>
+										<form action="#" class="form-horizontal">
+											<div class="form-group ">
+												<label class="control-label col-lg-3"> FTP类型 : </label>
+												<div class="col-lg-9">
+													<select class="form-control">
+														<!--# for(type in obj.data.types){ #-->
+														<option value="${type!}">${type!}</option>
+														<!--# } #-->
+													</select>
+												</div>
+											</div>
+											<div class="form-group ">
+												<label class="control-label col-lg-3"> 服务器地址 : </label>
+												<div class="col-lg-9">
+													<input class="form-control" type="text" placeholder="请输入FTP服务器地址" name="server" data-type='required' data-error='请输入FTP服务器地址'>
+												</div>
+											</div>
 
-					<div class="form-group ">
-						<label class="control-label col-lg-3"> FTP端口 : </label>
-						<div class="col-lg-9">
-							<input class="form-control" type="text" placeholder="请输入FTP服务器端口" name="port" data-type='integer' data-error='请输入FTP服务器端口'>
-						</div>
-					</div>
+											<div class="form-group ">
+												<label class="control-label col-lg-3"> FTP端口 : </label>
+												<div class="col-lg-9">
+													<input class="form-control" type="text" placeholder="请输入FTP服务器端口" name="port" data-type='integer' data-error='请输入FTP服务器端口'>
+												</div>
+											</div>
 
-					<div class="form-group ">
-						<label class="control-label col-lg-3"> FTP用户 : </label>
-						<div class="col-lg-9">
-							<input class="form-control" type="text" placeholder="请输入FTP服务用户" name="user" data-type='required' data-error='请输入FTP服务用户'>
-						</div>
-					</div>
-					<div class="form-group ">
-						<label class="control-label col-lg-3"> FTP密码 : </label>
-						<div class="col-lg-9">
-							<input class="form-control" type="password" placeholder="请输入FTP服务密码" name="password" data-type='password' data-error='请输入FTP服务密码'>
-						</div>
-					</div>
+											<div class="form-group ">
+												<label class="control-label col-lg-3"> FTP用户 : </label>
+												<div class="col-lg-9">
+													<input class="form-control" type="text" placeholder="请输入FTP服务用户" name="user" data-type='required' data-error='请输入FTP服务用户'>
+												</div>
+											</div>
+											<div class="form-group ">
+												<label class="control-label col-lg-3"> FTP密码 : </label>
+												<div class="col-lg-9">
+													<input class="form-control" type="password" placeholder="请输入FTP服务密码" name="password" data-type='password' data-error='请输入FTP服务密码'>
+												</div>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+							<div id="tab2-wizard-custom-circle" class="tab-pane">
+								<div class="row">
+									<div class="col-md-8 col-md-offset-2">
+										<h3 class="mbxl">资源基本信息</h3>
+										<form action="#" class="form-horizontal">
+											<div class="form-group ">
+												<label for="用户名" class="control-label col-lg-3">资源名称 : </label>
+												<div class="col-lg-9">
+													<input class="form-control" type="text" placeholder="请输入资源名称" name="name" data-type='required' data-error='请输入资源名称' value="${obj.data.ftp.name!}" />
+												</div>
+											</div>
 
-					<div class="form-group ">
-						<label class="control-label col-lg-3">FTP服务器描述:</label>
-						<div class="col-lg-9">
-							<input type="hidden" name="description" id="description">
-							<textarea rows="25" class="form-control" placeholder="请输入角色描述" name="content">${obj.data.ftp.description!}</textarea>
+											<div class="form-group ">
+												<label class="control-label col-lg-3">FTP服务器描述:</label>
+												<div class="col-lg-9">
+													<input type="hidden" name="description" id="description">
+													<textarea rows="25" class="form-control" placeholder="请输入角色描述" name="content">${obj.data.ftp.description!}</textarea>
+												</div>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+							<div id="tab3-wizard-custom-circle" class="tab-pane fadeIn">
+								<div class="row">
+									<div class="col-md-8 col-md-offset-2">
+										<h3 class="mbxl">资源受检任务信息</h3>
+										<form action="#" class="form-horizontal">
+											<div class="form-group ">
+												<label class="control-label col-lg-3"> 监测周期 : </label>
+												<div class="col-lg-9">
+													<select class="form-control">
+														<!--# for(p in obj.data.testingperiods){ #-->
+														<option value="${p.cron!}">${p.name!}</option>
+														<!--# } #-->
+													</select>
+												</div>
+											</div>
+											<div class="form-group ">
+												<label class="control-label col-lg-3"> 检测任务表达式 : </label>
+												<div class="col-lg-9">
+													<input class="form-control" type="text" placeholder="请输入FTP服务器地址" name="server" data-type='required' data-error='请输入FTP服务器地址'>
+												</div>
+											</div>
+
+											<div class="form-group ">
+												<label class="control-label col-lg-3"> 告警规则 EL 表达式 : </label>
+												<div class="col-lg-9">
+													<input class="form-control" type="text" placeholder="请输入FTP服务器端口" name="port" data-type='integer' data-error='请输入FTP服务器端口'>
+												</div>
+											</div>
+
+										</form>
+									</div>
+								</div>
+							</div>
+							<div id="tab4-wizard-custom-circle" class="tab-pane fadeIn">
+								<div class="row">
+									<div class="col-md-8 col-md-offset-2">
+										<h3 class="mbxl">资源添加成功!</h3>
+										<p>恭喜! 你成功的创建了 Ftp 监测资源.</p>
+										<p>点击完成将启动检测任务.</p>
+									</div>
+								</div>
+							</div>
+							<div class="action text-right">
+								<button type="button" name="previous" value="Previous" class="btn btn-info button-previous">
+									<i class="fa fa-arrow-circle-o-left mrx"></i>上一步
+								</button>
+								<button type="button" name="next" value="Next" class="btn btn-info button-next mlm">
+									下一步<i class="fa fa-arrow-circle-o-right mlx"></i>
+								</button>
+								<button type="button" name="next" value="Next" class="btn btn-info button-finsh mlm hide">
+									完成<i class="fa fa-bolt mlx"></i>
+								</button>
+							</div>
 						</div>
 					</div>
-
-					<input type="hidden" id="id" name="id" value="${obj.data.ftp.id!}">
-					<div class="pull-right" style="margin-right: 45px">
-						<button type="button" class="btn btn-sm btn-primary" onclick="save(this)">
-							<i class="fa fa-save"></i> 提交
-						</button>
-						<button class="btn btn-sm btn-default btn-back">
-							<i class="fa fa-undo"></i> 返回
-						</button>
-					</div>
-				</form>
+				</div>
 			</div>
 		</div>
 	</div>
 </div>
 <script charset="utf-8" src="${base!}/resources/kindeditor/kindeditor-min.js"></script>
 <script charset="utf-8" src="${base!}/resources/kindeditor/lang/zh_CN.js"></script>
+<script src="${base!}/resources/madmin/vendors/jquery-bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
 <script type="text/javascript">
 <!--
 	var editor;
@@ -87,7 +179,77 @@ ${obj}
 			editor = K.create('textarea[name="content"]', {
 				uploadJson : getRootPath() + '/kind/upload'
 			});
-		})
+		});
+		setTimeout(function() {
+			$('.ke-container')[0].style.width = '100%';
+		}, 1000);
+		$('#rootwizard-custom-circle').bootstrapWizard({
+			onTabShow : function(tab, navigation, index) {
+				var $total = navigation.find('li').length;
+				var $current = index + 1;
+				var $percent = ($current / $total) * 100;
+				$('#rootwizard-custom-circle').find('.bar').css({
+					width : $percent + '%'
+				});
+				if (!index) {
+					$('.button-previous').addClass('hide');
+				} else {
+					$('.button-previous').removeClass('hide');
+				}
+				if ($percent == 100) {
+					$('.button-finsh').removeClass('hide');
+					$('.button-next').addClass('hide');
+				} else {
+					$('.button-finsh').addClass('hide');
+					$('.button-next').removeClass('hide');
+				}
+			},
+			'onNext' : function(tab, navigation, index) {
+
+				// select id of current tab content
+				var $id = tab.find("a").attr("href");
+				var $approved = 1;
+				// Check all input validation
+				$($id + " input").each(function() {
+					if (!$(this).val()) {
+						$(this).css('border-color', 'red');
+						$(this).parent().parent().find("i.alert").removeClass("alert-hide");
+						$approved = 0;
+					} else {
+						$(this).parent().parent().find("i.alert").addClass("alert-hide");
+					}
+				});
+				if ($approved !== 1)
+					return false;
+			},
+			'onTabClick' : function(tab, navigation, index) {
+				// select id of current tab content
+				var $id = tab.find("a").attr("href");
+				var $approved = 1;
+				// Check all input validation
+				$($id + " input").each(function() {
+					if (!$(this).val()) {
+						$(this).css('border-color', 'red');
+						$(this).parent().parent().find("i.alert").removeClass("alert-hide");
+						$approved = 0;
+					} else {
+						$(this).parent().parent().find("i.alert").addClass("alert-hide");
+					}
+				});
+				if ($approved !== 1)
+					return false;
+				// Add class visited to style css
+				if (tab.attr("class") == "visited") {
+					tab.removeClass("visited");
+				} else {
+					tab.addClass("visited");
+				}
+			},
+			'tabClass' : 'bwizard-steps-o',
+			'nextSelector' : '.button-next',
+			'previousSelector' : '.button-previous',
+			'finishSelector' : '.button-finsh'
+		});
 	});
 //-->
 </script>
