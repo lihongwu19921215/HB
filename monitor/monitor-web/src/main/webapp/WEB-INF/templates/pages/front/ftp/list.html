@@ -1,61 +1,69 @@
 <!--# 
 layout("/layout/madmin.html",{'breadCrumbs': [{'name':'主页','icon':'home','url':'/'},{'name':'FTP资源列表','active':'active'}] ,'active':'ftp'}){ 
  #-->
- <table class="table table-striped table-bordered table-hover">
-	<thead>
-		<tr>
-			<th colspan="6">
-				<div class="row">
-					<div class="col-md-3 ">
-						<form action="${base!}/permission/search" method="post" class="search-form">
-							<div class="input-group">
-								<span class="input-group-addon"> 关键词 </span> <input class="form-control search-query" type="text" name="key" value="${obj.data.pager.paras.key!}" data-type="reg"
-									data-reg="/^[\u4e00-\u9fa5\d\w]{1,}$/" data-default="Search..." data-error="请输入搜索关键词" placeholder="请输入搜索关键词"> <span class="input-group-addon  search-btn"
-									id="queryInfo" style="cursor: pointer;"> <i class="fa fa-search"></i> GO
-								</span>
+<link type="text/css" rel="stylesheet" href="${base!}/resources/madmin/vendors/jplist/html/css/jplist-custom.css">
+<div class="panel panel-green">
+	<div class="panel-heading clearfix">
+		<span class="mts pull-left"> FTP资源列表</span>
+		<div class="toolbars">
+			<a href="${base}/ftp/add" class="btn btn-embossed btn-info btn-sm"><i class="fa fa-plus-circle"></i> 添加FTP</a>
+		</div>
+
+		<div class="toolbars">
+			<div class="col-md-1"></div>
+		</div>
+
+		<div class="toolbars">
+			<div class="input-icon right">
+				<form action="${base!}/permission/search" method="post" class="search-form">
+					<i class="fa fa-search search-btn"></i> <input type="text" name="key" value="${obj.data.pager.paras.key!}" data-type="reg" data-reg="/^[\u4e00-\u9fa5\d\w]{1,}$/"
+						data-default="Search..." data-error="请输入搜索关键词" placeholder="请输入搜索关键词" class="form-control input-medium">
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="panel-body">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="panel">
+					<div class="panel-body">
+						<div id="grid-filter-with-ul-li" class="box jplist">
+							<div class="list box text-shadow">
+								<!--# for(ftp in obj.data.pager.entities){ #-->
+								<div class="list-item box">
+									<!--<img/>-->
+									<div class="img">
+										<img src="vendors/jplist/html/img/thumbs/calendar-1.jpg" alt="" title="" />
+									</div>
+									<!--<data></data>-->
+									<div class="block">
+										<p class="date">05/08/2003</p>
+										<p class="title">Calendar</p>
+										<p class="desc">A calendar is a system of organizing days for social, religious, commercial, or administrative purposes. This is done by giving names to periods of
+											time, typically days, weeks, months, and years. The name given to each day is known as a date. Periods in a calendar (such as years and months) are usually, though not
+											necessarily, synchronized with the cycle of the sun or the moon.</p>
+										<p class="theme">
+											<span class="other">Other</span><span class="group1">Group 1</span>
+										</p>
+										<p class="like">18 Likes</p>
+									</div>
+								</div>
+								<!--# } #-->
 							</div>
-						</form>
-					</div>
-					<div class="col-md-2 col-md-offset-7">
-						<a href="${base}/ftp/add" class="btn btn-embossed btn-info btn-sm"><i class="fa fa-plus-circle"></i> 添加FTP</a>
+							<!--#if(obj.data.pager.count == 0){  #-->
+							<div class="box jplist-no-results text-shadow align-center">
+								<p>No results found</p>
+							</div>
+							<!--# }else{ #-->
+							<div class="box jplist-no-results text-shadow align-center">
+								<div class="pull-right">${obj.data.pager.pagerBar!}</div>
+							</div>
+							<!--# }#-->
+						</div>
 					</div>
 				</div>
-			</th>
-		</tr>
-		<tr class="center">
-			<th>ID</th>
-			<th>名称</th>
-			<th>地址</th>
-			<th>端口</th>
-			<th>类型</th>
-			<th>操作</th>
-		</tr>
-	</thead>
-
-	<tbody>
-		<!--# for(ftp in obj.data.pager.entities){ #-->
-		<tr>
-			<td class="center">${ftp.uuid!}</td>
-			<td>${ftp.name!}</td>
-			<td>${ftp.name!}</td>
-			<td>${ftp.name!}</td>
-			<td>${ftp.name!}</td>
-			<td>${permission.uuid!}</td>
-		</tr>
-		<!--# } #-->
-	</tbody>
-	<tfoot>
-		<!--#if(obj.data.pager.count == 0){  #-->
-		<tr>
-			<td colspan="6" class="null-pager">没有符合条件的数据</td>
-		</tr>
-		<!--# }else{ #-->
-		<tr>
-			<td colspan="6">
-				<div class="pull-right">${obj.data.pager.pagerBar!}</div>
-			</td>
-		</tr>
-		<!--# }#-->
-	</tfoot>
-</table>
+			</div>
+		</div>
+	</div>
+</div>
 <!--# } #-->
