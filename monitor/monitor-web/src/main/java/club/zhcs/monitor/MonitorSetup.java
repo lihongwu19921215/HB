@@ -9,9 +9,12 @@ import org.nutz.dao.util.Daos;
 import org.nutz.integration.quartz.NutQuartzCronJobFactory;
 import org.nutz.integration.shiro.NutShiro;
 import org.nutz.ioc.Ioc;
+import org.nutz.lang.ContinueLoop;
+import org.nutz.lang.Each;
 import org.nutz.lang.Encoding;
+import org.nutz.lang.ExitLoop;
 import org.nutz.lang.Lang;
-import org.nutz.lang.Times;
+import org.nutz.lang.LoopException;
 import org.nutz.log.Log;
 import org.nutz.log.Logs;
 import org.nutz.mvc.NutConfig;
@@ -21,9 +24,14 @@ import club.zhcs.monitor.domain.acl.Role;
 import club.zhcs.monitor.domain.acl.User;
 import club.zhcs.monitor.domain.acl.User.Status;
 import club.zhcs.monitor.domain.acl.UserRole;
+import club.zhcs.monitor.domain.resource.DataBase;
+import club.zhcs.monitor.domain.resource.FtpServer;
 import club.zhcs.monitor.service.acl.RoleService;
 import club.zhcs.monitor.service.acl.UserRoleService;
 import club.zhcs.monitor.service.acl.UserService;
+import club.zhcs.monitor.service.resource.ApplicationService;
+import club.zhcs.monitor.service.resource.DataBaseService;
+import club.zhcs.monitor.service.resource.FTPServerService;
 
 /**
  * 
@@ -80,9 +88,43 @@ public class MonitorSetup implements Setup {
 
 		// 为全部标注了@Table的bean建表
 
-		TableName.set(Times.format("yyyy_MM_dd", Times.now()));
+		TableName.set(0);
 		Daos.createTablesInPackage(dao, getClass().getPackage().getName() + ".domain", false);
 		Daos.migration(dao, getClass().getPackage().getName() + ".domain", true, true);
+
+		FTPServerService ftpServerService = ioc.get(FTPServerService.class);
+		DataBaseService dataBaseService = ioc.get(DataBaseService.class);
+		ApplicationService applicationService = ioc.get(ApplicationService.class);
+
+		Lang.each(ftpServerService.queryAll(), new Each<FtpServer>() {
+
+			@Override
+			public void invoke(int index, FtpServer ftpServer, int length) throws ExitLoop, ContinueLoop, LoopException {
+				TableName.set(ftpServer.getId());
+				Daos.createTablesInPackage(dao, getClass().getPackage().getName() + ".domain.record", false);
+				Daos.migration(dao, getClass().getPackage().getName() + ".domain.record", true, true);
+			}
+		});
+
+		Lang.each(dataBaseService.queryAll(), new Each<DataBase>() {
+
+			@Override
+			public void invoke(int index, DataBase db, int length) throws ExitLoop, ContinueLoop, LoopException {
+				TableName.set(db.getId());
+				Daos.createTablesInPackage(dao, getClass().getPackage().getName() + ".domain.record", false);
+				Daos.migration(dao, getClass().getPackage().getName() + ".domain.record", true, true);
+			}
+		});
+
+		Lang.each(applicationService.queryAll(), new Each<club.zhcs.monitor.domain.resource.Application>() {
+
+			@Override
+			public void invoke(int index, club.zhcs.monitor.domain.resource.Application app, int length) throws ExitLoop, ContinueLoop, LoopException {
+				TableName.set(app.getId());
+				Daos.createTablesInPackage(dao, getClass().getPackage().getName() + ".domain.record", false);
+				Daos.migration(dao, getClass().getPackage().getName() + ".domain.record", true, true);
+			}
+		});
 
 		// 超级管理员
 

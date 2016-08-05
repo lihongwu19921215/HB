@@ -16,7 +16,7 @@ import org.nutz.dao.entity.annotation.Table;
  * @time 2016年7月7日 下午7:25:45
  *
  */
-@Table("t_app_record_${date}")
+@Table("t_app_record_${id}")
 @Comment("应用监测记录")
 public class ApplicationMonitorRecord extends MonitorRecord {
 
