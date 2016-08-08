@@ -24,6 +24,9 @@ import club.zhcs.monitor.domain.acl.Role;
 import club.zhcs.monitor.domain.acl.User;
 import club.zhcs.monitor.domain.acl.User.Status;
 import club.zhcs.monitor.domain.acl.UserRole;
+import club.zhcs.monitor.domain.record.ApplicationMonitorRecord;
+import club.zhcs.monitor.domain.record.DataBaseMonitorRecode;
+import club.zhcs.monitor.domain.record.FtpServerMonitroRecord;
 import club.zhcs.monitor.domain.resource.DataBase;
 import club.zhcs.monitor.domain.resource.FtpServer;
 import club.zhcs.monitor.service.acl.RoleService;
@@ -84,47 +87,53 @@ public class MonitorSetup implements Setup {
 
 		Dao dao = ioc.get(Dao.class);
 
-		ioc.get(NutQuartzCronJobFactory.class);// 触发任务
-
 		// 为全部标注了@Table的bean建表
 
-		TableName.set(0);
 		Daos.createTablesInPackage(dao, getClass().getPackage().getName() + ".domain", false);
 		Daos.migration(dao, getClass().getPackage().getName() + ".domain", true, true);
 
 		FTPServerService ftpServerService = ioc.get(FTPServerService.class);
 		DataBaseService dataBaseService = ioc.get(DataBaseService.class);
-		ApplicationService applicationService = ioc.get(ApplicationService.class);
+		ApplicationService applicationService =
+				ioc.get(ApplicationService.class);
 
 		Lang.each(ftpServerService.queryAll(), new Each<FtpServer>() {
 
 			@Override
-			public void invoke(int index, FtpServer ftpServer, int length) throws ExitLoop, ContinueLoop, LoopException {
+			public void invoke(int index, FtpServer ftpServer, int length) throws
+					ExitLoop, ContinueLoop, LoopException {
 				TableName.set(ftpServer.getId());
-				Daos.createTablesInPackage(dao, getClass().getPackage().getName() + ".domain.record", false);
-				Daos.migration(dao, getClass().getPackage().getName() + ".domain.record", true, true);
+				dao.create(FtpServerMonitroRecord.class, false);
+				Daos.migration(dao, FtpServerMonitroRecord.class, true, true, true);
 			}
 		});
 
 		Lang.each(dataBaseService.queryAll(), new Each<DataBase>() {
 
 			@Override
-			public void invoke(int index, DataBase db, int length) throws ExitLoop, ContinueLoop, LoopException {
+			public void invoke(int index, DataBase db, int length) throws
+					ExitLoop, ContinueLoop, LoopException {
 				TableName.set(db.getId());
-				Daos.createTablesInPackage(dao, getClass().getPackage().getName() + ".domain.record", false);
-				Daos.migration(dao, getClass().getPackage().getName() + ".domain.record", true, true);
+				dao.create(DataBaseMonitorRecode.class, false);
+				Daos.migration(dao, DataBaseMonitorRecode.class, true, true, true);
 			}
 		});
 
-		Lang.each(applicationService.queryAll(), new Each<club.zhcs.monitor.domain.resource.Application>() {
+		Lang.each(applicationService.queryAll(), new
+				Each<club.zhcs.monitor.domain.resource.Application>() {
 
-			@Override
-			public void invoke(int index, club.zhcs.monitor.domain.resource.Application app, int length) throws ExitLoop, ContinueLoop, LoopException {
-				TableName.set(app.getId());
-				Daos.createTablesInPackage(dao, getClass().getPackage().getName() + ".domain.record", false);
-				Daos.migration(dao, getClass().getPackage().getName() + ".domain.record", true, true);
-			}
-		});
+					@Override
+					public void invoke(int index,
+							club.zhcs.monitor.domain.resource.Application app, int length) throws
+							ExitLoop, ContinueLoop, LoopException {
+						TableName.set(app.getId());
+						dao.create(ApplicationMonitorRecord.class,
+								false);
+						Daos.migration(dao,
+								ApplicationMonitorRecord.class, true, true,
+								true);
+					}
+				});
 
 		// 超级管理员
 
@@ -161,6 +170,8 @@ public class MonitorSetup implements Setup {
 			userRole.setUserId(surperMan.getId());
 			userRoleService.save(userRole);
 		}
+
+		ioc.get(NutQuartzCronJobFactory.class);// 触发任务
 
 	}
 }

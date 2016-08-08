@@ -2,6 +2,7 @@ package club.zhcs.monitor.domain.resource;
 
 import org.nutz.dao.entity.annotation.Column;
 import org.nutz.dao.entity.annotation.Comment;
+import org.nutz.dao.entity.annotation.Name;
 import org.nutz.lang.random.R;
 
 import club.zhcs.titans.utils.db.po.Entity;
@@ -22,6 +23,7 @@ public class Resource extends Entity {
 
 	@Column("r_name")
 	@Comment("资源名称")
+	@Name
 	private String name;
 
 	@Column("r_description")
@@ -42,11 +44,11 @@ public class Resource extends Entity {
 
 	@Column("r_owner_type")
 	@Comment("资源主类型")
-	private OwnerType ownerType = OwnerType.PRIVATE;
+	private OwnerType ownerType = OwnerType.TEAM;
 
 	@Column("r_test_period")
 	@Comment("监测周期")
-	private TESTINGPERIOD testingperiod = TESTINGPERIOD.Other;
+	private TESTINGPERIOD testingperiod = TESTINGPERIOD.FIVE;
 
 	@Column("r_task_cron")
 	@Comment("任务Cron表达式")

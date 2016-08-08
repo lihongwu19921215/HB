@@ -8,8 +8,7 @@ layout("/layout/madmin.html",{'breadCrumbs': [{'name':'主页','icon':'home','ur
 			<div class="portlet box portlet-green">
 				<div class="portlet-header">
 					<div class="caption">FTP 服务器${obj.data.ftp == null ? '添加' : '编辑'}向导</div>
-					<div class="tools">
-					</div>
+					<div class="tools"></div>
 				</div>
 				<div class="portlet-body">
 					<div id="rootwizard-custom-circle">
@@ -17,11 +16,11 @@ layout("/layout/madmin.html",{'breadCrumbs': [{'name':'主页','icon':'home','ur
 							<div class="navbar-inner">
 								<ul>
 									<li><a href="#tab1-wizard-custom-circle" data-toggle="tab"><i class="fa fa-hdd-o"></i>
-											<p class="anchor">1. FTP信息</p>
-											<p class="description">FTP 服务器连接信息</p></a></li>
-									<li><a href="#tab2-wizard-custom-circle" data-toggle="tab"><i class="fa fa-leaf"></i>
-											<p class="anchor">2. 资源通用信息</p>
+											<p class="anchor">1.资源通用信息</p>
 											<p class="description">受监控资源基本信息</p></a></li>
+									<li><a href="#tab2-wizard-custom-circle" data-toggle="tab"><i class="fa fa-leaf"></i>
+											<p class="anchor">2. FTP信息</p>
+											<p class="description">FTP 服务器连接信息</p></a></li>
 									<li><a href="#tab3-wizard-custom-circle" data-toggle="tab"><i class="fa fa-tasks"></i>
 											<p class="anchor">3. 资源监测任务信息</p>
 											<p class="description">资源监测参数配置</p></a></li>
@@ -36,10 +35,36 @@ layout("/layout/madmin.html",{'breadCrumbs': [{'name':'主页','icon':'home','ur
 						</div>
 						<div class="tab-content">
 							<div id="tab1-wizard-custom-circle" class="tab-pane">
+
+
+								<div class="row">
+									<div class="col-md-8 col-md-offset-2">
+										<form action="#" class="form-horizontal" id="resource-base-info">
+											<h3 class="mbxl center">资源基本信息</h3>
+											<div class="form-group ">
+												<label for="用户名" class="control-label col-lg-3">资源名称 : </label>
+												<div class="col-lg-9">
+													<input class="form-control" type="text" placeholder="请输入资源名称" name="name" data-type='required' data-error='请输入资源名称' value="${obj.data.ftp.name!}" />
+												</div>
+											</div>
+											<input type="hidden" name="id" class="resource-id">
+											<div class="form-group ">
+												<label class="control-label col-lg-3">FTP服务器描述:</label>
+												<div class="col-lg-9">
+													<input type="hidden" name="description" id="description">
+													<textarea rows="25" class="form-control" placeholder="请输入角色描述" name="content">${obj.data.ftp.description!}</textarea>
+												</div>
+											</div>
+										</form>
+									</div>
+								</div>
+
+							</div>
+							<div id="tab2-wizard-custom-circle" class="tab-pane">
 								<div class="row">
 									<div class="col-md-8 col-md-offset-2">
 										<h3 class="mbxl">请填写 FTP 连接信息</h3>
-										<form action="#" class="form-horizontal">
+										<form action="#" class="form-horizontal" id="resource-server-info">
 											<div class="form-group ">
 												<label class="control-label col-lg-3"> FTP类型 : </label>
 												<div class="col-lg-9">
@@ -56,7 +81,7 @@ layout("/layout/madmin.html",{'breadCrumbs': [{'name':'主页','icon':'home','ur
 													<input class="form-control" type="text" placeholder="请输入FTP服务器地址" name="server" data-type='required' data-error='请输入FTP服务器地址'>
 												</div>
 											</div>
-
+											<input type="hidden" name="id" class="resource-id">
 											<div class="form-group ">
 												<label class="control-label col-lg-3"> FTP端口 : </label>
 												<div class="col-lg-9">
@@ -74,29 +99,6 @@ layout("/layout/madmin.html",{'breadCrumbs': [{'name':'主页','icon':'home','ur
 												<label class="control-label col-lg-3"> FTP密码 : </label>
 												<div class="col-lg-9">
 													<input class="form-control" type="password" placeholder="请输入FTP服务密码" name="password" data-type='password' data-error='请输入FTP服务密码'>
-												</div>
-											</div>
-										</form>
-									</div>
-								</div>
-							</div>
-							<div id="tab2-wizard-custom-circle" class="tab-pane">
-								<div class="row">
-									<div class="col-md-8 col-md-offset-2">
-										<h3 class="mbxl">资源基本信息</h3>
-										<form action="#" class="form-horizontal">
-											<div class="form-group ">
-												<label for="用户名" class="control-label col-lg-3">资源名称 : </label>
-												<div class="col-lg-9">
-													<input class="form-control" type="text" placeholder="请输入资源名称" name="name" data-type='required' data-error='请输入资源名称' value="${obj.data.ftp.name!}" />
-												</div>
-											</div>
-
-											<div class="form-group ">
-												<label class="control-label col-lg-3">FTP服务器描述:</label>
-												<div class="col-lg-9">
-													<input type="hidden" name="description" id="description">
-													<textarea rows="25" class="form-control" placeholder="请输入角色描述" name="content">${obj.data.ftp.description!}</textarea>
 												</div>
 											</div>
 										</form>
@@ -124,7 +126,7 @@ layout("/layout/madmin.html",{'breadCrumbs': [{'name':'主页','icon':'home','ur
 													<input class="form-control" type="text" placeholder="请输入FTP服务器地址" name="server" data-type='required' data-error='请输入FTP服务器地址'>
 												</div>
 											</div>
-
+											<input type="hidden" name="id" class="resource-id">
 											<div class="form-group ">
 												<label class="control-label col-lg-3"> 告警规则 EL 表达式 : </label>
 												<div class="col-lg-9">
@@ -169,6 +171,7 @@ layout("/layout/madmin.html",{'breadCrumbs': [{'name':'主页','icon':'home','ur
 <script type="text/javascript">
 <!--
 	var editor;
+	var rid = 0;
 	$(function() {
 		//kindeditor 初始化
 		KindEditor.ready(function(K) {
@@ -200,46 +203,9 @@ layout("/layout/madmin.html",{'breadCrumbs': [{'name':'主页','icon':'home','ur
 					$('.button-next').removeClass('hide');
 				}
 			},
-			'onNext' : function(tab, navigation, index) {
-
-				// select id of current tab content
-				var $id = tab.find("a").attr("href");
-				var $approved = 1;
-				// Check all input validation
-				$($id + " input").each(function() {
-					if (!$(this).val()) {
-						$(this).css('border-color', 'red');
-						$(this).parent().parent().find("i.alert").removeClass("alert-hide");
-						$approved = 0;
-					} else {
-						$(this).parent().parent().find("i.alert").addClass("alert-hide");
-					}
-				});
-				if ($approved !== 1)
-					return false;
-			},
-			'onTabClick' : function(tab, navigation, index) {
-				// select id of current tab content
-				var $id = tab.find("a").attr("href");
-				var $approved = 1;
-				// Check all input validation
-				$($id + " input").each(function() {
-					if (!$(this).val()) {
-						$(this).css('border-color', 'red');
-						$(this).parent().parent().find("i.alert").removeClass("alert-hide");
-						$approved = 0;
-					} else {
-						$(this).parent().parent().find("i.alert").addClass("alert-hide");
-					}
-				});
-				if ($approved !== 1)
-					return false;
-				// Add class visited to style css
-				if (tab.attr("class") == "visited") {
-					tab.removeClass("visited");
-				} else {
-					tab.addClass("visited");
-				}
+			'onNext' : switchIndex,
+			'onTabClick' : function() {
+				return false;
 			},
 			'tabClass' : 'bwizard-steps-o',
 			'nextSelector' : '.button-next',
@@ -247,6 +213,57 @@ layout("/layout/madmin.html",{'breadCrumbs': [{'name':'主页','icon':'home','ur
 			'finishSelector' : '.button-finsh'
 		});
 	});
+	function switchIndex(tab, navigation, index) {
+		var block = false;
+		if ($($(tab).find('a').attr('href')).validation()) {//表单验证
+
+			if (index == 1) {
+				//第一步 添加基本信息,添加资源信息
+				$.ajaxSetup({
+					async : false
+				});
+				$.post(getRootPath() + '/ftp/add/base', $('#resource-base-info').serialize(), function(result) {
+					if (result.operationState == 'SUCCESS') {
+						$('.resource-id').val(result.data.ftpServer.id);
+					} else {
+						layer.alert(result.data.reason, {
+							title : '操作失败'
+						});
+						block = true;
+					}
+				}, 'json')
+				$.ajaxSetup({
+					async : true
+				});
+			}
+
+			if (index == 2) {
+				//第一步 添加基本信息,添加资源信息
+				$.ajaxSetup({
+					async : false
+				});
+				$.post(getRootPath() + '/ftp/edit/info', $('#resource-server-info').serialize(), function(result) {
+					if (result.operationState == 'SUCCESS') {
+
+					} else {
+						layer.alert(result.data.reason, {
+							title : '操作失败'
+						});
+						block = true;
+					}
+				}, 'json')
+				$.ajaxSetup({
+					async : true
+				});
+			}
+
+			if (block) {
+				return false;
+			}
+		} else {
+			return false;
+		}
+	}
 //-->
 </script>
 <!--# } #-->

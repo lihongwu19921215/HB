@@ -1,6 +1,7 @@
 package club.zhcs.monitor.module.front;
 
 import org.nutz.dao.Cnd;
+import org.nutz.dao.TableName;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.mvc.annotation.At;
 import org.nutz.mvc.annotation.Attr;
@@ -8,11 +9,13 @@ import org.nutz.mvc.annotation.By;
 import org.nutz.mvc.annotation.Filters;
 import org.nutz.mvc.annotation.GET;
 import org.nutz.mvc.annotation.Ok;
+import org.nutz.mvc.annotation.POST;
 import org.nutz.mvc.annotation.Param;
 import org.nutz.mvc.filter.CheckSession;
 
 import club.zhcs.monitor.Application.SessionKeys;
 import club.zhcs.monitor.domain.acl.User;
+import club.zhcs.monitor.domain.record.FtpServerMonitroRecord;
 import club.zhcs.monitor.domain.resource.FtpServer;
 import club.zhcs.monitor.domain.resource.FtpServer.Type;
 import club.zhcs.monitor.domain.resource.Resource.OwnerType;
@@ -59,5 +62,29 @@ public class FTPModule extends AbstractBaseModule {
 	@Ok("beetl:pages/front/ftp/add_edit.html")
 	public Result add() {
 		return Result.success().setTitle("添加FTP服务器").addData("types", Type.values()).addData("testingperiods", TESTINGPERIOD.values());
+	}
+
+	@At("/add/base")
+	@POST
+	public Result add(@Param("..") FtpServer server, @Attr(SessionKeys.TEAM_KEY) Team team) {
+
+		server.setOwnerId(team.getId());
+
+		if (ftpServerService.fetch(Cnd.where("name", "=", server.getName())) != null) {
+			return Result.fail("资源信息添加失败!<br>资源 <span style='color:red'>`" + server.getName() + "`</span> 已经存在!");
+		}
+		server = ftpServerService.save(server);
+		if (server != null) {
+			TableName.set(server.getId());
+			ftpServerService.dao().create(FtpServerMonitroRecord.class, false);
+			return Result.success().addData("ftpServer", server);
+		}
+		return Result.fail("资源信息添加失败!");
+	}
+
+	@At("/edit/info")
+	@POST
+	public Result editServerInfo(@Param("..") FtpServer server) {
+		return ftpServerService.updateIgnoreNull(server) == 1 ? Result.success() : Result.fail("更新信息失败!");
 	}
 }
