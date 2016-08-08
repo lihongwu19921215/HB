@@ -1,5 +1,6 @@
 package club.zhcs.monitor.domain.resource;
 
+import org.nutz.dao.entity.annotation.ColDefine;
 import org.nutz.dao.entity.annotation.Column;
 import org.nutz.dao.entity.annotation.Comment;
 import org.nutz.dao.entity.annotation.Name;
@@ -28,6 +29,7 @@ public class Resource extends Entity {
 
 	@Column("r_description")
 	@Comment("资源描述")
+	@ColDefine(width = 2000)
 	private String description;
 
 	@Column("r_resource_type")

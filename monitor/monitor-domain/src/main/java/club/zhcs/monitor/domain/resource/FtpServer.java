@@ -44,6 +44,25 @@ public class FtpServer extends Resource {
 	@Comment("ftp密码")
 	private String password;
 
+	@Column("ftp_test_resource_path")
+	@Comment("测试资源路径")
+	private String testResourcePath;
+
+	/**
+	 * @return the testResourcePath
+	 */
+	public String getTestResourcePath() {
+		return testResourcePath;
+	}
+
+	/**
+	 * @param testResourcePath
+	 *            the testResourcePath to set
+	 */
+	public void setTestResourcePath(String testResourcePath) {
+		this.testResourcePath = testResourcePath;
+	}
+
 	/**
 	 * @return the type
 	 */
