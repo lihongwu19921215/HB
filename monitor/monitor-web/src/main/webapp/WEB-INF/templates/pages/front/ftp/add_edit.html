@@ -115,7 +115,7 @@ layout("/layout/madmin.html",{'breadCrumbs': [{'name':'主页','icon':'home','ur
 												<div class="col-lg-9">
 													<select class="form-control" name="testingperiod" id="testingperiod">
 														<!--# for(p in obj.data.testingperiods){ #-->
-														<option value='${p!}' data-cron="${p.cron!}">${p.name!}</option>
+														<option value='${p!}' data-cron="${p.cron!}" selected>${p.name!}</option>
 														<!--# } #-->
 													</select>
 												</div>
