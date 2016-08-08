@@ -13,15 +13,17 @@ import org.nutz.lang.Streams;
 
 import club.zhcs.monitor.domain.record.FtpServerMonitroRecord;
 import club.zhcs.monitor.domain.record.FtpServerMonitroRecord.CheckType;
-import club.zhcs.monitor.domain.record.MonitorRecord;
 import club.zhcs.monitor.domain.resource.FtpServer;
 import club.zhcs.monitor.domain.resource.FtpServer.Type;
 import club.zhcs.monitor.hb.checker.Checker;
 import club.zhcs.monitor.service.record.FtpServerMonitroRecordService;
 
+import com.jcraft.jsch.ChannelSftp;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
+import com.jcraft.jsch.SftpException;
+import com.jcraft.jsch.SftpProgressMonitor;
 
 /**
  * 
@@ -63,36 +65,86 @@ public class FTPConnectionChecker implements Checker<FtpServer> {
 		if (server.getType() == Type.FTP) {
 			checkFTP(server);
 		} else {
-			checkSFTP(server.getServer(), server.getPort(), server.getUser(), server.getPassword());
+			checkSFTP(server);
 		}
 	}
 
-	private MonitorRecord checkSFTP(String server, int port, String user, String password) {
+	private void checkSFTP(FtpServer server) {
+		TableName.set(server.getId());
+		FtpServerMonitroRecord monitorRecord = new FtpServerMonitroRecord();
+		monitorRecord.setResourceId(server.getId());
+		monitorRecord.setCheckType(CheckType.CONNECTION);
 		Session session = null;
 		JSch jsch = new JSch();
-
+		Stopwatch watch = Stopwatch.beginNano();
 		try {
-			if (port <= 0) {
-				session = jsch.getSession(user, server);
+			if (server.getPort() <= 0) {
+				session = jsch.getSession(server.getUser(), server.getServer());
 			} else {
-				session = jsch.getSession(user, server, port);
+				session = jsch.getSession(server.getUser(), server.getServer(), server.getPort());
 			}
 
 			if (session == null) {
 				throw new Exception("session is null");
 			}
-			session.setPassword(password);// 设置密码
+			session.setPassword(server.getPassword());// 设置密码
 			session.setConfig("StrictHostKeyChecking", "no");
 			// 设置登陆超时时间
 			session.connect(30000);
 		} catch (JSchException e) {
 			log.error(e);
-			return null;
+			monitorRecord.setOk(false);
+			monitorRecord.setError(e.getMessage());
 		} catch (Exception e) {
 			log.error(e);
-			return null;
+			monitorRecord.setOk(false);
+			monitorRecord.setError(e.getMessage());
+		} finally {
+			watch.stop();
 		}
-		return null;
+		monitorRecord.setDuration(watch.getDuration());
+		ftpServerMonitroRecordService.save(monitorRecord);
+
+		if (monitorRecord.isOk()) {// 可连接,测试下载
+			FtpServerMonitroRecord downloadMonitroRecord = new FtpServerMonitroRecord();
+			downloadMonitroRecord.setResourceId(server.getId());
+			downloadMonitroRecord.setCheckType(CheckType.DOWNLOAD);
+			String path = server.getTestResourcePath().substring(0, server.getTestResourcePath().lastIndexOf("/"));
+			String name = server.getTestResourcePath().substring(server.getTestResourcePath().lastIndexOf("/") + 1);
+			String suffix = name.substring(0, name.lastIndexOf(".") + 1);
+			Stopwatch downloadStopwatch = Stopwatch.beginNano();
+			try {
+				ChannelSftp channel = (ChannelSftp) session.openChannel("sftp");
+				channel.connect();
+				channel.cd(path);
+				channel.get(name, Streams.fileOut(pool.createFile(suffix)), new SftpProgressMonitor() {
+
+					@Override
+					public void init(int arg0, String arg1, String arg2, long arg3) {
+
+					}
+
+					@Override
+					public void end() {
+
+					}
+
+					@Override
+					public boolean count(long arg0) {
+						return false;
+					}
+				});
+
+			} catch (JSchException | SftpException e) {
+				log.error(e);
+				downloadMonitroRecord.setOk(false);
+				downloadMonitroRecord.setError(e.getMessage());
+			} finally {
+				downloadStopwatch.stop();
+			}
+			downloadMonitroRecord.setDuration(downloadStopwatch.getDuration());
+			ftpServerMonitroRecordService.save(downloadMonitroRecord);
+		}
 	}
 
 	private void checkFTP(FtpServer server) {

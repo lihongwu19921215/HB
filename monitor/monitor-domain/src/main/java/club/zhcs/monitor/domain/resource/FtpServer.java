@@ -1,5 +1,6 @@
 package club.zhcs.monitor.domain.resource;
 
+import org.nutz.dao.entity.annotation.ColDefine;
 import org.nutz.dao.entity.annotation.Column;
 import org.nutz.dao.entity.annotation.Comment;
 import org.nutz.dao.entity.annotation.Table;
@@ -46,6 +47,7 @@ public class FtpServer extends Resource {
 
 	@Column("ftp_test_resource_path")
 	@Comment("测试资源路径")
+	@ColDefine(width = 500)
 	private String testResourcePath;
 
 	/**

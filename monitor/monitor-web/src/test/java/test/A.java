@@ -24,7 +24,7 @@ public class A extends Base {
 	public void checkFtp() {
 		FTPConnectionChecker ftpChecker = ioc.get(FTPConnectionChecker.class);
 		FTPServerService ftpServerService = ioc.get(FTPServerService.class);
-		FtpServer server = ftpServerService.fetch(1);
+		FtpServer server = ftpServerService.fetch(2);
 		ftpChecker.check(server);
 	}
 }
