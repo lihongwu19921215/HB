@@ -9,9 +9,8 @@ import org.quartz.JobDetail;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
-import club.zhcs.monitor.domain.record.MonitorRecord;
 import club.zhcs.monitor.domain.resource.FtpServer;
-import club.zhcs.monitor.hb.checker.impl.FTPChecker;
+import club.zhcs.monitor.hb.checker.impl.FTPConnectionChecker;
 
 /**
  * 
@@ -29,7 +28,7 @@ import club.zhcs.monitor.hb.checker.impl.FTPChecker;
 public class FTPMonitorJob implements Job {
 
 	@Inject
-	FTPChecker checker;
+	FTPConnectionChecker checker;
 
 	/*
 	 * (non-Javadoc)
@@ -47,7 +46,6 @@ public class FTPMonitorJob implements Job {
 		 * 2.检测资源可下载性<br>
 		 * 3.记录数据<br>
 		 */
-		MonitorRecord record = checker.check(server);
-		System.err.println(record);
+		checker.check(server);
 	}
 }

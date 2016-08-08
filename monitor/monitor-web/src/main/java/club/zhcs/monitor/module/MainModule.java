@@ -39,7 +39,7 @@ import club.zhcs.monitor.chain.MonitorChainMaker;
 import club.zhcs.monitor.domain.acl.User;
 import club.zhcs.monitor.domain.acl.User.Status;
 import club.zhcs.monitor.domain.team.Team;
-import club.zhcs.monitor.hb.checker.impl.FTPChecker;
+import club.zhcs.monitor.hb.checker.impl.FTPConnectionChecker;
 import club.zhcs.monitor.service.acl.RoleService;
 import club.zhcs.monitor.service.acl.ShiroUserService;
 import club.zhcs.monitor.service.acl.UserService;
@@ -80,7 +80,7 @@ public class MainModule extends AbstractBaseModule {
 	APMTask apmTask;
 
 	@Inject
-	FTPChecker ftpChecker;
+	FTPConnectionChecker ftpChecker;
 
 	/*
 	 * (non-Javadoc)

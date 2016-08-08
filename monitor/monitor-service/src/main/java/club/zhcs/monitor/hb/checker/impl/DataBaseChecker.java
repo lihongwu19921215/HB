@@ -1,7 +1,6 @@
 package club.zhcs.monitor.hb.checker.impl;
 
-import club.zhcs.monitor.domain.record.MonitorRecord;
-import club.zhcs.monitor.domain.resource.Resource;
+import club.zhcs.monitor.domain.resource.DataBase;
 import club.zhcs.monitor.hb.checker.Checker;
 
 /**
@@ -16,7 +15,7 @@ import club.zhcs.monitor.hb.checker.Checker;
  *
  * @createTime 2016年7月27日 上午9:56:17
  */
-public class DataBaseChecker implements Checker {
+public class DataBaseChecker implements Checker<DataBase> {
 
 	/*
 	 * (non-Javadoc)
@@ -26,9 +25,8 @@ public class DataBaseChecker implements Checker {
 	 * .Resource)
 	 */
 	@Override
-	public MonitorRecord check(Resource resource) {
+	public void check(DataBase resource) {
 		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

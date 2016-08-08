@@ -3,7 +3,6 @@ package club.zhcs.monitor.hb.checker;
 import org.nutz.log.Log;
 import org.nutz.log.Logs;
 
-import club.zhcs.monitor.domain.record.MonitorRecord;
 import club.zhcs.monitor.domain.resource.Resource;
 
 /**
@@ -18,9 +17,9 @@ import club.zhcs.monitor.domain.resource.Resource;
  *
  * @createTime 2016年7月27日 上午9:37:01
  */
-public interface Checker {
+public interface Checker<T extends Resource> {
 
 	Log log = Logs.get();
 
-	public MonitorRecord check(Resource resource);
+	public void check(T resource);
 }

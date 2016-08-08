@@ -37,6 +37,123 @@ public class MonitorRecord extends Entity {
 
 	@Column("r_status")
 	@Comment("监测结果状态")
-	private boolean ok;
+	private boolean ok = true;
+
+	@Column("r_duration")
+	@Comment("持续时间")
+	private long duration;
+
+	@Column("r_error")
+	@Comment("错误信息")
+	private String error;
+
+	@Column("r_alarmed")
+	@Comment("已告警")
+	private boolean alarmed = false;
+
+	/**
+	 * @return the alarmed
+	 */
+	public boolean isAlarmed() {
+		return alarmed;
+	}
+
+	/**
+	 * @param alarmed
+	 *            the alarmed to set
+	 */
+	public void setAlarmed(boolean alarmed) {
+		this.alarmed = alarmed;
+	}
+
+	/**
+	 * @return the type
+	 */
+	public ResourceType getType() {
+		return type;
+	}
+
+	/**
+	 * @param type
+	 *            the type to set
+	 */
+	public void setType(ResourceType type) {
+		this.type = type;
+	}
+
+	/**
+	 * @return the resourceId
+	 */
+	public int getResourceId() {
+		return resourceId;
+	}
+
+	/**
+	 * @param resourceId
+	 *            the resourceId to set
+	 */
+	public void setResourceId(int resourceId) {
+		this.resourceId = resourceId;
+	}
+
+	/**
+	 * @return the monitorTime
+	 */
+	public Date getMonitorTime() {
+		return monitorTime;
+	}
+
+	/**
+	 * @param monitorTime
+	 *            the monitorTime to set
+	 */
+	public void setMonitorTime(Date monitorTime) {
+		this.monitorTime = monitorTime;
+	}
+
+	/**
+	 * @return the ok
+	 */
+	public boolean isOk() {
+		return ok;
+	}
+
+	/**
+	 * @param ok
+	 *            the ok to set
+	 */
+	public void setOk(boolean ok) {
+		this.ok = ok;
+	}
+
+	/**
+	 * @return the duration
+	 */
+	public long getDuration() {
+		return duration;
+	}
+
+	/**
+	 * @param duration
+	 *            the duration to set
+	 */
+	public void setDuration(long duration) {
+		this.duration = duration;
+	}
+
+	/**
+	 * @return the error
+	 */
+	public String getError() {
+		return error;
+	}
+
+	/**
+	 * @param error
+	 *            the error to set
+	 */
+	public void setError(String error) {
+		this.error = error;
+	}
 
 }

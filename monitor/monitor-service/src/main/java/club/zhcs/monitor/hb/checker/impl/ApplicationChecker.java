@@ -1,7 +1,6 @@
 package club.zhcs.monitor.hb.checker.impl;
 
-import club.zhcs.monitor.domain.record.ApplicationMonitorRecord;
-import club.zhcs.monitor.domain.resource.Resource;
+import club.zhcs.monitor.domain.resource.Application;
 import club.zhcs.monitor.hb.checker.Checker;
 
 /**
@@ -16,7 +15,7 @@ import club.zhcs.monitor.hb.checker.Checker;
  *
  * @createTime 2016年7月27日 上午9:55:38
  */
-public class ApplicationChecker implements Checker {
+public class ApplicationChecker implements Checker<Application> {
 
 	/*
 	 * (non-Javadoc)
@@ -26,9 +25,8 @@ public class ApplicationChecker implements Checker {
 	 * .Resource)
 	 */
 	@Override
-	public ApplicationMonitorRecord check(Resource resource) {
+	public void check(Application resource) {
 		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

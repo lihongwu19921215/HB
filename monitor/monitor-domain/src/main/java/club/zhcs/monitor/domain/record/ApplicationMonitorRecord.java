@@ -28,7 +28,7 @@ public class ApplicationMonitorRecord extends MonitorRecord {
 	@Comment("请求耗时")
 	private long timeEscape;
 
-	@Column("r_error")
+	@Column("r_error_msg")
 	@Comment("错误信息")
 	private String errorMsg;
 
