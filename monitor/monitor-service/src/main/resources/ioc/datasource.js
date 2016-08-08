@@ -2,7 +2,8 @@ var ioc = {
 	dataSource : {
 		type : "com.alibaba.druid.pool.DruidDataSource",
 		events : {
-			depose : "close"
+			depose : "close",
+			init : "init"
 		},
 		fields : {
 			url : {
@@ -46,6 +47,9 @@ var ioc = {
 			},
 			filters : {
 				java : "$config.get('db-filters')"
+			},
+			connectionProperties:{
+				java : "$config.get('connectionProperties')"
 			}
 		}
 	},
