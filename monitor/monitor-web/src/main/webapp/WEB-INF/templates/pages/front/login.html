@@ -52,6 +52,12 @@ layout("/layout/register_login.html"){
 		$('.captchaRefresh').on('click', function() {
 			$(this).find('img').attr('src', getRootPath() + "/captcha?" + Math.random());
 		})
+		
+		$('body').on('keydown', function() {
+			if (event.keyCode == 13) {
+				$('.btn-primary').click();
+			}
+		})
 		$('.btn-primary').on('click', function() {
 			if ($('.form-horizontal').validation(function(status, dom, errorMsg, defaultValue) {
 				status ? function() {

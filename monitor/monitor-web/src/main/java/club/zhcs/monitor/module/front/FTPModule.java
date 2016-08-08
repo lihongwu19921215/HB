@@ -85,6 +85,12 @@ public class FTPModule extends AbstractBaseModule {
 	@At("/edit/info")
 	@POST
 	public Result editServerInfo(@Param("..") FtpServer server) {
-		return ftpServerService.updateIgnoreNull(server) == 1 ? Result.success() : Result.fail("更新信息失败!");
+		return ftpServerService.update(server, "type", "server", "port", "user", "password") ? Result.success() : Result.fail("更新信息失败!");
+	}
+
+	@At("/edit/task")
+	@POST
+	public Result editServerTask(@Param("..") FtpServer server) {
+		return ftpServerService.update(server, "testingperiod", "taskCron", "alarmEL") ? Result.success() : Result.fail("更新资源任务失败!");
 	}
 }

@@ -68,7 +68,7 @@ layout("/layout/madmin.html",{'breadCrumbs': [{'name':'主页','icon':'home','ur
 											<div class="form-group ">
 												<label class="control-label col-lg-3"> FTP类型 : </label>
 												<div class="col-lg-9">
-													<select class="form-control">
+													<select class="form-control" name="type">
 														<!--# for(type in obj.data.types){ #-->
 														<option value="${type!}">${type!}</option>
 														<!--# } #-->
@@ -109,13 +109,13 @@ layout("/layout/madmin.html",{'breadCrumbs': [{'name':'主页','icon':'home','ur
 								<div class="row">
 									<div class="col-md-8 col-md-offset-2">
 										<h3 class="mbxl">资源受检任务信息</h3>
-										<form action="#" class="form-horizontal">
+										<form action="#" class="form-horizontal" id="resource-task-info">
 											<div class="form-group ">
 												<label class="control-label col-lg-3"> 监测周期 : </label>
 												<div class="col-lg-9">
-													<select class="form-control">
+													<select class="form-control" name="testingperiod" id="testingperiod">
 														<!--# for(p in obj.data.testingperiods){ #-->
-														<option value="${p.cron!}">${p.name!}</option>
+														<option value='${p!}' data-cron="${p.cron!}">${p.name!}</option>
 														<!--# } #-->
 													</select>
 												</div>
@@ -123,14 +123,14 @@ layout("/layout/madmin.html",{'breadCrumbs': [{'name':'主页','icon':'home','ur
 											<div class="form-group ">
 												<label class="control-label col-lg-3"> 检测任务表达式 : </label>
 												<div class="col-lg-9">
-													<input class="form-control" type="text" placeholder="请输入FTP服务器地址" name="server" data-type='required' data-error='请输入FTP服务器地址'>
+													<input class="form-control" type="text" placeholder="请输入FTP服务器检测任务表达式" id="taskCron" name="taskCron" data-type='required' data-error='请输入FTP服务器检测任务表达式'>
 												</div>
 											</div>
 											<input type="hidden" name="id" class="resource-id">
 											<div class="form-group ">
 												<label class="control-label col-lg-3"> 告警规则 EL 表达式 : </label>
 												<div class="col-lg-9">
-													<input class="form-control" type="text" placeholder="请输入FTP服务器端口" name="port" data-type='integer' data-error='请输入FTP服务器端口'>
+													<input class="form-control" type="text" placeholder="请输入FTP服务器告警规则 EL 表达式" name="alarmEL" data-type='required' data-error='请输入FTP服务器告警规则 EL 表达式'>
 												</div>
 											</div>
 
@@ -179,6 +179,11 @@ layout("/layout/madmin.html",{'breadCrumbs': [{'name':'主页','icon':'home','ur
 				uploadJson : getRootPath() + '/kind/upload'
 			});
 		});
+
+		$('#testingperiod').on('change', function() {
+			$('#taskCron').val($(this).find("option:selected").data('cron'));
+		})
+
 		setTimeout(function() {
 			$('.ke-container')[0].style.width = '100%';
 		}, 1000);
@@ -222,6 +227,7 @@ layout("/layout/madmin.html",{'breadCrumbs': [{'name':'主页','icon':'home','ur
 				$.ajaxSetup({
 					async : false
 				});
+				$('#description').val(editor.html());
 				$.post(getRootPath() + '/ftp/add/base', $('#resource-base-info').serialize(), function(result) {
 					if (result.operationState == 'SUCCESS') {
 						$('.resource-id').val(result.data.ftpServer.id);
@@ -238,11 +244,31 @@ layout("/layout/madmin.html",{'breadCrumbs': [{'name':'主页','icon':'home','ur
 			}
 
 			if (index == 2) {
-				//第一步 添加基本信息,添加资源信息
+				//第二步 ftp相关信息
 				$.ajaxSetup({
 					async : false
 				});
 				$.post(getRootPath() + '/ftp/edit/info', $('#resource-server-info').serialize(), function(result) {
+					if (result.operationState == 'SUCCESS') {
+
+					} else {
+						layer.alert(result.data.reason, {
+							title : '操作失败'
+						});
+						block = true;
+					}
+				}, 'json')
+				$.ajaxSetup({
+					async : true
+				});
+			}
+
+			if (index == 2) {
+				//第三步 任务相关信息
+				$.ajaxSetup({
+					async : false
+				});
+				$.post(getRootPath() + '/ftp/edit/task', $('#resource-task-info').serialize(), function(result) {
 					if (result.operationState == 'SUCCESS') {
 
 					} else {
