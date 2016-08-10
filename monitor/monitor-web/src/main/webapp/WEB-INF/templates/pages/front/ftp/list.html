@@ -2,6 +2,25 @@
 layout("/layout/madmin.html",{'breadCrumbs': [{'name':'主页','icon':'home','url':'/'},{'name':'FTP资源列表','active':'active'}] ,'active':'ftp'}){ 
  #-->
 <link type="text/css" rel="stylesheet" href="${base!}/resources/madmin/vendors/jplist/html/css/jplist-custom.css">
+<style>
+<!--
+.list .list-item {
+	width: 100%
+}
+
+.list .img {
+	width: 25%
+}
+
+.list .block {
+	width: 72%
+}
+
+.chart {
+	min-height: 275px
+}
+-->
+</style>
 <div class="panel panel-green">
 	<div class="panel-heading clearfix">
 		<span class="mts pull-left"> FTP资源列表</span>
@@ -32,20 +51,61 @@ layout("/layout/madmin.html",{'breadCrumbs': [{'name':'主页','icon':'home','ur
 								<!--# for(ftp in obj.data.pager.entities){ #-->
 								<div class="list-item box">
 									<!--<img/>-->
-									<div class="img">
-										<img src="vendors/jplist/html/img/thumbs/calendar-1.jpg" alt="" title="" />
-									</div>
+									<div class="img chart" id="chart_${ftp.uuid!}" data-id='${ftp.id!}'></div>
 									<!--<data></data>-->
 									<div class="block">
-										<p class="date">05/08/2003</p>
-										<p class="title">Calendar</p>
-										<p class="desc">A calendar is a system of organizing days for social, religious, commercial, or administrative purposes. This is done by giving names to periods of
-											time, typically days, weeks, months, and years. The name given to each day is known as a date. Periods in a calendar (such as years and months) are usually, though not
-											necessarily, synchronized with the cycle of the sun or the moon.</p>
-										<p class="theme">
-											<span class="other">Other</span><span class="group1">Group 1</span>
-										</p>
-										<p class="like">18 Likes</p>
+										<div class="portlet box portlet-info">
+											<div class="portlet-header">
+												<div class="caption">${ftp.name!} (${ftp.server!})基本信息</div>
+												<div class="actions">
+													&nbsp; <a href="${base!}/ftp/edit/${ftp.uuid!}" class="btn btn-sm btn-white"><i class="fa fa-edit"></i>&nbsp; 编辑</a>&nbsp;<a href="#"
+														class="btn btn-sm btn-danger btn-delete" data-url='/ftp/delete' data-id='${ftp.uuid!}'><i class="fa fa-user"></i>&nbsp; 删除</a>
+												</div>
+												<div class="tools">
+													<i class="fa fa-chevron-up"></i>
+												</div>
+											</div>
+											<div class="portlet-body">
+												<blockquote>
+													<div class="row">
+														<div class="col-md-3">类型</div>
+														<div class="col-md-3">${ftp.type!}</div>
+														<div class="col-md-3">端口</div>
+														<div class="col-md-3">${ftp.port!}</div>
+													</div>
+													<div class="row">
+														<div class="col-md-3">描述</div>
+														<div class="col-md-9">${ftp.description!}</div>
+													</div>
+												</blockquote>
+											</div>
+										</div>
+										<div class="portlet box portlet-info">
+											<div class="portlet-header">
+												<div class="caption">更多信息</div>
+												<div class="tools">
+													<i class="fa fa-chevron-down"></i>
+												</div>
+											</div>
+											<div style="display: none;" class="portlet-body">
+												<blockquote>
+													<table class="table table-hover">
+														<thead>
+															<tr>
+																<th>检测周期</th>
+																<th>告警规则</th>
+															</tr>
+														</thead>
+														<tbody>
+															<tr>
+																<td>${ftp.testingperiod.name!}(${ftp.taskCron!})</td>
+																<td>${ftp.alarmEL!}</td>
+															</tr>
+														</tbody>
+													</table>
+												</blockquote>
+											</div>
+										</div>
 									</div>
 								</div>
 								<!--# } #-->
@@ -66,4 +126,36 @@ layout("/layout/madmin.html",{'breadCrumbs': [{'name':'主页','icon':'home','ur
 		</div>
 	</div>
 </div>
+<script type="text/javascript" src="${base}/resources/echarts/echarts.js"></script>
+<script type="text/javascript" src="${base}/resources/echarts/dark.js"></script>
+<script type="text/javascript">
+<!--
+	var charts = {};
+	$(function() {
+		$('.chart').each(function() {
+			var temp = echarts.init(this, 'dark');
+			var uuid = $(this).data('id');
+			charts['chart_' + uuid] = temp;
+		});
+		showCharts();
+		setTimeout(showCharts, 2000);
+	})
+
+	function showCharts() {
+		$('.chart').each(function() {
+			var uuid = $(this).data('id');
+			var chart = charts['chart_' + uuid];
+			$.post('${base}/ftp/charts', {
+				id : uuid
+			}, function(result) {
+				console.log(result);
+				var option = {};
+				if (option && typeof option === "object") {
+					chart.setOption(option, true);
+				}
+			}, 'json');
+		});
+	}
+//-->
+</script>
 <!--# } #-->

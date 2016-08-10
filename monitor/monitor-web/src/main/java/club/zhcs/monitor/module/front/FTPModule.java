@@ -21,6 +21,7 @@ import club.zhcs.monitor.domain.resource.FtpServer.Type;
 import club.zhcs.monitor.domain.resource.Resource.OwnerType;
 import club.zhcs.monitor.domain.resource.Resource.TESTINGPERIOD;
 import club.zhcs.monitor.domain.team.Team;
+import club.zhcs.monitor.service.record.FtpServerMonitroRecordService;
 import club.zhcs.monitor.service.resource.FTPServerService;
 import club.zhcs.titans.nutz.module.base.AbstractBaseModule;
 import club.zhcs.titans.utils.db.Pager;
@@ -44,6 +45,8 @@ import club.zhcs.titans.utils.db.Result;
 public class FTPModule extends AbstractBaseModule {
 
 	private @Inject FTPServerService ftpServerService;
+
+	private @Inject FtpServerMonitroRecordService ftpServerMonitroRecordService;
 
 	@At("/*")
 	@Ok("beetl:pages/front/ftp/list.html")
@@ -86,6 +89,12 @@ public class FTPModule extends AbstractBaseModule {
 	@POST
 	public Result editServerInfo(@Param("..") FtpServer server) {
 		return ftpServerService.update(server, "type", "server", "port", "user", "password", "testResourcePath") ? Result.success() : Result.fail("更新信息失败!");
+	}
+
+	@At
+	public Result charts(@Param("id") int id) {
+
+		return Result.success().addData("connection", ftpServerMonitroRecordService.getConnectionTimes(id)).addData("download", ftpServerMonitroRecordService.getDownloadTimes(id));
 	}
 
 	@At("/edit/task")
