@@ -9,11 +9,11 @@ layout("/layout/madmin.html",{'breadCrumbs': [{'name':'主页','icon':'home','ur
 }
 
 .list .img {
-	width: 25%
+	width: 45%
 }
 
 .list .block {
-	width: 72%
+	width: 52%
 }
 
 .chart {
@@ -138,7 +138,7 @@ layout("/layout/madmin.html",{'breadCrumbs': [{'name':'主页','icon':'home','ur
 			charts['chart_' + uuid] = temp;
 		});
 		showCharts();
-		setTimeout(showCharts, 2000);
+		setInterval(showCharts, 2000);
 	})
 
 	function showCharts() {
@@ -148,8 +148,49 @@ layout("/layout/madmin.html",{'breadCrumbs': [{'name':'主页','icon':'home','ur
 			$.post('${base}/ftp/charts', {
 				id : uuid
 			}, function(result) {
-				console.log(result);
-				var option = {};
+				var xAxisData1 = [];
+				var xAxisData2 = [];
+				var series1 = [];
+				var series2 = [];
+				$(result.data.connection).each(function(i, item) {
+					xAxisData1[i] = $.str2Date(item.r_monitor_time).format("mm:ss");
+					series1[i] = item.r_duration;
+				});
+				$(result.data.download).each(function(i, item) {
+					xAxisData2[i] = $.str2Date(item.r_monitor_time).format("mm:ss")
+					series2[i] = item.r_duration;
+				});
+				option = {
+					tooltip : {
+						trigger : 'axis'
+					},
+					xAxis : [ {
+						type : 'category',
+						boundaryGap : false,
+						data : xAxisData1
+					}, {
+						type : 'category',
+						boundaryGap : false,
+						data : xAxisData2
+					} ],
+					yAxis : {
+						type : 'value',
+						axisLabel : {
+							show : false
+						}
+					},
+					series : [ {
+						name : '连接耗时',
+						type : 'line',
+						data : series1
+					}, {
+						name : '下载耗时',
+						type : 'line',
+						xAxisIndex : 1,
+						data : series2
+					} ]
+				};
+
 				if (option && typeof option === "object") {
 					chart.setOption(option, true);
 				}

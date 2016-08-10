@@ -2,7 +2,7 @@
 get.ftp.monitor.record.duration.by.type
 */
 SELECT
-	r_duration
+	r_duration,r_monitor_time
 FROM
 	t_ftp_record_$id
 WHERE
