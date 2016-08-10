@@ -270,7 +270,22 @@
 				</div>
 				<!--END TITLE & BREADCRUMB PAGE-->
 				<!--BEGIN CONTENT-->
-				<div class="page-content">${layoutContent}</div>
+				<div class="page-content">
+					<!--# if(global("debug")){ #-->
+					<div class="portlet box portlet-yellow">
+						<div class="portlet-header">
+							<div class="caption">调试数据</div>
+							<div class="tools">
+								<i class="fa fa-chevron-down"></i>
+							</div>
+						</div>
+						<div class="portlet-body" style="display: none;">
+							<pre>${obj}</pre>
+						</div>
+					</div>
+					<!--#	} #-->
+					${layoutContent}
+				</div>
 				<!--END CONTENT-->
 			</div>
 			<!--BEGIN FOOTER-->

@@ -33,7 +33,6 @@ $(function() {
 	});
 	// 返回按钮
 	$('.btn-back').on('click', function() {
-		console.log(1)
 		history.go(-1);
 	});
 	// 删除按钮功能
