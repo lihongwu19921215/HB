@@ -85,6 +85,11 @@ public class FTPModule extends AbstractBaseModule {
 		return Result.fail("资源信息添加失败!");
 	}
 
+	@At
+	public Result delete(@Param("id") String uuid) {
+		return ftpServerService.delete(ftpServerService.fetch(Cnd.where("uuid", "=", uuid))) == 1 ? Result.success() : Result.fail("删除失败!");
+	}
+
 	@At("/edit/info")
 	@POST
 	public Result editServerInfo(@Param("..") FtpServer server) {
