@@ -153,10 +153,10 @@ layout("/layout/madmin.html",{'breadCrumbs': [{'name':'主页','icon':'home','ur
 				var series2 = [];
 				$(result.data.connection).each(function(i, item) {
 					xAxisData1[i] = $.str2Date(item.r_monitor_time).format("mm:ss");
-					series1[i] = item.r_duration / 1000000000;
+					series1[i] = item.r_duration / 1000000;
 				});
 				$(result.data.download).each(function(i, item) {
-					series2[i] = item.r_duration / 1000000000;
+					series2[i] = item.r_duration / 1000000;
 				});
 				option = {
 					tooltip : {
@@ -179,7 +179,7 @@ layout("/layout/madmin.html",{'breadCrumbs': [{'name':'主页','icon':'home','ur
 						type : 'value',
 						axisLabel : {
 							formatter : function(value, index) {
-								return value / 1000000000 + ' s';
+								return value  + ' ms';
 							}
 						}
 					},
