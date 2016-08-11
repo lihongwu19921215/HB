@@ -3,7 +3,7 @@ package test;
 import org.junit.Test;
 
 import club.zhcs.monitor.domain.resource.FtpServer;
-import club.zhcs.monitor.hb.checker.impl.FTPConnectionChecker;
+import club.zhcs.monitor.hb.checker.impl.FTPServerChecker;
 import club.zhcs.monitor.service.resource.FTPServerService;
 
 /**
@@ -22,7 +22,7 @@ public class A extends Base {
 
 	@Test
 	public void checkFtp() {
-		FTPConnectionChecker ftpChecker = ioc.get(FTPConnectionChecker.class);
+		FTPServerChecker ftpChecker = ioc.get(FTPServerChecker.class);
 		FTPServerService ftpServerService = ioc.get(FTPServerService.class);
 		FtpServer server = ftpServerService.fetch(2);
 		ftpChecker.check(server);

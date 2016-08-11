@@ -10,7 +10,7 @@ import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
 import club.zhcs.monitor.domain.resource.FtpServer;
-import club.zhcs.monitor.hb.checker.impl.FTPConnectionChecker;
+import club.zhcs.monitor.hb.checker.impl.FTPServerChecker;
 
 /**
  * 
@@ -28,7 +28,7 @@ import club.zhcs.monitor.hb.checker.impl.FTPConnectionChecker;
 public class FTPMonitorJob implements Job {
 
 	@Inject
-	FTPConnectionChecker checker;
+	FTPServerChecker checker;
 
 	/*
 	 * (non-Javadoc)

@@ -82,14 +82,14 @@ layout("/layout/madmin.html",{'breadCrumbs': [{'name':'主页','icon':'home','ur
 												</div>
 											</div>
 											<input type="hidden" name="id" class="resource-id">
-											
+
 											<div class="form-group ">
 												<label class="control-label col-lg-3"> FTP端口 : </label>
 												<div class="col-lg-9">
 													<input class="form-control" type="text" placeholder="请输入FTP服务器端口" name="port" data-type='integer' data-error='请输入FTP服务器端口'>
 												</div>
 											</div>
-											
+
 											<div class="form-group ">
 												<label class="control-label col-lg-3"> 测试资源路径 : </label>
 												<div class="col-lg-9">
@@ -149,9 +149,15 @@ layout("/layout/madmin.html",{'breadCrumbs': [{'name':'主页','icon':'home','ur
 							<div id="tab4-wizard-custom-circle" class="tab-pane fadeIn">
 								<div class="row">
 									<div class="col-md-8 col-md-offset-2">
-										<h3 class="mbxl">资源添加成功!</h3>
-										<p>恭喜! 你成功的创建了 Ftp 监测资源.</p>
-										<p>点击完成将启动检测任务.</p>
+										<div class="note note-info">
+											<h3 class="mbxl">资源添加成功!</h3>
+											<p>恭喜! 你成功的创建了 Ftp 监测资源.</p>
+											<p>点击下列按钮进行相关配置的测试!.</p>
+											<p>点击完成将启动检测任务.</p>
+										</div>
+										<input type="hidden" name="id" class="resource-id" id="ftp-server-id">
+										<button type="button" class="btn btn-orange btn-square"  onclick="testConnection()"><i class="fa fa-connectdevelop" aria-hidden="true"></i> 测试连接</button>
+										<button type="button" class="btn btn-info btn-square"  onclick="testDownload()"> <i class="fa fa-cloud-download" aria-hidden="true"></i> 测试下载</button>
 									</div>
 								</div>
 							</div>
@@ -162,7 +168,7 @@ layout("/layout/madmin.html",{'breadCrumbs': [{'name':'主页','icon':'home','ur
 								<button type="button" name="next" value="Next" class="btn btn-info button-next mlm">
 									下一步<i class="fa fa-arrow-circle-o-right mlx"></i>
 								</button>
-								<button type="button" name="next" value="Next" class="btn btn-info button-finsh mlm hide">
+								<button type="button" name="next" value="Finish" class="btn btn-info button-finsh mlm hide">
 									完成<i class="fa fa-bolt mlx"></i>
 								</button>
 							</div>
@@ -216,7 +222,7 @@ layout("/layout/madmin.html",{'breadCrumbs': [{'name':'主页','icon':'home','ur
 					$('.button-next').removeClass('hide');
 				}
 			},
-			'onNext' : switchIndex,
+			'onNext' : switchIndex1,
 			'onTabClick' : function() {
 				return false;
 			},
@@ -226,6 +232,16 @@ layout("/layout/madmin.html",{'breadCrumbs': [{'name':'主页','icon':'home','ur
 			'finishSelector' : '.button-finsh'
 		});
 	});
+	function testConnection() {
+		console.log($('#ftp-server-id').val() + '  connecting...')
+	}
+	
+	function testDownload() {
+		console.log($('#ftp-server-id').val() + '  downloading...')
+	}
+	function switchIndex1(tab, navigation, index) {
+		return true;
+	}
 	function switchIndex(tab, navigation, index) {
 		var block = false;
 		if ($($(tab).find('a').attr('href')).validation()) {//表单验证
