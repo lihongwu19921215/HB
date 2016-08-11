@@ -70,7 +70,7 @@ layout("/layout/madmin.html",{'breadCrumbs': [{'name':'主页','icon':'home','ur
 												<div class="col-lg-9">
 													<select class="form-control" name="type">
 														<!--# for(type in obj.data.types){ #-->
-														<option value="${type!}" ${type == obj.data.ftp.type ? 'selected':''} >${type!}</option>
+														<option value="${type!}" ${type == obj.data.ftp.type! ? 'selected':''} >${type!}</option>
 														<!--# } #-->
 													</select>
 												</div>
@@ -123,7 +123,7 @@ layout("/layout/madmin.html",{'breadCrumbs': [{'name':'主页','icon':'home','ur
 												<div class="col-lg-9">
 													<select class="form-control" name="testingperiod" id="testingperiod">
 														<!--# for(p in obj.data.testingperiods){ #-->
-														<option value='${p!}' data-cron="${p.cron!}" ${p== obj.data.ftp.testingperiod ? 'selected':''}>${p.name!}</option>
+														<option value='${p!}' data-cron="${p.cron!}" ${p== obj.data.ftp.testingperiod! ? 'selected':''}>${p.name!}</option>
 														<!--# } #-->
 													</select>
 												</div>
