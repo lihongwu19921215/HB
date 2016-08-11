@@ -21,6 +21,7 @@ import club.zhcs.monitor.domain.resource.FtpServer.Type;
 import club.zhcs.monitor.domain.resource.Resource.OwnerType;
 import club.zhcs.monitor.domain.resource.Resource.TESTINGPERIOD;
 import club.zhcs.monitor.domain.team.Team;
+import club.zhcs.monitor.hb.checker.impl.FTPServerChecker;
 import club.zhcs.monitor.service.record.FtpServerMonitroRecordService;
 import club.zhcs.monitor.service.resource.FTPServerService;
 import club.zhcs.titans.nutz.module.base.AbstractBaseModule;
@@ -47,6 +48,8 @@ public class FTPModule extends AbstractBaseModule {
 	private @Inject FTPServerService ftpServerService;
 
 	private @Inject FtpServerMonitroRecordService ftpServerMonitroRecordService;
+
+	private @Inject FTPServerChecker ftpServerChecker;
 
 	@At("/*")
 	@Ok("beetl:pages/front/ftp/list.html")
@@ -106,5 +109,37 @@ public class FTPModule extends AbstractBaseModule {
 	@POST
 	public Result editServerTask(@Param("..") FtpServer server) {
 		return ftpServerService.update(server, "testingperiod", "taskCron", "alarmEL") ? Result.success() : Result.fail("更新资源任务失败!");
+	}
+
+	@At("/check/connection")
+	public Result connection(@Param("id") int id) {
+		FtpServer server = ftpServerService.fetch(id);
+		if (server == null) {
+			return Result.fail("不存在这个服务器");
+		}
+		FtpServerMonitroRecord record = null;
+		if (server.getType() == Type.SFTP) {
+			record = ftpServerChecker.checkSFTPConnection(server);
+		} else {
+			record = ftpServerChecker.checkFTPConnection(server);
+		}
+
+		return record.isOk() ? Result.success() : Result.fail(record.getError());
+	}
+
+	@At("/check/download")
+	public Result download(@Param("id") int id) {
+		FtpServer server = ftpServerService.fetch(id);
+		if (server == null) {
+			return Result.fail("不存在这个服务器");
+		}
+		FtpServerMonitroRecord record = null;
+		if (server.getType() == Type.SFTP) {
+			record = ftpServerChecker.checkSFTPDownload(server);
+		} else {
+			record = ftpServerChecker.checkFTPDownload(server);
+		}
+
+		return record.isOk() ? Result.success() : Result.fail(record.getError());
 	}
 }

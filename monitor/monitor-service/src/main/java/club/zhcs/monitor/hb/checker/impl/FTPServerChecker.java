@@ -1,15 +1,17 @@
 package club.zhcs.monitor.hb.checker.impl;
 
 import java.io.IOException;
+import java.util.Date;
 
 import org.apache.commons.net.ftp.FTPClient;
 import org.nutz.dao.TableName;
 import org.nutz.filepool.NutFilePool;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
-import org.nutz.lang.Lang;
 import org.nutz.lang.Stopwatch;
 import org.nutz.lang.Streams;
+import org.nutz.lang.Strings;
+import org.nutz.lang.Times;
 
 import club.zhcs.monitor.domain.record.FtpServerMonitroRecord;
 import club.zhcs.monitor.domain.record.FtpServerMonitroRecord.CheckType;
@@ -18,6 +20,7 @@ import club.zhcs.monitor.domain.resource.FtpServer.Type;
 import club.zhcs.monitor.hb.checker.Checker;
 import club.zhcs.monitor.service.record.FtpServerMonitroRecordService;
 
+import com.alibaba.druid.filter.config.ConfigTools;
 import com.jcraft.jsch.ChannelSftp;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
@@ -54,12 +57,10 @@ public class FTPServerChecker implements Checker<FtpServer> {
 	 * .Resource)
 	 */
 	@Override
-	public synchronized void check(FtpServer resource) {
-		FtpServer server = null;
-		if (resource instanceof FtpServer) {
-			server = resource;
-		} else {
-			throw Lang.makeThrow("resource is not instanceof %s", FtpServer.class.getName());
+	public synchronized void check(FtpServer server) {
+		if (server == null) {
+			log.debug("检测对象为空");
+			return;
 		}
 
 		if (server.getType() == Type.FTP) {
@@ -135,6 +136,12 @@ public class FTPServerChecker implements Checker<FtpServer> {
 		if (!monitorRecord.isOk()) {
 			return monitorRecord;
 		}
+		if (Strings.isBlank(server.getTestResourcePath())) {
+			monitorRecord.setOk(true);
+			monitorRecord.setError("没有设置下载检测路径");
+			return monitorRecord;
+		}
+
 		String path = server.getTestResourcePath().substring(0, server.getTestResourcePath().lastIndexOf("/"));
 		String name = server.getTestResourcePath().substring(server.getTestResourcePath().lastIndexOf("/") + 1);
 		String suffix = name.substring(0, name.lastIndexOf(".") + 1);
@@ -169,10 +176,12 @@ public class FTPServerChecker implements Checker<FtpServer> {
 	}
 
 	private void checkSFTP(FtpServer server) {
+		Date now = Times.now();
 		Stopwatch watch = Stopwatch.beginNano();
 		FtpServerMonitroRecord monitorRecord = checkSFTPConnection(server);
 		watch.stop();
 		monitorRecord.setDuration(watch.getDuration());
+		monitorRecord.setMonitorTime(now);
 		ftpServerMonitroRecordService.save(monitorRecord);
 
 		if (monitorRecord.isOk()) {// 可连接,测试下载
@@ -180,6 +189,7 @@ public class FTPServerChecker implements Checker<FtpServer> {
 			FtpServerMonitroRecord downloadMonitroRecord = checkSFTPDownload(server);
 			downloadStopwatch.stop();
 			downloadMonitroRecord.setDuration(downloadStopwatch.getDuration());
+			downloadMonitroRecord.setMonitorTime(now);
 			ftpServerMonitroRecordService.save(downloadMonitroRecord);
 		}
 	}
@@ -218,6 +228,11 @@ public class FTPServerChecker implements Checker<FtpServer> {
 		if (!monitorRecord.isOk()) {
 			return monitorRecord;
 		}
+		if (Strings.isBlank(server.getTestResourcePath())) {
+			monitorRecord.setOk(true);
+			monitorRecord.setError("没有设置下载检测路径");
+			return monitorRecord;
+		}
 		String path = server.getTestResourcePath().substring(0, server.getTestResourcePath().lastIndexOf("/"));
 		String name = server.getTestResourcePath().substring(server.getTestResourcePath().lastIndexOf("/") + 1);
 		String suffix = name.substring(0, name.lastIndexOf(".") + 1);
@@ -236,11 +251,17 @@ public class FTPServerChecker implements Checker<FtpServer> {
 		return monitorRecord;
 	}
 
+	public static void main(String[] args) throws Exception {
+		ConfigTools.main(new String[] { "123456" });
+	}
+
 	private void checkFTP(FtpServer server) {
+		Date now = Times.now();
 		Stopwatch watch = Stopwatch.beginNano();
 		FtpServerMonitroRecord monitorRecord = checkFTPConnection(server);
 		watch.stop();
 		monitorRecord.setDuration(watch.getDuration());
+		monitorRecord.setMonitorTime(now);
 		ftpServerMonitroRecordService.save(monitorRecord);
 
 		if (monitorRecord.isOk()) {// 可连接,测试下载
@@ -248,6 +269,7 @@ public class FTPServerChecker implements Checker<FtpServer> {
 			FtpServerMonitroRecord downloadMonitroRecord = checkFTPDownload(server);
 			downloadStopwatch.stop();
 			downloadMonitroRecord.setDuration(downloadStopwatch.getDuration());
+			downloadMonitroRecord.setMonitorTime(now);
 			ftpServerMonitroRecordService.save(downloadMonitroRecord);
 		}
 	}

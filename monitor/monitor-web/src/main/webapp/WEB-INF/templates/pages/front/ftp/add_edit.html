@@ -156,8 +156,12 @@ layout("/layout/madmin.html",{'breadCrumbs': [{'name':'主页','icon':'home','ur
 											<p>点击完成将启动检测任务.</p>
 										</div>
 										<input type="hidden" name="id" class="resource-id" id="ftp-server-id">
-										<button type="button" class="btn btn-orange btn-square"  onclick="testConnection()"><i class="fa fa-connectdevelop" aria-hidden="true"></i> 测试连接</button>
-										<button type="button" class="btn btn-info btn-square"  onclick="testDownload()"> <i class="fa fa-cloud-download" aria-hidden="true"></i> 测试下载</button>
+										<button type="button" class="btn btn-orange btn-square" onclick="testConnection()">
+											<i class="fa fa-connectdevelop" aria-hidden="true"></i> 测试连接
+										</button>
+										<button type="button" class="btn btn-info btn-square" onclick="testDownload()">
+											<i class="fa fa-cloud-download" aria-hidden="true"></i> 测试下载
+										</button>
 									</div>
 								</div>
 							</div>
@@ -233,11 +237,19 @@ layout("/layout/madmin.html",{'breadCrumbs': [{'name':'主页','icon':'home','ur
 		});
 	});
 	function testConnection() {
-		console.log($('#ftp-server-id').val() + '  connecting...')
+		$.post(getRootPath() + '/ftp/check/connection', {
+			id : $('#ftp-server-id').val()
+		}, function(result) {
+			console.log(result);
+		}, 'json')
 	}
-	
+
 	function testDownload() {
-		console.log($('#ftp-server-id').val() + '  downloading...')
+		$.post(getRootPath() + '/ftp/check/download', {
+			id : $('#ftp-server-id').val()
+		}, function(result) {
+			console.log(result);
+		}, 'json')
 	}
 	function switchIndex1(tab, navigation, index) {
 		return true;

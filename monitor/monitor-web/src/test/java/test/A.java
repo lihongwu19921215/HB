@@ -1,6 +1,11 @@
 package test;
 
 import org.junit.Test;
+import org.nutz.lang.ContinueLoop;
+import org.nutz.lang.Each;
+import org.nutz.lang.ExitLoop;
+import org.nutz.lang.Lang;
+import org.nutz.lang.LoopException;
 
 import club.zhcs.monitor.domain.resource.FtpServer;
 import club.zhcs.monitor.hb.checker.impl.FTPServerChecker;
@@ -24,7 +29,15 @@ public class A extends Base {
 	public void checkFtp() {
 		FTPServerChecker ftpChecker = ioc.get(FTPServerChecker.class);
 		FTPServerService ftpServerService = ioc.get(FTPServerService.class);
-		FtpServer server = ftpServerService.fetch(2);
-		ftpChecker.check(server);
+
+		for (int i = 0; i < 300; i++) {
+			Lang.each(ftpServerService.queryAll(), new Each<FtpServer>() {
+
+				@Override
+				public void invoke(int index, FtpServer server, int length) throws ExitLoop, ContinueLoop, LoopException {
+					ftpChecker.check(server);
+				}
+			});
+		}
 	}
 }

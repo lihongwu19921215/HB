@@ -149,7 +149,6 @@ layout("/layout/madmin.html",{'breadCrumbs': [{'name':'主页','icon':'home','ur
 				id : uuid
 			}, function(result) {
 				var xAxisData1 = [];
-				var xAxisData2 = [];
 				var series1 = [];
 				var series2 = [];
 				$(result.data.connection).each(function(i, item) {
@@ -157,26 +156,31 @@ layout("/layout/madmin.html",{'breadCrumbs': [{'name':'主页','icon':'home','ur
 					series1[i] = item.r_duration;
 				});
 				$(result.data.download).each(function(i, item) {
-					xAxisData2[i] = $.str2Date(item.r_monitor_time).format("mm:ss")
 					series2[i] = item.r_duration;
 				});
 				option = {
 					tooltip : {
 						trigger : 'axis'
 					},
-					xAxis : [ {
+					legend : {
+						data : [ '连接耗时', '下载耗时' ]
+					},
+					toolbox : {
+						feature : {
+							saveAsImage : {}
+						}
+					},
+					xAxis : {
 						type : 'category',
 						boundaryGap : false,
 						data : xAxisData1
-					}, {
-						type : 'category',
-						boundaryGap : false,
-						data : xAxisData2
-					} ],
+					} ,
 					yAxis : {
 						type : 'value',
 						axisLabel : {
-							show : false
+							formatter: function (value, index) {
+								return value / 1000000000 + ' s';
+							}
 						}
 					},
 					series : [ {
@@ -186,7 +190,6 @@ layout("/layout/madmin.html",{'breadCrumbs': [{'name':'主页','icon':'home','ur
 					}, {
 						name : '下载耗时',
 						type : 'line',
-						xAxisIndex : 1,
 						data : series2
 					} ]
 				};
