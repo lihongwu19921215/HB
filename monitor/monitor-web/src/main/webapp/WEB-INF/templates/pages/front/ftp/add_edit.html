@@ -162,6 +162,9 @@ layout("/layout/madmin.html",{'breadCrumbs': [{'name':'主页','icon':'home','ur
 										<button type="button" class="btn btn-info btn-square" onclick="testDownload()">
 											<i class="fa fa-cloud-download" aria-hidden="true"></i> 测试下载
 										</button>
+										<button type="button" class="btn btn-info btn-square" onclick="startTask()">
+											<i class="fa fa-cloud-download" aria-hidden="true"></i> 开启任务
+										</button>
 									</div>
 								</div>
 							</div>
@@ -226,7 +229,7 @@ layout("/layout/madmin.html",{'breadCrumbs': [{'name':'主页','icon':'home','ur
 					$('.button-next').removeClass('hide');
 				}
 			},
-			'onNext' : switchIndex1,
+			'onNext' : switchIndex,
 			'onTabClick' : function() {
 				return false;
 			},
@@ -240,7 +243,15 @@ layout("/layout/madmin.html",{'breadCrumbs': [{'name':'主页','icon':'home','ur
 		$.post(getRootPath() + '/ftp/check/connection', {
 			id : $('#ftp-server-id').val()
 		}, function(result) {
-			console.log(result);
+			if (result.operationState == 'SUCCESS') {
+				layer.alert('连接成功', {
+					title : '提示'
+				});
+			} else {
+				layer.alert(result.data.reason, {
+					title : '操作失败'
+				});
+			}
 		}, 'json')
 	}
 
@@ -248,9 +259,34 @@ layout("/layout/madmin.html",{'breadCrumbs': [{'name':'主页','icon':'home','ur
 		$.post(getRootPath() + '/ftp/check/download', {
 			id : $('#ftp-server-id').val()
 		}, function(result) {
-			console.log(result);
+			if (result.operationState == 'SUCCESS') {
+				layer.alert('下载成功', {
+					title : '提示'
+				});
+			} else {
+				layer.alert(result.data.reason, {
+					title : '操作失败'
+				});
+			}
 		}, 'json')
 	}
+	
+	function startTask() {
+		$.post(getRootPath() + '/ftp/check/start', {
+			id : $('#ftp-server-id').val()
+		}, function(result) {
+			if (result.operationState == 'SUCCESS') {
+				layer.alert('开启任务成功', {
+					title : '提示'
+				});
+			} else {
+				layer.alert(result.data.reason, {
+					title : '操作失败'
+				});
+			}
+		}, 'json')
+	}
+	
 	function switchIndex1(tab, navigation, index) {
 		return true;
 	}

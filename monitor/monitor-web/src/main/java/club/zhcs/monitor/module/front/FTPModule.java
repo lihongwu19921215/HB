@@ -22,6 +22,7 @@ import club.zhcs.monitor.domain.resource.Resource.OwnerType;
 import club.zhcs.monitor.domain.resource.Resource.TESTINGPERIOD;
 import club.zhcs.monitor.domain.team.Team;
 import club.zhcs.monitor.hb.checker.impl.FTPServerChecker;
+import club.zhcs.monitor.service.quartz.QuartzService;
 import club.zhcs.monitor.service.record.FtpServerMonitroRecordService;
 import club.zhcs.monitor.service.resource.FTPServerService;
 import club.zhcs.titans.nutz.module.base.AbstractBaseModule;
@@ -50,6 +51,8 @@ public class FTPModule extends AbstractBaseModule {
 	private @Inject FtpServerMonitroRecordService ftpServerMonitroRecordService;
 
 	private @Inject FTPServerChecker ftpServerChecker;
+
+	private @Inject QuartzService quartzService;
 
 	@At("/*")
 	@Ok("beetl:pages/front/ftp/list.html")
@@ -141,5 +144,12 @@ public class FTPModule extends AbstractBaseModule {
 		}
 
 		return record.isOk() ? Result.success() : Result.fail(record.getError());
+	}
+
+	@At("/check/start")
+	public Result start(@Param("id") int id) {
+		FtpServer server = ftpServerService.fetch(id);
+		quartzService.addResourceMonitorJob(server);
+		return Result.success();
 	}
 }

@@ -278,7 +278,7 @@ public class Resource extends Entity {
 	 *
 	 */
 	public static enum TESTINGPERIOD {
-		SECOND("每秒", "*/1 * * * * *"), FIVE("每5秒", "*/5 * * * * *"), TEN("每10秒", "*/10 * * * * *"), THIRTY("每30秒", "*/30 * * * * *"), Other("自定义", "");
+		SECOND("每秒", "*/1 * * * * ?*"), FIVE("每5秒", "*/5 * * * * ?"), TEN("每10秒", "*/10 * * * * ?"), THIRTY("每30秒", "*/30 * * * * ?"), Other("自定义", "");
 
 		/**
 		 * @param name

@@ -39,7 +39,7 @@ public class FTPMonitorJob implements Job {
 	public void execute(JobExecutionContext context) throws JobExecutionException {
 		JobDetail detail = context.getJobDetail();
 		JobDataMap data = detail.getJobDataMap();
-		FtpServer server = Castors.me().castTo(data.get("ftpServer"), FtpServer.class);// 获取到ftp服务器的数据进行检测
+		FtpServer server = Castors.me().castTo(data.get("resource"), FtpServer.class);// 获取到ftp服务器的数据进行检测
 		System.err.println(server);
 		/**
 		 * 1.检测可连接性<br>
