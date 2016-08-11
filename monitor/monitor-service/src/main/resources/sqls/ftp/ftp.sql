@@ -2,12 +2,20 @@
 get.ftp.monitor.record.duration.by.type
 */
 SELECT
-	r_duration,r_monitor_time
+	r.r_duration,
+	r.r_monitor_time
 FROM
-	t_ftp_record_$id
-WHERE
-	r_check_type = @type
+	(
+		SELECT
+			t.*
+		FROM
+			t_ftp_record_$id t
+		WHERE
+			r_check_type = @type
+		ORDER BY
+			t.id DESC
+		LIMIT 0,
+		150
+	) r
 ORDER BY
-	id ASC
-LIMIT 0,
- 150
+	r.id ASC
