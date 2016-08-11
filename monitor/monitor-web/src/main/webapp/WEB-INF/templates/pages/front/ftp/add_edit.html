@@ -44,10 +44,10 @@ layout("/layout/madmin.html",{'breadCrumbs': [{'name':'主页','icon':'home','ur
 											<div class="form-group ">
 												<label for="用户名" class="control-label col-lg-3">资源名称 : </label>
 												<div class="col-lg-9">
-													<input class="form-control" type="text" placeholder="请输入资源名称" name="name" data-type='required' data-error='请输入资源名称' value="${obj.data.ftp.name!}" />
+													<input class="form-control" type="text" placeholder="请输入资源名称" name="name" data-type='required' data-error='请输入资源名称' value="${obj.data.ftp.name!}" ${obj.data.ftp== null ? '' : 'readonly'}/>
 												</div>
 											</div>
-											<input type="hidden" name="id" class="resource-id">
+											<input type="hidden" name="id" class="resource-id" value="${obj.data.ftp.id!}">
 											<div class="form-group ">
 												<label class="control-label col-lg-3">FTP服务器描述:</label>
 												<div class="col-lg-9">
@@ -70,7 +70,7 @@ layout("/layout/madmin.html",{'breadCrumbs': [{'name':'主页','icon':'home','ur
 												<div class="col-lg-9">
 													<select class="form-control" name="type">
 														<!--# for(type in obj.data.types){ #-->
-														<option value="${type!}">${type!}</option>
+														<option value="${type!}" ${type == obj.data.ftp.type ? 'selected':''} >${type!}</option>
 														<!--# } #-->
 													</select>
 												</div>
@@ -78,35 +78,35 @@ layout("/layout/madmin.html",{'breadCrumbs': [{'name':'主页','icon':'home','ur
 											<div class="form-group ">
 												<label class="control-label col-lg-3"> 服务器地址 : </label>
 												<div class="col-lg-9">
-													<input class="form-control" type="text" placeholder="请输入FTP服务器地址" name="server" data-type='required' data-error='请输入FTP服务器地址'>
+													<input class="form-control" type="text" placeholder="请输入FTP服务器地址" name="server" data-type='required' data-error='请输入FTP服务器地址' value="${obj.data.ftp.server!}">
 												</div>
 											</div>
-											<input type="hidden" name="id" class="resource-id">
+											<input type="hidden" name="id" class="resource-id" value="${obj.data.ftp.id!}">
 
 											<div class="form-group ">
 												<label class="control-label col-lg-3"> FTP端口 : </label>
 												<div class="col-lg-9">
-													<input class="form-control" type="text" placeholder="请输入FTP服务器端口" name="port" data-type='integer' data-error='请输入FTP服务器端口'>
+													<input class="form-control" type="text" placeholder="请输入FTP服务器端口" name="port" data-type='integer' data-error='请输入FTP服务器端口' value="${obj.data.ftp.port!}">
 												</div>
 											</div>
 
 											<div class="form-group ">
 												<label class="control-label col-lg-3"> 测试资源路径 : </label>
 												<div class="col-lg-9">
-													<input class="form-control" type="text" placeholder="请输入FTP服务器测试资源路径" name="testResourcePath" data-type='required' data-error='请输入FTP服务器测试资源路径'>
+													<input class="form-control" type="text" placeholder="请输入FTP服务器测试资源路径" name="testResourcePath" data-type='required' data-error='请输入FTP服务器测试资源路径' value="${obj.data.ftp.testResourcePath!}">
 												</div>
 											</div>
 
 											<div class="form-group ">
 												<label class="control-label col-lg-3"> FTP用户 : </label>
 												<div class="col-lg-9">
-													<input class="form-control" type="text" placeholder="请输入FTP服务用户" name="user" data-type='required' data-error='请输入FTP服务用户'>
+													<input class="form-control" type="text" placeholder="请输入FTP服务用户" name="user" data-type='required' data-error='请输入FTP服务用户' value="${obj.data.ftp.user!}">
 												</div>
 											</div>
 											<div class="form-group ">
 												<label class="control-label col-lg-3"> FTP密码 : </label>
 												<div class="col-lg-9">
-													<input class="form-control" type="password" placeholder="请输入FTP服务密码" name="password" data-type='password' data-error='请输入FTP服务密码'>
+													<input class="form-control" type="password" placeholder="请输入FTP服务密码" name="password" data-type='password' data-error='请输入FTP服务密码' value="${obj.data.ftp.password!}">
 												</div>
 											</div>
 										</form>
@@ -123,7 +123,7 @@ layout("/layout/madmin.html",{'breadCrumbs': [{'name':'主页','icon':'home','ur
 												<div class="col-lg-9">
 													<select class="form-control" name="testingperiod" id="testingperiod">
 														<!--# for(p in obj.data.testingperiods){ #-->
-														<option value='${p!}' data-cron="${p.cron!}" selected>${p.name!}</option>
+														<option value='${p!}' data-cron="${p.cron!}" ${p== obj.data.ftp.testingperiod ? 'selected':''}>${p.name!}</option>
 														<!--# } #-->
 													</select>
 												</div>
@@ -131,14 +131,14 @@ layout("/layout/madmin.html",{'breadCrumbs': [{'name':'主页','icon':'home','ur
 											<div class="form-group ">
 												<label class="control-label col-lg-3"> 检测任务表达式 : </label>
 												<div class="col-lg-9">
-													<input class="form-control" type="text" placeholder="请输入FTP服务器检测任务表达式" id="taskCron" name="taskCron" data-type='required' data-error='请输入FTP服务器检测任务表达式'>
+													<input class="form-control" type="text" placeholder="请输入FTP服务器检测任务表达式" id="taskCron" name="taskCron" data-type='required' data-error='请输入FTP服务器检测任务表达式' value="${obj.data.ftp.taskCron!}">
 												</div>
 											</div>
-											<input type="hidden" name="id" class="resource-id">
+												<input type="hidden" name="id" class="resource-id" value="${obj.data.ftp.id!}">
 											<div class="form-group ">
 												<label class="control-label col-lg-3"> 告警规则 EL 表达式 : </label>
 												<div class="col-lg-9">
-													<input class="form-control" type="text" placeholder="请输入FTP服务器告警规则 EL 表达式" name="alarmEL" data-type='required' data-error='请输入FTP服务器告警规则 EL 表达式'>
+													<input class="form-control" type="text" placeholder="请输入FTP服务器告警规则 EL 表达式" name="alarmEL" data-type='required' data-error='请输入FTP服务器告警规则 EL 表达式' value="${obj.data.ftp.alarmEL!}">
 												</div>
 											</div>
 
@@ -155,7 +155,7 @@ layout("/layout/madmin.html",{'breadCrumbs': [{'name':'主页','icon':'home','ur
 											<p>点击下列按钮进行相关配置的测试!.</p>
 											<p>点击完成将启动检测任务.</p>
 										</div>
-										<input type="hidden" name="id" class="resource-id" id="ftp-server-id">
+										<input type="hidden" name="id" class="resource-id" id="ftp-server-id" value="${obj.data.ftp.id!}">
 										<button type="button" class="btn btn-orange btn-square" onclick="testConnection()">
 											<i class="fa fa-connectdevelop" aria-hidden="true"></i> 测试连接
 										</button>
@@ -270,7 +270,7 @@ layout("/layout/madmin.html",{'breadCrumbs': [{'name':'主页','icon':'home','ur
 			}
 		}, 'json')
 	}
-	
+
 	function startTask() {
 		$.post(getRootPath() + '/ftp/check/start', {
 			id : $('#ftp-server-id').val()
@@ -286,7 +286,7 @@ layout("/layout/madmin.html",{'breadCrumbs': [{'name':'主页','icon':'home','ur
 			}
 		}, 'json')
 	}
-	
+
 	function switchIndex1(tab, navigation, index) {
 		return true;
 	}
@@ -300,16 +300,29 @@ layout("/layout/madmin.html",{'breadCrumbs': [{'name':'主页','icon':'home','ur
 					async : false
 				});
 				$('#description').val(editor.html());
-				$.post(getRootPath() + '/ftp/add/base', $('#resource-base-info').serialize(), function(result) {
-					if (result.operationState == 'SUCCESS') {
-						$('.resource-id').val(result.data.ftpServer.id);
-					} else {
-						layer.alert(result.data.reason, {
-							title : '操作失败'
-						});
-						block = true;
-					}
-				}, 'json')
+				if ($('#resource-base-info').find("input[type='hidden']").val()) {
+					$.post(getRootPath() + '/ftp/edit/base', $('#resource-base-info').serialize(), function(result) {
+						if (result.operationState == 'SUCCESS') {
+							$('.resource-id').val(result.data.ftpServer.id);
+						} else {
+							layer.alert(result.data.reason, {
+								title : '操作失败'
+							});
+							block = true;
+						}
+					}, 'json')
+				} else {
+					$.post(getRootPath() + '/ftp/add/base', $('#resource-base-info').serialize(), function(result) {
+						if (result.operationState == 'SUCCESS') {
+							$('.resource-id').val(result.data.ftpServer.id);
+						} else {
+							layer.alert(result.data.reason, {
+								title : '操作失败'
+							});
+							block = true;
+						}
+					}, 'json')
+				}
 				$.ajaxSetup({
 					async : true
 				});

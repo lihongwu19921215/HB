@@ -8,6 +8,6 @@ FROM
 WHERE
 	r_check_type = @type
 ORDER BY
-	id DESC
+	id ASC
 LIMIT 0,
  150

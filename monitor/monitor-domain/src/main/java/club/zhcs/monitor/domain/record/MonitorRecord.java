@@ -2,6 +2,7 @@ package club.zhcs.monitor.domain.record;
 
 import java.util.Date;
 
+import org.nutz.dao.entity.annotation.ColDefine;
 import org.nutz.dao.entity.annotation.Column;
 import org.nutz.dao.entity.annotation.Comment;
 import org.nutz.lang.Times;
@@ -45,6 +46,7 @@ public class MonitorRecord extends Entity {
 
 	@Column("r_error")
 	@Comment("错误信息")
+	@ColDefine(width = 500)
 	private String error;
 
 	@Column("r_alarmed")

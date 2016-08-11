@@ -73,6 +73,14 @@ public class FTPModule extends AbstractBaseModule {
 		return Result.success().setTitle("添加FTP服务器").addData("types", Type.values()).addData("testingperiods", TESTINGPERIOD.values());
 	}
 
+	@At("/edit/*")
+	@GET
+	@Ok("beetl:pages/front/ftp/add_edit.html")
+	public Result edit(String uuid) {
+		return Result.success().setTitle("添加FTP服务器").addData("types", Type.values()).addData("testingperiods", TESTINGPERIOD.values())
+				.addData("ftp", ftpServerService.fetch(Cnd.where("uuid", "=", uuid)));
+	}
+
 	@At("/add/base")
 	@POST
 	public Result add(@Param("..") FtpServer server, @Attr(SessionKeys.TEAM_KEY) Team team) {
@@ -89,6 +97,12 @@ public class FTPModule extends AbstractBaseModule {
 			return Result.success().addData("ftpServer", server);
 		}
 		return Result.fail("资源信息添加失败!");
+	}
+
+	@At("/edit/base")
+	@POST
+	public Result edit(@Param("..") FtpServer server) {
+		return ftpServerService.update(server, "name", "description") ? Result.success().addData("ftpServer", server) : Result.fail("资源信息更新失败!");
 	}
 
 	@At

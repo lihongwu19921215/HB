@@ -32,6 +32,7 @@ import club.zhcs.monitor.domain.resource.FtpServer;
 import club.zhcs.monitor.service.acl.RoleService;
 import club.zhcs.monitor.service.acl.UserRoleService;
 import club.zhcs.monitor.service.acl.UserService;
+import club.zhcs.monitor.service.quartz.QuartzService;
 import club.zhcs.monitor.service.resource.ApplicationService;
 import club.zhcs.monitor.service.resource.DataBaseService;
 import club.zhcs.monitor.service.resource.FTPServerService;
@@ -94,46 +95,42 @@ public class MonitorSetup implements Setup {
 
 		FTPServerService ftpServerService = ioc.get(FTPServerService.class);
 		DataBaseService dataBaseService = ioc.get(DataBaseService.class);
-		ApplicationService applicationService =
-				ioc.get(ApplicationService.class);
+		ApplicationService applicationService = ioc.get(ApplicationService.class);
+
+		QuartzService quartzService = ioc.get(QuartzService.class);
 
 		Lang.each(ftpServerService.queryAll(), new Each<FtpServer>() {
 
 			@Override
-			public void invoke(int index, FtpServer ftpServer, int length) throws
-					ExitLoop, ContinueLoop, LoopException {
+			public void invoke(int index, FtpServer ftpServer, int length) throws ExitLoop, ContinueLoop, LoopException {
 				TableName.set(ftpServer.getId());
 				dao.create(FtpServerMonitroRecord.class, false);
 				Daos.migration(dao, FtpServerMonitroRecord.class, true, true, true);
+				quartzService.addResourceMonitorJob(ftpServer);
 			}
 		});
 
 		Lang.each(dataBaseService.queryAll(), new Each<DataBase>() {
 
 			@Override
-			public void invoke(int index, DataBase db, int length) throws
-					ExitLoop, ContinueLoop, LoopException {
+			public void invoke(int index, DataBase db, int length) throws ExitLoop, ContinueLoop, LoopException {
 				TableName.set(db.getId());
 				dao.create(DataBaseMonitorRecode.class, false);
 				Daos.migration(dao, DataBaseMonitorRecode.class, true, true, true);
+				quartzService.addResourceMonitorJob(db);
 			}
 		});
 
-		Lang.each(applicationService.queryAll(), new
-				Each<club.zhcs.monitor.domain.resource.Application>() {
+		Lang.each(applicationService.queryAll(), new Each<club.zhcs.monitor.domain.resource.Application>() {
 
-					@Override
-					public void invoke(int index,
-							club.zhcs.monitor.domain.resource.Application app, int length) throws
-							ExitLoop, ContinueLoop, LoopException {
-						TableName.set(app.getId());
-						dao.create(ApplicationMonitorRecord.class,
-								false);
-						Daos.migration(dao,
-								ApplicationMonitorRecord.class, true, true,
-								true);
-					}
-				});
+			@Override
+			public void invoke(int index, club.zhcs.monitor.domain.resource.Application app, int length) throws ExitLoop, ContinueLoop, LoopException {
+				TableName.set(app.getId());
+				dao.create(ApplicationMonitorRecord.class, false);
+				Daos.migration(dao, ApplicationMonitorRecord.class, true, true, true);
+				quartzService.addResourceMonitorJob(app);
+			}
+		});
 
 		// 超级管理员
 
