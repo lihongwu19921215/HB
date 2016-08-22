@@ -1,0 +1,390 @@
+<!--# 
+layout("/layout/madmin.html",{'breadCrumbs': [{'name':'主页','icon':'home','url':'/'},{'name':'数据库资源列表','icon':'hdd-o','url':'/db'},{'name':(obj.data.db==null?"添加数据库服务器":"编辑数据库服务器"),'active':'active'}] ,'active':'db'}){ 
+ #-->
+<link type="text/css" rel="stylesheet" href="${base!}/resources/madmin/vendors/jquery-bootstrap-wizard/custom.css">
+<div class="row">
+	<div class="col-md-12">
+		<div class="col-lg-12">
+			<div class="portlet box portlet-green">
+				<div class="portlet-header">
+					<div class="caption">数据库服务器${obj.data.db == null ? '添加' : '编辑'}向导</div>
+					<div class="tools"></div>
+				</div>
+				<div class="portlet-body">
+					<div id="rootwizard-custom-circle">
+						<div class="navbar">
+							<div class="navbar-inner">
+								<ul>
+									<li><a href="#tab1-wizard-custom-circle" data-toggle="tab"><i class="fa fa-hdd-o"></i>
+											<p class="anchor">1.资源通用信息</p>
+											<p class="description">受监控资源基本信息</p></a></li>
+									<li><a href="#tab2-wizard-custom-circle" data-toggle="tab"><i class="fa fa-leaf"></i>
+											<p class="anchor">2. 数据库信息</p>
+											<p class="description">数据库服务器连接信息</p></a></li>
+									<li><a href="#tab3-wizard-custom-circle" data-toggle="tab"><i class="fa fa-tasks"></i>
+											<p class="anchor">3. 资源监测任务信息</p>
+											<p class="description">资源监测参数配置</p></a></li>
+									<li><a href="#tab4-wizard-custom-circle" data-toggle="tab"><i class="fa fa-check"></i>
+											<p class="anchor">4. 完成</p>
+											<p class="description">确认信息</p></a></li>
+								</ul>
+							</div>
+						</div>
+						<div id="bar" class="progress active">
+							<div class="bar progress-bar progress-bar-primary"></div>
+						</div>
+						<div class="tab-content">
+							<div id="tab1-wizard-custom-circle" class="tab-pane">
+
+
+								<div class="row">
+									<div class="col-md-8 col-md-offset-2">
+										<form action="#" class="form-horizontal" id="resource-base-info">
+											<h3 class="mbxl center">资源基本信息</h3>
+											<div class="form-group ">
+												<label for="用户名" class="control-label col-lg-3">资源名称 : </label>
+												<div class="col-lg-9">
+													<input class="form-control" type="text" placeholder="请输入资源名称" name="name" data-type='required' data-error='请输入资源名称' value="${obj.data.db.name!}" ${obj.data.db== null ? '' : 'readonly'}/>
+												</div>
+											</div>
+											<input type="hidden" name="id" class="resource-id" value="${obj.data.db.id!}">
+											<div class="form-group ">
+												<label class="control-label col-lg-3">数据库服务器描述:</label>
+												<div class="col-lg-9">
+													<input type="hidden" name="description" id="description">
+													<textarea rows="25" class="form-control" placeholder="请输入角色描述" name="content">${obj.data.db.description!}</textarea>
+												</div>
+											</div>
+										</form>
+									</div>
+								</div>
+
+							</div>
+							<div id="tab2-wizard-custom-circle" class="tab-pane">
+								<div class="row">
+									<div class="col-md-8 col-md-offset-2">
+										<h3 class="mbxl">请填写 db 连接信息</h3>
+										<form action="#" class="form-horizontal" id="resource-server-info">
+											<div class="form-group ">
+												<label class="control-label col-lg-3"> db类型 : </label>
+												<div class="col-lg-9">
+													<select class="form-control" name="type">
+														<!--# for(type in obj.data.types){ #-->
+														<option value="${type!}" ${type == obj.data.db.type! ? 'selected':''} >${type!}</option>
+														<!--# } #-->
+													</select>
+												</div>
+											</div>
+											<div class="form-group ">
+												<label class="control-label col-lg-3"> 服务器地址 : </label>
+												<div class="col-lg-9">
+													<input class="form-control" type="text" placeholder="请输入数据库服务器地址" name="dbAddress" data-type='required' data-error='请输入数据库服务器地址' value="${obj.data.db.dbAddress!}">
+												</div>
+											</div>
+											<input type="hidden" name="id" class="resource-id" value="${obj.data.db.id!}">
+
+											<div class="form-group ">
+												<label class="control-label col-lg-3"> 数据库端口 : </label>
+												<div class="col-lg-9">
+													<input class="form-control" type="text" placeholder="请输入数据库服务器端口" name="port" data-type='integer' data-error='请输入数据库服务器端口' value="${obj.data.db.port!}">
+												</div>
+											</div>
+											
+											<div class="form-group ">
+												<label class="control-label col-lg-3"> 数据库表空间/数据库 : </label>
+												<div class="col-lg-9">
+													<input class="form-control" type="text" placeholder="请输入数据库表空间" name="schame" data-type='integer' data-error='请输入数据库表空间' value="${obj.data.db.schame!}">
+												</div>
+											</div>
+											
+											<div class="form-group ">
+												<label class="control-label col-lg-3"> 数据库用户 : </label>
+												<div class="col-lg-9">
+													<input class="form-control" type="text" placeholder="请输入数据库用户" name="user" data-type='required' data-error='请输入数据库用户' value="${obj.data.db.user!}">
+												</div>
+											</div>
+											
+											<div class="form-group ">
+												<label class="control-label col-lg-3"> 数据库密码 : </label>
+												<div class="col-lg-9">
+													<input class="form-control" type="password" placeholder="请输入数据库密码" name="password" data-type='password' data-error='请输入数据库密码' value="${obj.data.db.password!}">
+												</div>
+											</div>
+
+											<div class="form-group ">
+												<label class="control-label col-lg-3"> 慢查询检测语句 : </label>
+												<div class="col-lg-9">
+													<textarea rows="15" class="form-control" placeholder="请输入慢查询检测语句" name="slowSql" data-type='required' data-error='请输入慢查询检测语句' >${obj.data.db.slowSql!}</textarea>
+												</div>
+											</div>
+
+											
+										</form>
+									</div>
+								</div>
+							</div>
+							<div id="tab3-wizard-custom-circle" class="tab-pane fadeIn">
+								<div class="row">
+									<div class="col-md-8 col-md-offset-2">
+										<h3 class="mbxl">资源受检任务信息</h3>
+										<form action="#" class="form-horizontal" id="resource-task-info">
+											<div class="form-group ">
+												<label class="control-label col-lg-3"> 监测周期 : </label>
+												<div class="col-lg-9">
+													<select class="form-control" name="testingperiod" id="testingperiod">
+														<!--# for(p in obj.data.testingperiods){ #-->
+														<option value='${p!}' data-cron="${p.cron!}" ${p== obj.data.db.testingperiod! ? 'selected':''}>${p.name!}</option>
+														<!--# } #-->
+													</select>
+												</div>
+											</div>
+											<div class="form-group ">
+												<label class="control-label col-lg-3"> 检测任务表达式 : </label>
+												<div class="col-lg-9">
+													<input class="form-control" type="text" placeholder="请输入db服务器检测任务表达式" id="taskCron" name="taskCron" data-type='required' data-error='请输入db服务器检测任务表达式' value="${obj.data.db.taskCron!}">
+												</div>
+											</div>
+												<input type="hidden" name="id" class="resource-id" value="${obj.data.db.id!}">
+											<div class="form-group ">
+												<label class="control-label col-lg-3"> 告警规则 EL 表达式 : </label>
+												<div class="col-lg-9">
+													<input class="form-control" type="text" placeholder="请输入db服务器告警规则 EL 表达式" name="alarmEL" data-type='required' data-error='请输入db服务器告警规则 EL 表达式' value="${obj.data.db.alarmEL!}">
+												</div>
+											</div>
+
+										</form>
+									</div>
+								</div>
+							</div>
+							<div id="tab4-wizard-custom-circle" class="tab-pane fadeIn">
+								<div class="row">
+									<div class="col-md-8 col-md-offset-2">
+										<div class="note note-info">
+											<h3 class="mbxl">资源添加成功!</h3>
+											<p>恭喜! 你成功的创建了 db 监测资源.</p>
+											<p>点击下列按钮进行相关配置的测试!.</p>
+											<p>点击完成将启动检测任务.</p>
+										</div>
+										<input type="hidden" name="id" class="resource-id" id="db-server-id" value="${obj.data.db.id!}">
+										<button type="button" class="btn btn-orange btn-square" onclick="testConnection()">
+											<i class="fa fa-connectdevelop" aria-hidden="true"></i> 测试连接
+										</button>
+										<button type="button" class="btn btn-info btn-square" onclick="testDownload()">
+											<i class="fa fa-cloud-download" aria-hidden="true"></i> 测试下载
+										</button>
+										<button type="button" class="btn btn-info btn-square" onclick="startTask()">
+											<i class="fa fa-cloud-download" aria-hidden="true"></i> 开启任务
+										</button>
+									</div>
+								</div>
+							</div>
+							<div class="action text-right">
+								<button type="button" name="previous" value="Previous" class="btn btn-info button-previous">
+									<i class="fa fa-arrow-circle-o-left mrx"></i>上一步
+								</button>
+								<button type="button" name="next" value="Next" class="btn btn-info button-next mlm">
+									下一步<i class="fa fa-arrow-circle-o-right mlx"></i>
+								</button>
+								<button type="button" name="next" value="Finish" class="btn btn-info button-finsh mlm hide" onclick="startTask()">
+									完成<i class="fa fa-bolt mlx"></i>
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script charset="utf-8" src="${base!}/resources/kindeditor/kindeditor-min.js"></script>
+<script charset="utf-8" src="${base!}/resources/kindeditor/lang/zh_CN.js"></script>
+<script src="${base!}/resources/madmin/vendors/jquery-bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
+<script type="text/javascript">
+<!--
+	var editor;
+	var rid = 0;
+	$(function() {
+		//kindeditor 初始化
+		KindEditor.ready(function(K) {
+			editor = K.create('textarea[name="content"]', {
+				uploadJson : getRootPath() + '/kind/upload'
+			});
+		});
+
+		$('#testingperiod').on('change', function() {
+			$('#taskCron').val($(this).find("option:selected").data('cron'));
+		})
+
+		setTimeout(function() {
+			$('.ke-container')[0].style.width = '100%';
+		}, 1000);
+		$('#rootwizard-custom-circle').bootstrapWizard({
+			onTabShow : function(tab, navigation, index) {
+				var $total = navigation.find('li').length;
+				var $current = index + 1;
+				var $percent = ($current / $total) * 100;
+				$('#rootwizard-custom-circle').find('.bar').css({
+					width : $percent + '%'
+				});
+				if (!index) {
+					$('.button-previous').addClass('hide');
+				} else {
+					$('.button-previous').removeClass('hide');
+				}
+				if ($percent == 100) {
+					$('.button-finsh').removeClass('hide');
+					$('.button-next').addClass('hide');
+				} else {
+					$('.button-finsh').addClass('hide');
+					$('.button-next').removeClass('hide');
+				}
+			},
+			'onNext' : switchIndex,
+			'onTabClick' : function() {
+				return false;
+			},
+			'tabClass' : 'bwizard-steps-o',
+			'nextSelector' : '.button-next',
+			'previousSelector' : '.button-previous',
+			'finishSelector' : '.button-finsh'
+		});
+	});
+	function testConnection() {
+		$.post(getRootPath() + '/db/check/connection', {
+			id : $('#db-server-id').val()
+		}, function(result) {
+			if (result.operationState == 'SUCCESS') {
+				layer.alert('连接成功', {
+					title : '提示'
+				});
+			} else {
+				layer.alert(result.data.reason, {
+					title : '操作失败'
+				});
+			}
+		}, 'json')
+	}
+
+	function testDownload() {
+		$.post(getRootPath() + '/db/check/download', {
+			id : $('#db-server-id').val()
+		}, function(result) {
+			if (result.operationState == 'SUCCESS') {
+				layer.alert('下载成功', {
+					title : '提示'
+				});
+			} else {
+				layer.alert(result.data.reason, {
+					title : '操作失败'
+				});
+			}
+		}, 'json')
+	}
+
+	function startTask() {
+		$.post(getRootPath() + '/db/check/start', {
+			id : $('#db-server-id').val()
+		}, function(result) {
+			if (result.operationState == 'SUCCESS') {
+				layer.alert('开启任务成功', {
+					title : '提示'
+				});
+			} else {
+				layer.alert(result.data.reason, {
+					title : '操作失败'
+				});
+			}
+		}, 'json')
+	}
+
+	function switchIndex1(tab, navigation, index) {
+		return true;
+	}
+	function switchIndex(tab, navigation, index) {
+		var block = false;
+		if ($($(tab).find('a').attr('href')).validation()) {//表单验证
+
+			if (index == 1) {
+				//第一步 添加基本信息,添加资源信息
+				$.ajaxSetup({
+					async : false
+				});
+				$('#description').val(editor.html());
+				if ($('#resource-base-info').find("input[type='hidden']").val()) {
+					$.post(getRootPath() + '/db/edit/base', $('#resource-base-info').serialize(), function(result) {
+						if (result.operationState == 'SUCCESS') {
+							$('.resource-id').val(result.data.dbServer.id);
+						} else {
+							layer.alert(result.data.reason, {
+								title : '操作失败'
+							});
+							block = true;
+						}
+					}, 'json')
+				} else {
+					$.post(getRootPath() + '/db/add/base', $('#resource-base-info').serialize(), function(result) {
+						if (result.operationState == 'SUCCESS') {
+							$('.resource-id').val(result.data.db.id);
+						} else {
+							layer.alert(result.data.reason, {
+								title : '操作失败'
+							});
+							block = true;
+						}
+					}, 'json')
+				}
+				$.ajaxSetup({
+					async : true
+				});
+			}
+
+			if (index == 2) {
+				//第二步 db相关信息
+				$.ajaxSetup({
+					async : false
+				});
+				$.post(getRootPath() + '/db/edit/info', $('#resource-server-info').serialize(), function(result) {
+					if (result.operationState == 'SUCCESS') {
+
+					} else {
+						layer.alert(result.data.reason, {
+							title : '操作失败'
+						});
+						block = true;
+					}
+				}, 'json')
+				$.ajaxSetup({
+					async : true
+				});
+			}
+
+			if (index == 3) {
+				//第三步 任务相关信息
+				$.ajaxSetup({
+					async : false
+				});
+				$.post(getRootPath() + '/db/edit/task', $('#resource-task-info').serialize(), function(result) {
+					if (result.operationState == 'SUCCESS') {
+
+					} else {
+						layer.alert(result.data.reason, {
+							title : '操作失败'
+						});
+						block = true;
+					}
+				}, 'json')
+				$.ajaxSetup({
+					async : true
+				});
+			}
+
+			if (block) {
+				return false;
+			}
+		} else {
+			return false;
+		}
+	}
+//-->
+</script>
+<!--# } #-->

@@ -1,6 +1,7 @@
 package club.zhcs.monitor.domain.resource;
 
 import org.nutz.dao.DB;
+import org.nutz.dao.entity.annotation.ColDefine;
 import org.nutz.dao.entity.annotation.Column;
 import org.nutz.dao.entity.annotation.Comment;
 import org.nutz.dao.entity.annotation.Table;
@@ -48,6 +49,19 @@ public class DataBase extends Resource {
 	@Column("d_db_pwd")
 	@Comment("数据库密码")
 	private String password;
+
+	@Column("d_db_slow_sql")
+	@ColDefine(width = 1000)
+	@Comment(" 慢查询检测语句")
+	private String slowSql;
+
+	public String getSlowSql() {
+		return slowSql;
+	}
+
+	public void setSlowSql(String slowSql) {
+		this.slowSql = slowSql;
+	}
 
 	/**
 	 * @return the type
